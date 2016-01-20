@@ -93,7 +93,7 @@ public class Robot extends IterativeRobot {
         
         
         LimitSwitch=limitSwitch.get();
-        if(LimitSwitch && LStoggleState==false && !lastLimitSwitch){
+        /*if(LimitSwitch && LStoggleState==false && !lastLimitSwitch){
         	relay.set(Relay.Value.kForward);
         	LStoggleState=true;
         }
@@ -102,7 +102,15 @@ public class Robot extends IterativeRobot {
         	LStoggleState=false;
         }
         lastLimitSwitch=limitSwitch.get();
+        */
+        //the code above is to turn the light on or off when the limit switch is triggered
         
+        if(LimitSwitch){
+        	relay.set(Relay.Value.kForward);
+        }
+        else{
+        	relay.set(Relay.Value.kReverse);
+        }
         
         SmartDashboard.putNumber("Potentiometer reading",potentiometer.get());
         System.out.println(potentiometer.get());
