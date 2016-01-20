@@ -29,6 +29,7 @@ public class Robot extends IterativeRobot {
 	boolean LimitSwitch;
 	boolean LStoggleState = false;
 	boolean lastLimitSwitch = false;
+	boolean PLightToggle=false;
 	AnalogPotentiometer potentiometer;
 	DigitalInput limitSwitch;
 	
@@ -114,6 +115,19 @@ public class Robot extends IterativeRobot {
         
         SmartDashboard.putNumber("Potentiometer reading",potentiometer.get());
         System.out.println(potentiometer.get());
+        
+        if(potentiometer.get()>0.8 && potentiometer.get()<1){
+        	PLightToggle = true;
+        }
+        else if(potentiometer.get()<0.2 && potentiometer.get()>0){
+        	PLightToggle = false;
+        }
+        if(PLightToggle){
+        	relay.set(Relay.Value.kForward);
+        }
+        else{
+        	relay.set(Relay.Value.kReverse);
+        }
     }
     
     /**
