@@ -93,11 +93,11 @@ public class Robot extends IterativeRobot {
         
         
         LimitSwitch=limitSwitch.get();
-        /*if(LimitSwitch && LStoggleState==false && !lastLimitSwitch){
+        /*if(LimitSwitch && LStoggleState==true && !lastLimitSwitch){
         	relay.set(Relay.Value.kForward);
         	LStoggleState=true;
         }
-        else if(LimitSwitch && LStoggleState==true && !lastLimitSwitch){
+        else if(LimitSwitch && LStoggleState==false && !lastLimitSwitch){
         	relay.set(Relay.Value.kReverse);
         	LStoggleState=false;
         }
@@ -105,7 +105,7 @@ public class Robot extends IterativeRobot {
         */
         //the code above is to turn the light on or off when the limit switch is triggered
         
-        if(LimitSwitch){
+        if(!LimitSwitch){
         	relay.set(Relay.Value.kForward);
         }
         else{
