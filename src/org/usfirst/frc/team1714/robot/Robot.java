@@ -8,6 +8,8 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.SensorBase;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.DigitalInput;
+
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -24,7 +26,11 @@ public class Robot extends IterativeRobot {
 	boolean trigger;
 	boolean toggleState = false;
 	boolean lastTrigger = false;
+	boolean LimitSwitch;
+	boolean LStoggleState = false;
+	boolean lastLimitSwitch = false;
 	AnalogPotentiometer potentiometer;
+	DigitalInput limitSwitch;
 	
 	
     /**
@@ -37,6 +43,7 @@ public class Robot extends IterativeRobot {
     	relay = new Relay(0);
     	relay.set(Relay.Value.kForward);
     	potentiometer = new AnalogPotentiometer(1);
+    	limitSwitch = new DigitalInput(0);
     	
     }
     
@@ -83,6 +90,19 @@ public class Robot extends IterativeRobot {
         	toggleState = false;
         }
         lastTrigger = stick.getTrigger();
+        
+        
+        LimitSwitch=limitSwitch.get();
+        if(LimitSwitch && LStoggleState==false && !lastLimitSwitch){
+        	relay.set(Relay.Value.kForward);
+        	LStoggleState=true;
+        }
+        else if(LimitSwitch && LStoggleState==true && !lastLimitSwitch){
+        	relay.set(Relay.Value.kReverse);
+        	LStoggleState=false;
+        }
+        lastLimitSwitch=limitSwitch.get();
+        
         
         SmartDashboard.putNumber("Potentiometer reading",potentiometer.get());
         System.out.println(potentiometer.get());
