@@ -1,15 +1,10 @@
+
 package org.usfirst.frc.team1714.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.Relay;
-import edu.wpi.first.wpilibj.RobotDrive;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import edu.wpi.first.wpilibj.SensorBase;
-import edu.wpi.first.wpilibj.AnalogPotentiometer;
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.DigitalInput;
-
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -22,122 +17,64 @@ import edu.wpi.first.wpilibj.DigitalInput;
 
 
 public class Robot extends IterativeRobot {
-	RobotDrive myRobot;
-	Joystick stick;
-	int autoLoopCounter;
-	Relay relay;
-	boolean trigger;
-	boolean toggleState = false;
-	boolean lastTrigger = false;
-	boolean LimitSwitch;
-	boolean LStoggleState = false;
-	boolean lastLimitSwitch = false;
-	boolean PLightToggle=false;
-	AnalogPotentiometer potentiometer;
-	DigitalInput limitSwitch;
-	
+    final String defaultAuto = "Default";
+    final String customAuto = "My Auto";
+    String autoSelected;
+    SendableChooser chooser;
 	
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
     public void robotInit() {
-    	myRobot = new RobotDrive(0,1);
-    	stick = new Joystick(0);
-    	relay = new Relay(0);
-    	relay.set(Relay.Value.kForward);
-    	potentiometer = new AnalogPotentiometer(1);
-    	limitSwitch = new DigitalInput(0);
-    	
+        chooser = new SendableChooser();
+        chooser.addDefault("Default Auto", defaultAuto);
+        chooser.addObject("My Auto", customAuto);
+        SmartDashboard.putData("Auto choices", chooser);
     }
     
-    /**
-     * This function is run once each time the robot enters autonomous mode
-     */
+	/**
+	 * This autonomous (along with the chooser code above) shows how to select between different autonomous modes
+	 * using the dashboard. The sendable chooser code works with the Java SmartDashboard. If you prefer the LabVIEW
+	 * Dashboard, remove all of the chooser code and uncomment the getString line to get the auto name from the text box
+	 * below the Gyro
+	 *
+	 * You can add additional auto modes by adding additional comparisons to the switch structure below with additional strings.
+	 * If using the SendableChooser make sure to add them to the chooser code above as well.
+	 */
     public void autonomousInit() {
-    	autoLoopCounter = 0;
+    	autoSelected = (String) chooser.getSelected();
+//		autoSelected = SmartDashboard.getString("Auto Selector", defaultAuto);
+		System.out.println("Auto selected: " + autoSelected);
     }
 
     /**
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
-    	if(autoLoopCounter < 100) //Check if we've completed 100 loops (approximately 2 seconds)
-		{
-			myRobot.drive(-0.5, 0.0); 	// drive forwards half speed
-			autoLoopCounter++;
-			} else {
-			myRobot.drive(0.0, 0.0); 	// stop robot
-		}
-    }
-    
-    /**
-     * This function is called once each time the robot enters tele-operated mode
-     */
-    public void teleopInit(){
+    	switch(autoSelected) {
+    	case customAuto:
+        //Put custom auto code here   
+            break;
+    	case defaultAuto:
+    	default:
+    	//Put default auto code here
+            break;
+    	}
     }
 
     /**
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
-        myRobot.arcadeDrive(stick);
-        trigger = stick.getTrigger();
-        if(trigger && toggleState == false && !lastTrigger)
-        {
-        	relay.set(Relay.Value.kForward);
-        	toggleState = true;
-        }
-        else if(trigger && toggleState == true && !lastTrigger)
-        {
-        	relay.set(Relay.Value.kReverse);
-        	toggleState = false;
-        }
-        lastTrigger = stick.getTrigger();
         
-        
-        LimitSwitch=limitSwitch.get();
-        /*if(LimitSwitch && LStoggleState==true && !lastLimitSwitch){
-        	relay.set(Relay.Value.kForward);
-        	LStoggleState=true;
-        }
-        else if(LimitSwitch && LStoggleState==false && !lastLimitSwitch){
-        	relay.set(Relay.Value.kReverse);
-        	LStoggleState=false;
-        }
-        lastLimitSwitch=limitSwitch.get();
-        */
-        //the code above is to turn the light on or off when the limit switch is triggered
-        
-        if(!LimitSwitch){
-        	relay.set(Relay.Value.kForward);
-        }
-        else{
-        	relay.set(Relay.Value.kReverse);
-        }
-        
-        SmartDashboard.putNumber("Potentiometer reading",potentiometer.get());
-        System.out.println(potentiometer.get());
-        
-        if(potentiometer.get()>0.8 && potentiometer.get()<1){
-        	PLightToggle = true;
-        }
-        else if(potentiometer.get()<0.2 && potentiometer.get()>0){
-        	PLightToggle = false;
-        }
-        if(PLightToggle){
-        	relay.set(Relay.Value.kForward);
-        }
-        else{
-        	relay.set(Relay.Value.kReverse);
-        }
     }
     
     /**
      * This function is called periodically during test mode
      */
     public void testPeriodic() {
-    	LiveWindow.run();
+    
     }
     
 }
