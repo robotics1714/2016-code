@@ -18,6 +18,9 @@ import edu.wpi.first.wpilibj.DigitalInput;
  * creating this project, you must also update the manifest file in the resource
  * directory.
  */
+
+
+
 public class Robot extends IterativeRobot {
 	RobotDrive myRobot;
 	Joystick stick;
