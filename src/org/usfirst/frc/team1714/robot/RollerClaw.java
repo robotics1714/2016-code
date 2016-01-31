@@ -7,9 +7,9 @@ import edu.wpi.first.wpilibj.AnalogPotentiometer;
 public class RollerClaw {
 	private Talon rollerMotor, armMotor; 
 	private DigitalInput backSafetyLS, frontSafetyLS, ballDetectLS;
-	private AnalogPotentiometer rollerPotentiometer;
+	private AnalogPotentiometer rollerPot;
 	private boolean rollerArmUp, rollerArmDown, rollerBarIn, rollerBarOut;
-	private double armSpeed,rollerSpeed;
+	private final double armSpeed=0,rollerSpeed=0, rollerPotMax=0, rollerPotMin=0;
 	
 	RollerClaw(){
 		rollerMotor = new Talon(1);
@@ -17,7 +17,7 @@ public class RollerClaw {
 		backSafetyLS = new DigitalInput(1);
 		frontSafetyLS = new DigitalInput(2);
 		ballDetectLS = new DigitalInput(3);
-		rollerPotentiometer = new AnalogPotentiometer(1);
+		rollerPot = new AnalogPotentiometer(1);
 	}
 	
 	private void TiltRollerArmUp(){
@@ -26,6 +26,7 @@ public class RollerClaw {
 		}
 		else{
 			rollerArmUp=false;
+			armMotor.set(0);
 		}
 	}
 	
@@ -34,6 +35,7 @@ public class RollerClaw {
 			armMotor.set(-armSpeed);
 		}
 		else{
+			armMotor.set(0);
 			rollerArmDown=false;
 		}
 	}
@@ -43,6 +45,7 @@ public class RollerClaw {
 			rollerMotor.set(rollerSpeed);
 		}
 		else{
+			rollerMotor.set(0);
 			rollerBarIn=false;
 		}
 	}
@@ -61,13 +64,22 @@ public class RollerClaw {
 	}
 	
 	public boolean BallAcquired(){
-		boolean x=!ballDetectLS.get();
-		return x;
+		return !ballDetectLS.get();
 	}
 	
 	public void Update(){
 		if (rollerArmUp){
 			TiltRollerArmUp();
+		}
+		else if(rollerArmDown){
+			TiltRollerArmDown();
+		}
+		
+		if(rollerBarIn){
+			RollBallIn();
+		}
+		else if(rollerBarOut){
+			RollBallOut();
 		}
 	}
 	
@@ -82,6 +94,11 @@ public class RollerClaw {
 		rollerArmUp=false;
 	}
 	
+	public void SetRollerArmStop(){
+		rollerArmUp=false;
+		rollerArmDown=false;
+	}
+	
 	public void SetRollerBarIn(){
 		rollerBarIn=true;
 		rollerBarOut=false;
@@ -90,6 +107,11 @@ public class RollerClaw {
 	public void SetRollerBarOut(){
 		rollerBarOut=true;
 		rollerBarIn=false;
+	}
+	
+	public void SetRollerBarStop(){
+		rollerBarIn=false;
+		rollerBarOut=false;
 	}
 	
 }
