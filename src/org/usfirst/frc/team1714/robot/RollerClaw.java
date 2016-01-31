@@ -9,9 +9,10 @@ public class RollerClaw {
 	private DigitalInput backSafetyLS, frontSafetyLS, ballDetectLS;
 	private AnalogPotentiometer rollerPot;
 	private boolean rollerArmUp, rollerArmDown, rollerBarIn, rollerBarOut;
-	private final double armSpeed=0,rollerSpeed=0;
-	private final double rollerPotMax=0, rollerPotMin=0;//max and min of potentiometer reading
-	private final double rollerPotPos1=0, rollerPotPos2=0;//range of potentiometer reading for a position
+	private final double armSpeed=0,rollerSpeed=0,rollerAdjust=20;
+	private final double rollerPotMax=0, rollerPotMin=0,potBuffer=10;//max and min of potentiometer reading and buffer
+	private final double rollerPotPos1=0, rollerPotPos2=0;//potentiometer reading for a arm positions
+	private double targetPos;
 	
 	
 	
@@ -21,7 +22,7 @@ public class RollerClaw {
 		backSafetyLS = new DigitalInput(1);
 		frontSafetyLS = new DigitalInput(2);
 		ballDetectLS = new DigitalInput(3);
-		rollerPot = new AnalogPotentiometer(1);
+		rollerPot = new AnalogPotentiometer(1,100);
 	}
 	
 	private void tiltRollerArmUp(){//called to perform the action of tilting roller arm up
@@ -105,15 +106,45 @@ public class RollerClaw {
 		rollerArmDown=false;
 	}//called to stop the roller arm tilting
 	
-	public void setRollerArmPos(){
-		
-	}//called to set the roller arm to a designated position
+	public void setRollerArmPos(int i){
+		if(i ==1){
+			targetPos=rollerPotPos1;
+			if(rollerPot.get() > targetPos+potBuffer){
+				setRollerArmDown();
+			}
+			else if(rollerPot.get() < targetPos-potBuffer){
+				setRollerArmUp();
+			}
+			else if(rollerPot.get() < targetPos+potBuffer && rollerPot.get() > targetPos-potBuffer){
+				setRollerArmStop();
+			}
+		}
+		else if(i==2){
+			targetPos=rollerPotPos2;
+			if(rollerPot.get() > targetPos+potBuffer){
+				setRollerArmDown();
+			}
+			else if(rollerPot.get() < targetPos-potBuffer){
+				setRollerArmUp();
+			}
+			else if(rollerPot.get() < targetPos+potBuffer && rollerPot.get() > targetPos-potBuffer){
+				setRollerArmStop();
+			}
+		}
+	}//called to set the roller arm to multiple designated positions
 	
-	public void setRollerArmUpward(){
-		
+	public void adjustRollerArmUp(){
+		targetPos=rollerPot.get()+rollerAdjust;
+		if(rollerPot.get() < targetPos){
+			setRollerArmUp();
+		}
 	}//called to tilt the roller arm up for a certain and designated distance or time
 	
-	public void setRollerArmDownward(){
+	public void adjustRollerArmDown(){
+		targetPos=rollerPot.get()-rollerAdjust;
+		if(rollerPot.get() > targetPos){
+			setRollerArmDown();
+		}
 		
 	}//called to tilt the roller arm down for a certain and designated distance or time
 	
