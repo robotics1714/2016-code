@@ -50,7 +50,10 @@ public class LinearLift
 	
 	private void tiltLiftDown()
 	{
-		if(winchPot.get() > winchPotMin)
+		if(winchPot.get() > winchPotMin );
+		{
+			
+		}
 	}
 	
 	void update()
