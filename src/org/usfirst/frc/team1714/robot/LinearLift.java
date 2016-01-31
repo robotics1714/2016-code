@@ -38,7 +38,19 @@ public class LinearLift {
 		tiltingLiftDown = false;
 		tiltMotor.set(0.0);
 	}
-
+	void setExtendLift() {
+		retractLift = false;
+		extendLift = true;
+	}
+	void setRetractLift() {
+		extendLift = false;
+		retractLift = true;
+	}
+	void setLiftStop(){
+		extendLift = false;
+		retractLift = true;
+		winchMotor.set (0.0);
+	}
 	private void tiltLiftUp() {
 		if (tiltSafetyLS.get() || tiltPot.get() < tiltPotMax) {
 			tiltMotor.set(tiltSpeed);
@@ -64,5 +76,7 @@ public class LinearLift {
 		if (tiltingLiftDown) {
 			tiltLiftDown();
 		}
+
 	}
+	
 }
