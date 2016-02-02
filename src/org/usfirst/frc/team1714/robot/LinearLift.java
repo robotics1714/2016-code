@@ -20,8 +20,8 @@ public class LinearLift {
 	final private double winchPotMin = 0;
 	private boolean tiltingLiftUp = false;
 	private boolean tiltingLiftDown = false;
-	private boolean extendLift = false;
-	private boolean retractLift = false;
+	private boolean extendingLift = false;
+	private boolean retractingLift = false;
 
 	void setTiltLiftUp() {
 		tiltingLiftDown = false;
@@ -38,23 +38,28 @@ public class LinearLift {
 		tiltingLiftDown = false;
 		tiltMotor.set(0.0);
 	}
+	
 	void setExtendLift() {
-		retractLift = false;
-		extendLift = true;
+		retractingLift = false;
+		extendingLift = true;
 	}
+	
 	void setRetractLift() {
-		extendLift = false;
-		retractLift = true;
+		extendingLift = false;
+		retractingLift = true;
 	}
+	
 	void setLiftStop(){
-		extendLift = false;
-		retractLift = true;
+		extendingLift = false;
+		retractingLift = true;
 		winchMotor.set (0.0);
 	}
+	
 	private void tiltLiftUp() {
-		if (tiltSafetyLS.get() || tiltPot.get() < tiltPotMax) {
+		if (tiltSafetyLS.get() && tiltPot.get() < tiltPotMax) {
 			tiltMotor.set(tiltSpeed);
-		} else {
+		} 
+		else {
 			tiltMotor.set(0.0);
 			tiltingLiftUp = false;
 		}
@@ -63,7 +68,8 @@ public class LinearLift {
 	private void tiltLiftDown() {
 		if (tiltPot.get() > tiltPotMin) {
 			tiltMotor.set(-tiltSpeed);
-		} else {
+		} 
+		else {
 			tiltMotor.set(0.0);
 			tiltingLiftDown = false;
 		}
@@ -73,10 +79,12 @@ public class LinearLift {
 		if (tiltingLiftUp) {
 			tiltLiftUp();
 		}
+		
 		if (tiltingLiftDown) {
 			tiltLiftDown();
 		}
-
+		
+		if ()
 	}
 	
 }
