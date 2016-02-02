@@ -4,6 +4,8 @@ import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 
+// TODO: replace booleans with enum state system
+
 public class LinearLift {
 	private Talon tiltMotor;
 	private Talon winchMotor;
