@@ -8,8 +8,8 @@ public class LinearLift {
 	private Talon tiltMotor;
 	private Talon winchMotor;
 	private DigitalInput tiltSafetyLS;
-	private DigitalInput liftSafetyLS1;
-	private DigitalInput liftSafetyLS2;
+	private DigitalInput liftSafetyLSMax;
+	private DigitalInput liftSafetyLSMin;
 	private AnalogPotentiometer tiltPot;
 	private AnalogPotentiometer winchPot;
 	final private double tiltSpeed = 0;
@@ -74,7 +74,27 @@ public class LinearLift {
 			tiltingLiftDown = false;
 		}
 	}
-
+	
+	private void extendLift() {
+		if (liftSafetyLSMax.get() && winchPot.get() < winchPotMax) {
+			winchMotor.set(winchSpeed);
+		}
+		else {
+			winchMotor.set(0.0);
+			extendingLift = false;
+		}
+	}
+	
+	private void retractLift() {
+		if (liftSafetyLSMin.get() && winchPot.get() > winchPotMin) {
+			winchMotor.set(-winchSpeed);
+		}
+		else {
+			winchMotor.set(0.0);
+			retractingLift = false;
+		}
+	}
+	
 	void update() {
 		if (tiltingLiftUp) {
 			tiltLiftUp();
@@ -84,7 +104,13 @@ public class LinearLift {
 			tiltLiftDown();
 		}
 		
-		if ()
+		if (extendingLift) {
+			extendLift();
+		}
+		
+		if (retractingLift) {
+			retractLift();
+		}
 	}
 	
 }
