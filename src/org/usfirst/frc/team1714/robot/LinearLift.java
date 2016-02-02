@@ -5,8 +5,6 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.Servo;
 
-// TODO: replace booleans with enum state system
-
 public class LinearLift {
 	//CIM TILT SYSTEM// private Talon tiltMotor;
 	private Servo tiltServo;
@@ -38,8 +36,10 @@ public class LinearLift {
 	
 	private boolean tiltingLiftUp = false;
 	//CIM TILT SYSTEM// private boolean tiltingLiftDown = false;
-	private boolean extendingLift = false;
-	private boolean retractingLift = false;
+	private enum LiftState {
+		extending, retracting, stopped
+	}
+	private LiftState currentState = LiftState.stopped;
 	
 	LinearLift() {
 		//CIM TILT SYSTEM// tiltMotor = new Talon(tiltMotorPin);
@@ -71,19 +71,16 @@ public class LinearLift {
 	//CIM TILT SYSTEM*/
 	
 	void setExtendLift() {
-		retractingLift = false;
-		extendingLift = true;
+		currentState = LiftState.extending;
 	}
 	
 	void setRetractLift() {
-		extendingLift = false;
-		retractingLift = true;
+		currentState = LiftState.retracting;
 	}
 	
-	void setLiftStop(){
-		extendingLift = false;
-		retractingLift = true;
+	void setLiftStop() {
 		winchMotor.set (0.0);
+		currentState = LiftState.stopped;
 	}
 	
 	private void tiltLiftUp() {
@@ -115,7 +112,7 @@ public class LinearLift {
 		}
 		else {
 			winchMotor.set(0.0);
-			extendingLift = false;
+			currentState = LiftState.stopped;
 		}
 	}
 	
@@ -125,7 +122,7 @@ public class LinearLift {
 		}
 		else {
 			winchMotor.set(0.0);
-			retractingLift = false;
+			currentState = LiftState.stopped;
 		}
 	}
 	
@@ -140,11 +137,11 @@ public class LinearLift {
 		}
 		//CIM TILT SYSTEM*/
 		
-		if (extendingLift) {
+		if (currentState == LiftState.extending) {
 			extendLift();
 		}
 		
-		if (retractingLift) {
+		if (currentState == LiftState.retracting) {
 			retractLift();
 		}
 	}
