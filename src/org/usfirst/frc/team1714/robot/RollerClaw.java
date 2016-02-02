@@ -9,10 +9,14 @@ public class RollerClaw {
 	private DigitalInput backSafetyLS, frontSafetyLS, ballDetectLS;
 	private AnalogPotentiometer rollerPot;
 	private boolean rollerArmUp, rollerArmDown, rollerBarIn, rollerBarOut;
-	private final double armSpeed=0,rollerSpeed=0,rollerAdjust=20;
+	private boolean adjustRollerUp, adjustRollerPos, adjustRollerDown;
+	private final double armSpeed=0,rollerSpeed=0,rollerAdjustment=20;
 	private final double rollerPotMax=0, rollerPotMin=0,potBuffer=10;//max and min of potentiometer reading and buffer
 	private final double rollerPotPos1=0, rollerPotPos2=0;//potentiometer reading for a arm positions
 	private double targetPos;
+	public enum directions{
+		UP,POSITION,DOWN
+	}
 	
 	
 	
@@ -85,10 +89,32 @@ public class RollerClaw {
 		else if(rollerBarOut){
 			rollBallOut();
 		}
-	/*This method is called every time autonomousPeriodic and teleopPeriodic is called
-	 * to check the current status of roller claw
-	 * and send command for actions
-	*/
+		
+		if(adjustRollerUp){
+	        if(rollerPot.get() < targetPos-potBuffer){
+				setRollerArmUp();
+			}
+	    }
+		else if(adjustRollerDown){
+			if(rollerPot.get() > targetPos+potBuffer){
+				setRollerArmDown();
+			}
+		}
+	    else if(adjustRollerPos){
+	        if(rollerPot.get() > targetPos+potBuffer){
+				setRollerArmDown();
+			}
+			else if(rollerPot.get() < targetPos-potBuffer){
+				setRollerArmUp();
+			}
+			else if(rollerPot.get() < targetPos+potBuffer && rollerPot.get() > targetPos-potBuffer){
+				setRollerArmStop();
+			}
+	    }
+		/*This method is called every time autonomousPeriodic and teleopPeriodic is called
+		 * to check the current status of roller claw
+		 * and send command for actions
+		 */
 	}
 	
 	public void setRollerArmUp(){
@@ -106,7 +132,7 @@ public class RollerClaw {
 		rollerArmDown=false;
 	}//called to stop the roller arm tilting
 	
-	public void setRollerArmPos(int i){
+	/*public void setRollerArmPos(int i){
 		if(i ==1){
 			targetPos=rollerPotPos1;
 			if(rollerPot.get() > targetPos+potBuffer){
@@ -132,22 +158,23 @@ public class RollerClaw {
 			}
 		}
 	}//called to set the roller arm to multiple designated positions
+	*/
 	
-	public void adjustRollerArmUp(){
-		targetPos=rollerPot.get()+rollerAdjust;
+	/*public void setAdjustArmUp(){
+		targetPos=rollerPot.get()+rollerAdjustment;
 		if(rollerPot.get() < targetPos){
 			setRollerArmUp();
 		}
 	}//called to tilt the roller arm up for a certain and designated distance or time
 	
-	public void adjustRollerArmDown(){
-		targetPos=rollerPot.get()-rollerAdjust;
+	public void setAdjustArmDown(){
+		targetPos=rollerPot.get()-rollerAdjustment;
 		if(rollerPot.get() > targetPos){
 			setRollerArmDown();
 		}
 		
 	}//called to tilt the roller arm down for a certain and designated distance or time
-	
+	*/
 	public void setRollerBarIn(){
 		rollerBarIn=true;
 		rollerBarOut=false;
