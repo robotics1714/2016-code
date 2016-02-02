@@ -8,15 +8,18 @@ public class RollerClaw {
 	private Talon rollerMotor, armMotor; 
 	private DigitalInput backSafetyLS, frontSafetyLS, ballDetectLS;
 	private AnalogPotentiometer rollerPot;
-	private boolean rollerBarIn, rollerBarOut;
 	private final double armSpeed=0,rollerSpeed=0,rollerAdjustment=20;
-	private final double rollerPotMax=0, rollerPotMin=0,potBuffer=10;//max and min of potentiometer reading and buffer
+	private final double rollerPotMax=0, rollerPotMin=0,potBuffer=5;//max and min of potentiometer reading and buffer
 	private final double rollerPotPos1=0;//potentiometer reading for a arm positions
 	private double targetPos;
 	public enum armDirection{
 		UP,POSITION,DOWN,ADJUSTUP,ADJUSTDOWN,STOP
 	}
-	private armDirection direction;
+	public enum rollDirection{
+		IN, OUT, STOP
+	}
+	private armDirection ArmDirection;
+	private rollDirection RollDirection;
 	
 	
 	
@@ -35,7 +38,7 @@ public class RollerClaw {
 			armMotor.set(armSpeed);
 		}
 		else{
-			rollerArmUp=false;
+			ArmDirection=armDirection.STOP;
 			armMotor.set(0);
 		}//when it reach the limit it stop
 	}
@@ -46,7 +49,7 @@ public class RollerClaw {
 		}
 		else{
 			armMotor.set(0);
-			rollerArmDown=false;
+			ArmDirection=armDirection.STOP;
 		}//when it reach the limit it stop
 	}
 	
@@ -60,13 +63,17 @@ public class RollerClaw {
 		}
 		else{
 			rollerMotor.set(0);
-			rollerBarIn=false;
+			RollDirection=rollDirection.STOP;
 		}//it stop when the ball reach its safe holding position
 	}
 	
 	private void rollBallOut(){//called to perform the action of rolling the ball out
 		rollerMotor.set(-rollerSpeed);	
 	}//this action will not automatically stop till you set inward or stop the roller bar
+	
+	private void rollBallStop(){
+		rollerMotor.set(0);
+	}
 	
 	public boolean rollerArmFullUp(){
 		return !backSafetyLS.get();
@@ -80,8 +87,8 @@ public class RollerClaw {
 		return !ballDetectLS.get();
 	}//limit switch to detect if the ball is hold safely
 	
-	/*public void adjustRollerArm(armDirection direction){
-	    switch(direction){
+	/*public void adjustRollerArm(armDirection ArmDirection){
+	    switch(ArmDirection){
 	        case UP:
 	            targetPos=rollerPot.get() + rollerAdjustment;
 	            adjustRollerUp=true;
@@ -117,7 +124,7 @@ public class RollerClaw {
 
 	
 	public void Update(){
-		switch(direction){
+		switch(ArmDirection){
 		case UP:
 			tiltRollerArmUp();	
 			break;
@@ -154,7 +161,22 @@ public class RollerClaw {
 			}
 			break;
 		}
+		switch(RollDirection){
+		case IN:
+			rollBallIn();
+			break;
+			
+		case OUT:
+			rollBallOut();
+			break;
+			
+		case STOP:
+			rollBallStop();
+			break;
+		}
 	}
+	//This method is called every time autonomousPeriodic and teleopPeriodic is called
+	//to check the current status of roller claw and send command for actions
 		/*if (rollerArmUp){
 			tiltRollerArmUp();
 		}
@@ -190,35 +212,35 @@ public class RollerClaw {
 				setRollerArmStop();
 			}
 	    }
-		//This method is called every time autonomousPeriodic and teleopPeriodic is called
-		//to check the current status of roller claw
-		//and send command for actions
-		
 		*/
 	
 	
 	public void setRollerArmUp(){
-		direction=armDirection.UP;
+		ArmDirection=armDirection.UP;
 	}//called to set the roller arm tilt up till it reach the limit
 	
 	public void setRollerArmDown(){
-		direction=armDirection.DOWN;
+		ArmDirection=armDirection.DOWN;
 	}//called to set the roller arm tilt down till it reach the limit
 	
 	public void setRollerArmStop(){
-		direction=armDirection.STOP;
+		ArmDirection=armDirection.STOP;
 	}//called to stop the roller arm tilting
 	
 	public void setRollerArmAdjustUp(){
-		direction=armDirection.ADJUSTUP;
+		
+		targetPos=rollerPot.get()+rollerAdjustment;
+		ArmDirection=armDirection.ADJUSTUP;
 	}
 	
 	public void setRollerArmAdjustDown(){
-		direction=armDirection.ADJUSTDOWN;
+		targetPos=rollerPot.get()-rollerAdjustment;
+		ArmDirection=armDirection.ADJUSTDOWN;
 	}
 	
 	public void setRollerArmPos(){
-		direction=armDirection.POSITION;
+		targetPos=rollerPotPos1;
+		ArmDirection=armDirection.POSITION;
 	}
 	/*public void setRollerArmPos(int i){
 		if(i ==1){
@@ -264,18 +286,15 @@ public class RollerClaw {
 	}//called to tilt the roller arm down for a certain and designated distance or time
 	*/
 	public void setRollerBarIn(){
-		rollerBarIn=true;
-		rollerBarOut=false;
+		RollDirection=rollDirection.IN;
 	}//called to set the roller bar to roll in the ball
 	
 	public void setRollerBarOut(){
-		rollerBarOut=true;
-		rollerBarIn=false;
+		RollDirection=rollDirection.OUT;
 	}//called to set the roller bar to roll out the ball
 	
 	public void setRollerBarStop(){
-		rollerBarIn=false;
-		rollerBarOut=false;
+		RollDirection=rollDirection.STOP;
 	}//called to stop the roller bar rolling
 	
 }
