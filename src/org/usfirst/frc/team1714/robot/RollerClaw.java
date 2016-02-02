@@ -8,11 +8,10 @@ public class RollerClaw {
 	private Talon rollerMotor, armMotor; 
 	private DigitalInput backSafetyLS, frontSafetyLS, ballDetectLS;
 	private AnalogPotentiometer rollerPot;
-	private boolean rollerArmUp, rollerArmDown, rollerBarIn, rollerBarOut;
-	private boolean adjustRollerUp, adjustRollerPos, adjustRollerDown;
+	private boolean rollerBarIn, rollerBarOut;
 	private final double armSpeed=0,rollerSpeed=0,rollerAdjustment=20;
 	private final double rollerPotMax=0, rollerPotMin=0,potBuffer=10;//max and min of potentiometer reading and buffer
-	private final double rollerPotPos1=0, rollerPotPos2=0;//potentiometer reading for a arm positions
+	private final double rollerPotPos1=0;//potentiometer reading for a arm positions
 	private double targetPos;
 	public enum armDirection{
 		UP,POSITION,DOWN,ADJUSTUP,ADJUSTDOWN,STOP
