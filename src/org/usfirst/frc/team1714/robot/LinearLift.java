@@ -7,22 +7,45 @@ import edu.wpi.first.wpilibj.AnalogPotentiometer;
 public class LinearLift {
 	private Talon tiltMotor;
 	private Talon winchMotor;
-	private DigitalInput tiltSafetyLS;
-	private DigitalInput liftSafetyLSMax;
-	private DigitalInput liftSafetyLSMin;
+	private DigitalInput tiltLS;
+	private DigitalInput winchLSMax;
+	private DigitalInput winchLSMin;
 	private AnalogPotentiometer tiltPot;
 	private AnalogPotentiometer winchPot;
+	
+	// THESE ARE PLACEHOLDERS!!! CHANGE THEM!!!
+	
 	final private double tiltSpeed = 0;
 	final private double tiltPotMax = 0;
 	final private double tiltPotMin = 0;
 	final private double winchSpeed = 0;
 	final private double winchPotMax = 0;
 	final private double winchPotMin = 0;
+	final private int tiltPotPin = 0;
+	final private int tiltMotorPin = 0;
+	final private int tiltLSPin = 0;
+	final private int winchPotPin = 0;
+	final private int winchMotorPin = 0;
+	final private int winchLSMaxPin = 0;
+	final private int winchLSMinPin = 0;
+	
+	// END OF PLACEHOLDERS!!!
+	
 	private boolean tiltingLiftUp = false;
 	private boolean tiltingLiftDown = false;
 	private boolean extendingLift = false;
 	private boolean retractingLift = false;
-
+	
+	LinearLift() {
+		tiltMotor = new Talon(tiltMotorPin);
+		tiltLS = new DigitalInput(tiltLSPin);
+		tiltPot = new AnalogPotentiometer(tiltPotPin);
+		winchMotor = new Talon(winchMotorPin);
+		winchLSMax = new DigitalInput(winchLSMaxPin);
+		winchLSMin = new DigitalInput(winchLSMinPin);
+		winchPot = new AnalogPotentiometer(winchPotPin);
+	}
+	
 	void setTiltLiftUp() {
 		tiltingLiftDown = false;
 		tiltingLiftUp = true;
@@ -56,7 +79,7 @@ public class LinearLift {
 	}
 	
 	private void tiltLiftUp() {
-		if (tiltSafetyLS.get() && tiltPot.get() < tiltPotMax) {
+		if (tiltLS.get() && tiltPot.get() < tiltPotMax) {
 			tiltMotor.set(tiltSpeed);
 		} 
 		else {
@@ -76,7 +99,7 @@ public class LinearLift {
 	}
 	
 	private void extendLift() {
-		if (liftSafetyLSMax.get() && winchPot.get() < winchPotMax) {
+		if (winchLSMax.get() && winchPot.get() < winchPotMax) {
 			winchMotor.set(winchSpeed);
 		}
 		else {
@@ -86,7 +109,7 @@ public class LinearLift {
 	}
 	
 	private void retractLift() {
-		if (liftSafetyLSMin.get() && winchPot.get() > winchPotMin) {
+		if (winchLSMin.get() && winchPot.get() > winchPotMin) {
 			winchMotor.set(-winchSpeed);
 		}
 		else {
