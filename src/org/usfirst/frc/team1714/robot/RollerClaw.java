@@ -9,7 +9,7 @@ public class RollerClaw {
 	private DigitalInput backSafetyLS, frontSafetyLS, ballDetectLS;
 	private AnalogPotentiometer rollerPot;
 	private final double armSpeed=0,rollerSpeed=0,rollerAdjustment=20;
-	private final double rollerPotMax=0, rollerPotMin=0,potBuffer=5;//max and min of potentiometer reading and buffer
+	private final double potBuffer=5;//max and min of potentiometer reading and buffer
 	private final double rollerPotPos1=0;//potentiometer reading for a arm positions
 	private double targetPos;
 	public enum armDirection{
