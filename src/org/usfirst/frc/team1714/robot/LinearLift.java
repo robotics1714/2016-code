@@ -90,6 +90,7 @@ public class LinearLift {
 		} 
 		else {
 			//CIM TILT SYSTEM// tiltMotor.set(0.0);
+			tiltServo.set(0.0);
 			tiltingLiftUp = false;
 		}
 	}
