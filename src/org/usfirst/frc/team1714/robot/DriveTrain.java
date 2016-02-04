@@ -6,14 +6,14 @@ import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 
 public class DriveTrain{
-    public CANTalon tRightFront,tRightBack,tLeftFront,tLeftBack;
+    public CANTalon tRightFront, tRightBack, tLeftFront, tLeftBack;
     private BuiltInAccelerometer acc;
     private AnalogGyro gyro;
-    private DoubleSolenoid Solenoid;
+    private DoubleSolenoid solenoid;
     public double angle;	//gyroscope
-    public double X,Y,Z;	//accelerometer
-    public double rightSpeed,leftSpeed;
-    private boolean gearSwitch=true,gyroreset=false;
+    public double X, Y, Z;	//accelerometer
+    public double rightSpeed, leftSpeed;
+    private boolean shiftingGearHigh = true, shiftingGearLow = false, resettingGyro = false;
     
     
     DriveTrain(){
@@ -24,8 +24,8 @@ public class DriveTrain{
     	gyro = new AnalogGyro(0);
     	gyro.setSensitivity(0/**volts/Degree/Second**/);
     	acc = new BuiltInAccelerometer();
-    	Solenoid.set(DoubleSolenoid.Value.kOff);
-    	Solenoid = new DoubleSolenoid(0,1);
+    	solenoid.set(DoubleSolenoid.Value.kOff);
+    	solenoid = new DoubleSolenoid(0,1);
     	
     }
 
@@ -34,34 +34,48 @@ public class DriveTrain{
     	X = acc.getX();
     	Y = acc.getY();
     	Z = acc.getZ();
-    	shift();
-    	Gyroreset();
+    	
+    	if (resettingGyro) {
+    		resetGyro();
+    	}
+    	
+    	if (shiftingGearHigh) {
+    		shiftGearHigh();
+    	}
+    	
+    	if (shiftingGearLow) {
+    		shiftGearLow();
+    	}
     }
     
     /**transmission**/
-    public void setShift(){
-    	gearSwitch=!gearSwitch;
+    
+    private void shiftGearHigh() {
+    	solenoid.set(DoubleSolenoid.Value.kForward);
+    	shiftingGearHigh = false;
     }
-    private void shift(){
-    	if(gearSwitch=true){
-    		Solenoid.set(DoubleSolenoid.Value.kForward);
-    	}
-    	else if(gearSwitch=false){
-    		Solenoid.set(DoubleSolenoid.Value.kReverse);
-    	}
-    	else if(X==1/** discuss if need set solenoid off **/){
-    		Solenoid.set(DoubleSolenoid.Value.kOff);
-    	}
+    
+    private void shiftGearLow() {
+		solenoid.set(DoubleSolenoid.Value.kReverse);
+		shiftingGearLow = false;
+    }
+
+    public void setShiftGearHigh() {
+    	shiftingGearHigh = true;
+    }
+    
+    public void setShiftGearLow() {
+    	shiftingGearLow = true;
     }
     
     /**gyroscope**/
-    public void resetGyro(){
-    	gyroreset = true;
+    public void setResetGyro() {
+    	resettingGyro = true;
     }
-    private void Gyroreset(){
-    	if(gyroreset=true);
+    
+    private void resetGyro() {
     	gyro.reset();
-    	gyroreset=!gyroreset;
+		resettingGyro = false;
     }
     
     /**accelerometer**/
