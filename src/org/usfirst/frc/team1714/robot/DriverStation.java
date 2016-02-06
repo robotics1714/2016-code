@@ -100,6 +100,14 @@ public class DriverStation {
 		else if(xboxStick.getRawButton(5)){//slightly tilt the roller arm down //left bumper
 			claw.setRollerArmAdjustDown();
 		}
+
+		
+		if(leftStick.getRawButton(8)) {
+			train.setCompressorOff();
+		}
+		else if(leftStick.getRawButton(9)) {
+			train.setCompressorOn();
+		}
 	}
 	
 }
