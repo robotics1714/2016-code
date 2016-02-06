@@ -6,31 +6,40 @@ import edu.wpi.first.wpilibj.AnalogPotentiometer;
 
 public class RollerClaw {
 	private Talon rollerMotor, armMotor; 
-	private DigitalInput backSafetyLS, frontSafetyLS, ballDetectLS;
+	private DigitalInput rearLS, frontLS, ballDetectLS;
 	private AnalogPotentiometer rollerPot;
-	private final double armSpeed=0,rollerSpeed=0,rollerAdjustment=20;
+	private final double armSpeed=0, rollerSpeed=0, rollerAdjustment=20;
 	private final double potBuffer=5;//max and min of potentiometer reading and buffer
-	private final double rollerPotPos1=0;//potentiometer reading for a arm positions
+	private final double rollerPotPos1 = 0;//potentiometer reading for a arm positions
 	private double targetPos;
+	
+	// THESE ARE PLACEHOLDER VALUES!!! CHANGE THEM!!!
+	int rollerMotorPin = 0;
+	int armMotorPin = 0;
+	int rearLSPin = 0;
+	int frontLSPin = 0;
+	int ballDetectLSPin = 0;
+	int rollerPotPin = 0;
+	// END OF PLACEHOLDER VALUES!!!
+	
 	public enum armDirection{
 		UP,POSITION,DOWN,ADJUSTUP,ADJUSTDOWN,STOP
 	}
+	
 	public enum rollDirection{
 		IN, OUT, STOP
 	}
+	
 	private armDirection ArmDirection;
 	private rollDirection RollDirection;
 	
-	
-	
 	RollerClaw(){
-		rollerMotor = new Talon(1);
-		armMotor = new Talon(2);
-		backSafetyLS = new DigitalInput(1);
-		frontSafetyLS = new DigitalInput(2);
-		ballDetectLS = new DigitalInput(3);
-		rollerPot = new AnalogPotentiometer(1,100);
-		
+		rollerMotor = new Talon(rollerMotorPin);
+		armMotor = new Talon(armMotorPin);
+		rearLS = new DigitalInput(rearLSPin);
+		frontLS = new DigitalInput(frontLSPin);
+		ballDetectLS = new DigitalInput(ballDetectLSPin);
+		rollerPot = new AnalogPotentiometer(rollerPotPin, 100);
 	}
 	
 	private void tiltRollerArmUp(){//called to perform the action of tilting roller arm up
@@ -76,11 +85,11 @@ public class RollerClaw {
 	}
 	
 	public boolean rollerArmFullUp(){
-		return !backSafetyLS.get();
+		return !rearLS.get();
 	}//limit switch to prevent roller arm from tilting backward too much
 	
 	public boolean rollerArmFullDown(){
-		return !frontSafetyLS.get();
+		return !frontLS.get();
 	}//limit switch to prevent roller arm from tilting forward too much
 	
 	public boolean ballAcquired(){
@@ -123,7 +132,7 @@ public class RollerClaw {
 	}*/
 
 	
-	public void Update(){
+	public void update(){
 		switch(ArmDirection){
 		case UP:
 			tiltRollerArmUp();	

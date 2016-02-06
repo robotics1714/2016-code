@@ -24,7 +24,7 @@ public class LinearLift {
 	final private int winchLSMaxPin = 0;
 	final private int winchLSMinPin = 0;
 	final private double tiltServoPos = 0;
-// END OF PLACEHOLDERS!!!
+// END OF PLACEHOLDER VALUES!!!
 	
 	private boolean tiltingLiftUp = false;
 	

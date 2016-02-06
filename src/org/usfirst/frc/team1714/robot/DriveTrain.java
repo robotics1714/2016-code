@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 
 public class DriveTrain{
-    public CANTalon tRightFront, tRightBack, tLeftFront, tLeftBack;
+    public CANTalon tRightFront, tRightRear, tLeftFront, tLeftRear;
     private BuiltInAccelerometer acc;
     private AnalogGyro gyro;
     private DoubleSolenoid solenoid;
@@ -15,17 +15,27 @@ public class DriveTrain{
     public double rightSpeed, leftSpeed;
     private boolean shiftingGearHigh = true, shiftingGearLow = false, resettingGyro = false;
     
+    // THESE ARE PLACEHOLDER VALUES!!! CHANGE THEM!!!
+    final private int tRightFrontPin = 0;
+    final private int tRightRearPin = 0;
+    final private int tLeftFrontPin = 0;
+    final private int tLeftRearPin = 0;
+    final private int gyroPin = 0;
+    final private int solenoidPin1 = 0;
+    final private int solenoidPin2 = 0;
+    final private int pcmID = 0;
+    // END OF PLACEHOLDER VALUES!!!
     
     DriveTrain(){
-    	tRightFront = new CANTalon(0);
-    	tRightBack = new CANTalon(1);
-    	tLeftFront = new CANTalon(2);
-    	tLeftBack = new CANTalon(3);
-    	gyro = new AnalogGyro(0);
+    	tRightFront = new CANTalon(tRightFrontPin);
+    	tRightRear = new CANTalon(tRightRearPin);
+    	tLeftFront = new CANTalon(tLeftFrontPin);
+    	tLeftRear = new CANTalon(tLeftRearPin);
+    	gyro = new AnalogGyro(gyroPin);
     	gyro.setSensitivity(0/**volts/Degree/Second**/);
     	acc = new BuiltInAccelerometer();
-    	solenoid.set(DoubleSolenoid.Value.kOff);
-    	solenoid = new DoubleSolenoid(0,1);
+    	solenoid = new DoubleSolenoid(pcmID, solenoidPin1, solenoidPin2);
+    	solenoid.set(DoubleSolenoid.Value.kForward);
     	
     }
 
