@@ -134,31 +134,31 @@ public class RollerClaw {
 	
 	public void update(){
 		switch(ArmDirection){
-		case UP:
+			case UP:
 			tiltRollerArmUp();	
 			break;
 		
-		case DOWN:
+			case DOWN:
 			tiltRollerArmDown();
 			break;
 			
-		case STOP:
+			case STOP:
 			tiltRollerArmStop();
 			break;
 		
-		case ADJUSTUP:
+			case ADJUSTUP:
 			if(rollerPot.get() < targetPos-potBuffer){
 				tiltRollerArmUp();
 			}
 			break;
 			
-		case ADJUSTDOWN:
+			case ADJUSTDOWN:
 			if(rollerPot.get() > targetPos+potBuffer){
 				tiltRollerArmDown();
 			}
 			break;
 			
-		case POSITION:
+			case POSITION:
 			if(rollerPot.get() > targetPos+potBuffer){
 				tiltRollerArmDown();
 			}
@@ -171,15 +171,15 @@ public class RollerClaw {
 			break;
 		}
 		switch(RollDirection){
-		case IN:
+			case IN:
 			rollBallIn();
 			break;
 			
-		case OUT:
+			case OUT:
 			rollBallOut();
 			break;
 			
-		case STOP:
+			case STOP:
 			rollBallStop();
 			break;
 		}
