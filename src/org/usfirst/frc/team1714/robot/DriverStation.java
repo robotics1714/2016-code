@@ -2,7 +2,6 @@ package org.usfirst.frc.team1714.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
-import edu.wpi.first.wpilibj.GenericHID;
 
 public class DriverStation {
 	Joystick leftStick, rightStick, xboxStick;
@@ -102,6 +101,12 @@ public class DriverStation {
 			claw.setRollerArmAdjustDown();
 		}
 		
+		if(leftStick.getRawButton(8)) {
+			train.setCompressorOff();
+		}
+		else if(leftStick.getRawButton(9)) {
+			train.setCompressorOn();
+		}
 		
 	}
 	
