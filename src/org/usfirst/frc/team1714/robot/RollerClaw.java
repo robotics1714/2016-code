@@ -24,13 +24,13 @@ public class RollerClaw {
 	
 	
 	RollerClaw(){
-		rollerMotor = new Talon(1);
+		/*rollerMotor = new Talon(1);
 		armMotor = new Talon(2);
 		backSafetyLS = new DigitalInput(1);
 		frontSafetyLS = new DigitalInput(2);
 		ballDetectLS = new DigitalInput(3);
 		rollerPot = new AnalogPotentiometer(1,100);
-		
+		*/
 	}
 	
 	private void tiltRollerArmUp(){//called to perform the action of tilting roller arm up
@@ -125,31 +125,31 @@ public class RollerClaw {
 	
 	public void Update(){
 		switch(ArmDirection){
-		case UP:
+			case UP:
 			tiltRollerArmUp();	
 			break;
 		
-		case DOWN:
+			case DOWN:
 			tiltRollerArmDown();
 			break;
 			
-		case STOP:
+			case STOP:
 			tiltRollerArmStop();
 			break;
 		
-		case ADJUSTUP:
+			case ADJUSTUP:
 			if(rollerPot.get() < targetPos-potBuffer){
 				tiltRollerArmUp();
 			}
 			break;
 			
-		case ADJUSTDOWN:
+			case ADJUSTDOWN:
 			if(rollerPot.get() > targetPos+potBuffer){
 				tiltRollerArmDown();
 			}
 			break;
 			
-		case POSITION:
+			case POSITION:
 			if(rollerPot.get() > targetPos+potBuffer){
 				tiltRollerArmDown();
 			}
@@ -162,15 +162,15 @@ public class RollerClaw {
 			break;
 		}
 		switch(RollDirection){
-		case IN:
+			case IN:
 			rollBallIn();
 			break;
 			
-		case OUT:
+			case OUT:
 			rollBallOut();
 			break;
 			
-		case STOP:
+			case STOP:
 			rollBallStop();
 			break;
 		}
