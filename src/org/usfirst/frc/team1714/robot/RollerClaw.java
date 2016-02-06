@@ -14,12 +14,12 @@ public class RollerClaw {
 	private double targetPos;
 	
 	// THESE ARE PLACEHOLDER VALUES!!! CHANGE THEM!!!
-	int rollerMotorPin = 0;
-	int armMotorPin = 0;
-	int rearLSPin = 0;
-	int frontLSPin = 0;
-	int ballDetectLSPin = 0;
-	int rollerPotPin = 0;
+	private final int rollerMotorPin = 0;
+	private final int armMotorPin = 0;
+	private final int rearLSPin = 0;
+	private final int frontLSPin = 0;
+	private final int ballDetectLSPin = 0;
+	private final int rollerPotPin = 0;
 	// END OF PLACEHOLDER VALUES!!!
 	
 	public enum armDirection{

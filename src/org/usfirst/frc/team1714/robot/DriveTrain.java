@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.Compressor;
 
 public class DriveTrain{
     public CANTalon tRightFront, tRightRear, tLeftFront, tLeftRear;
@@ -13,7 +14,8 @@ public class DriveTrain{
     public double angle;	//gyroscope
     public double X, Y, Z;	//accelerometer
     public double rightSpeed, leftSpeed;
-    private boolean shiftingGearHigh = true, shiftingGearLow = false, resettingGyro = false;
+    private boolean shiftingGearHigh = true, shiftingGearLow = false, resettingGyro = false, turningCompressorOn = false, turningCompressorOff = true;
+    private Compressor comp;
     
     // THESE ARE PLACEHOLDER VALUES!!! CHANGE THEM!!!
     final private int tRightFrontPin = 0;
@@ -36,7 +38,8 @@ public class DriveTrain{
     	acc = new BuiltInAccelerometer();
     	solenoid = new DoubleSolenoid(pcmID, solenoidPin1, solenoidPin2);
     	solenoid.set(DoubleSolenoid.Value.kForward);
-    	
+    	comp = new Compressor(pcmID);
+    	comp.setClosedLoopControl(true);
     }
 
     public void update(){
@@ -49,12 +52,18 @@ public class DriveTrain{
     		resetGyro();
     	}
     	
-    	if (shiftingGearHigh) {
+    	if (shiftingGearLow) {
+    		shiftGearLow();
+    	}
+    	else if (shiftingGearHigh) {
     		shiftGearHigh();
     	}
     	
-    	if (shiftingGearLow) {
-    		shiftGearLow();
+    	if(turningCompressorOff) {
+    		turnCompressorOff();
+    	}
+    	else if(turningCompressorOn) {
+    		turnCompressorOn();
     	}
     }
     
@@ -88,6 +97,25 @@ public class DriveTrain{
 		resettingGyro = false;
     }
     
+    public void setCompressorOn() {
+    	turningCompressorOff = false;
+    	turningCompressorOn = true;
+    }
+    
+    public void setCompressorOff() {
+    	turningCompressorOff = true;
+    	turningCompressorOn = false;
+    }
+    
+    private void turnCompressorOn() {
+    	comp.start();
+    	turningCompressorOn = false;
+    }
+    
+    private void turnCompressorOff() {
+    	comp.stop();
+    	turningCompressorOff = false;
+    }
     /**accelerometer**/
     
     

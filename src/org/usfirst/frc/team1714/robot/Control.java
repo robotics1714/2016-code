@@ -3,20 +3,20 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
 
 public class Control {
-	DriveTrain train;
-	RollerClaw claw;
-	LinearLift lift;
-	Joystick driveStickLeft;
-	Joystick driveStickRight;
-	Joystick manipController;
-	RobotDrive tankDrive;
+	private DriveTrain train;
+	private RollerClaw claw;
+	private LinearLift lift;
+	private Joystick driveStickLeft;
+	private Joystick driveStickRight;
+	private Joystick manipController;
+	private RobotDrive tankDrive;
 	
 	// TODO: move joystick stuff to driver station!
 	
 	// THESE ARE PLACEHOLDER VALUES!!! CHANGE THEM!!!
-	int driveStickLeftPin = 0;
-	int driveStickRightPin = 1;
-	int manipControllerPin = 2;
+	private final int driveStickLeftPin = 0;
+	private final int driveStickRightPin = 1;
+	private final int manipControllerPin = 2;
 	// END OF PLACEHOLDER VALUES!!!
 
 	Control(DriveTrain driveTrain, RollerClaw rollerClaw, LinearLift linearLift) {
@@ -38,6 +38,13 @@ public class Control {
 		}
 		else if(driveStickLeft.getRawButton(6)) {
 			train.setShiftGearHigh();
+		}
+		
+		if(driveStickLeft.getRawButton(8)) {
+			train.setCompressorOff();
+		}
+		else if(driveStickLeft.getRawButton(9)) {
+			train.setCompressorOn();
 		}
 		
 	}
