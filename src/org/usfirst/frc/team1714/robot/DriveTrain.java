@@ -18,14 +18,14 @@ public class DriveTrain{
     private Compressor comp;
     
     // THESE ARE PLACEHOLDER VALUES!!! CHANGE THEM!!!
-    final private int tRightFrontPin = 0;
-    final private int tRightRearPin = 0;
-    final private int tLeftFrontPin = 0;
-    final private int tLeftRearPin = 0;
+    final private int tRightFrontPin = 4;
+    final private int tRightRearPin = 5;
+    final private int tLeftFrontPin = 2;
+    final private int tLeftRearPin = 3;
     final private int gyroPin = 0;
     final private int solenoidPin1 = 0;
-    final private int solenoidPin2 = 0;
-    final private int pcmID = 0;
+    final private int solenoidPin2 = 1;
+    final private int pcmID = 1;
     // END OF PLACEHOLDER VALUES!!!
     
     DriveTrain(){
