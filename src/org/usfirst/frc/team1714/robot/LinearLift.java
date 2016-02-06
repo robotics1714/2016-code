@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1714.robot;
 
 import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.Servo;
@@ -8,10 +9,14 @@ import edu.wpi.first.wpilibj.Servo;
 public class LinearLift {
 	private Servo tiltServo;
 	private Talon winchMotor;
-	private DigitalInput tiltLS;
-	private DigitalInput winchLSMax;
+	public DigitalInput tiltLS;
+	public DigitalInput winchLSMax;
 	private DigitalInput winchLSMin;
 	private AnalogPotentiometer winchPot;
+	
+	private double currentTime;
+	private double lastTime;
+	private boolean startedAutoScale = false;
 	
 // THESE ARE PLACEHOLDERS!!! CHANGE THEM!!!
 	final private double winchSpeed = 0;
@@ -27,6 +32,7 @@ public class LinearLift {
 // END OF PLACEHOLDER VALUES!!!
 	
 	private boolean tiltingLiftUp = false;
+	private boolean autoScaling = false;
 	
 	private enum LiftState {
 		extending, retracting, stopped
@@ -60,6 +66,10 @@ public class LinearLift {
 		currentState = LiftState.stopped;
 	}
 	
+	void setAutoScale() {
+		autoScaling = true;
+	}
+	
 	private void tiltLiftUp() {
 		if (tiltLS.get()) {
 			tiltServo.set(tiltServoPos);
@@ -90,7 +100,31 @@ public class LinearLift {
 		}
 	}
 	
+	/*public void autoScale() {
+		
+		if(!startedAutoScale) {
+			lastTime=Timer.getFPGATimestamp();
+			startedAutoScale = true;
+		}
+		if(tiltLS.get()) {
+			setTiltLiftUp();
+		}
+		if(!tiltLS.get() && winchLSMax.get()) {
+			setExtendLift();
+		}
+		if(!tiltLS.get() && !winchLSMax.get()) {
+			currentTime = Timer.getFPGATimestamp();
+			if((currentTime - lastTime) > 2) {
+				setRetractLift();
+				lastTime = currentTime;
+				
+			}
+			
+		}
+	}*/
+	//code for experiemental auto scale
 	void update() {
+		currentTime=Timer.getFPGATimestamp();
 		if (tiltingLiftUp) {
 			tiltLiftUp();
 		}
@@ -102,6 +136,10 @@ public class LinearLift {
 		if (currentState == LiftState.retracting) {
 			retractLift();
 		}
+		
+		//if (autoScaling) {
+			//autoScale();
+		//}
 	}
 	
 }

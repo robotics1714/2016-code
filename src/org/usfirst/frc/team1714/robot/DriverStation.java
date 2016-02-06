@@ -2,7 +2,6 @@ package org.usfirst.frc.team1714.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
-import edu.wpi.first.wpilibj.GenericHID;
 
 public class DriverStation {
 	Joystick leftStick, rightStick, xboxStick;
@@ -15,7 +14,6 @@ public class DriverStation {
 	int button;//placeholder
 	
 	boolean scaleMode=false,liftOverride=false;
-	//boolean liftExtend, liftRetrack, liftUp, armUp, armDown, rollIn, rollOut;
 	
 	DriverStation(DriveTrain driveTrain, RollerClaw rollerClaw, LinearLift linearLift, Control control){
 		train = driveTrain;
@@ -74,12 +72,13 @@ public class DriverStation {
 		}
 		
 		if(xboxStick.getRawButton(7)){//auto scaling //back button
-			//control.whatever();
+		
 		}
 		if(xboxStick.getRawButton(10)){//manual override auto scaling  //press right joystick
 			//control.whatever();
 			liftOverride=true;
 		}
+		
 		if(liftOverride){
 			if(xboxStick.getPOV()==0){//liftExtend  //D-pad up
 				lift.setExtendLift();
@@ -101,8 +100,6 @@ public class DriverStation {
 		else if(xboxStick.getRawButton(5)){//slightly tilt the roller arm down //left bumper
 			claw.setRollerArmAdjustDown();
 		}
-		
-		
 	}
 	
 }
