@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1714.robot;
 
 import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 
@@ -18,12 +19,12 @@ public class RollerClaw {
 	
 	// THESE ARE PLACEHOLDER VALUES!!! CHANGE THEM!!!
 	private final int 
-		rollerMotorPin = 0,
-		armMotorPin = 0,
-		rearLSPin = 0,
-		frontLSPin = 0,
-		ballDetectLSPin = 0,
-		rollerPotPin = 0;
+		rollerMotorPin = 2,
+		armMotorPin = 5,
+		rearLSPin = 7,
+		frontLSPin = 8,
+		ballDetectLSPin = 9,
+		rollerPotPin = 1;
 	// END OF PLACEHOLDER VALUES!!!
 	
 	public enum armDirection{
@@ -137,6 +138,10 @@ public class RollerClaw {
 
 	
 	public void update(){
+		SmartDashboard.putBoolean("Rear LS", !rearLS.get());
+		SmartDashboard.putBoolean("Front LS", !frontLS.get());
+		SmartDashboard.putBoolean("Ball Detected?", !ballDetectLS.get());
+		SmartDashboard.putNumber("Arm Pot", rollerPot.get());
 		switch(ArmDirection){
 			case UP:
 			tiltRollerArmUp();	

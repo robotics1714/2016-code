@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1714.robot;
 
 import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.Servo;
@@ -91,6 +92,11 @@ public class LinearLift {
 	}
 	
 	void update() {
+		SmartDashboard.putNumber("Winch Pot", winchPot.get());
+		SmartDashboard.putBoolean("Tilt LS", !tiltLS.get());
+		SmartDashboard.putBoolean("Winch Max LS", !winchLSMax.get());
+		SmartDashboard.putBoolean("Winch Min LS", !winchLSMin.get());		
+		
 		if (tiltingLiftUp) {
 			tiltLiftUp();
 		}

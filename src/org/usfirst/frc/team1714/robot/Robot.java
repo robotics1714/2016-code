@@ -33,7 +33,7 @@ public class Robot extends IterativeRobot {
         chooser.addObject("My Auto", customAuto);
         SmartDashboard.putData("Auto choices", chooser);
         train = new DriveTrain();
-        // claw = new RollerClaw();
+        claw = new RollerClaw();
         // lift = new LinearLift();
         control = new Control(train, claw, lift);
     }
@@ -73,7 +73,7 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
         train.update();
-        // claw.update();
+        claw.update();
         // lift.update();
         control.update();
     }

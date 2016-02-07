@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Compressor;
 
 public class DriveTrain{
@@ -43,6 +44,8 @@ public class DriveTrain{
     }
 
     public void update(){
+		SmartDashboard.putBoolean("Gear High?", (solenoid.get() == DoubleSolenoid.Value.kForward));
+    	
     	angle = gyro.getAngle();
     	X = acc.getX();
     	Y = acc.getY();
