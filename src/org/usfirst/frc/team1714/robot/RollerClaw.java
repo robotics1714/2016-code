@@ -10,8 +10,8 @@ public class RollerClaw {
 	private DigitalInput rearLS, frontLS, ballDetectLS;
 	private AnalogPotentiometer rollerPot;
 	private double 
-		armSpeed=0, 
-		rollerSpeed=0, 
+		armSpeed=0.5, 
+		rollerSpeed=0.5, 
 		rollerAdjustment=20,
 		potBuffer=5,//max and min of potentiometer reading and buffer
 		rollerPotPos1 = 0,//potentiometer reading for a arm positions
@@ -45,48 +45,57 @@ public class RollerClaw {
 		frontLS = new DigitalInput(frontLSPin);
 		ballDetectLS = new DigitalInput(ballDetectLSPin);
 		rollerPot = new AnalogPotentiometer(rollerPotPin, 100);
+		ArmDirection=armDirection.STOP;
+		RollDirection=rollDirection.STOP;
 	}
 	
 	private void tiltRollerArmUp(){//called to perform the action of tilting roller arm up
+		//System.out.println("tiltUUPP");
 		if(!rollerArmFullUp()){
 			armMotor.set(armSpeed);
 		}
 		else{
 			ArmDirection=armDirection.STOP;
-			armMotor.set(0);
+			armMotor.set(0.0);
 		}//when it reach the limit it stop
 	}
 	
 	private void tiltRollerArmDown(){//called to perform the action of tilting roller arm down
+		
+		//System.out.println("tiltDOWN");
 		if(!rollerArmFullDown()){
 			armMotor.set(-armSpeed);
 		}
 		else{
-			armMotor.set(0);
+			armMotor.set(0.0);
 			ArmDirection=armDirection.STOP;
 		}//when it reach the limit it stop
 	}
 	
 	private void tiltRollerArmStop(){
-		armMotor.set(0);
+		armMotor.set(0.0);
 	}//force stop the moving of the roller arm
 	
 	private void rollBallIn(){//called to perform the action of rolling the ball in
+		//System.out.println("IInnn");
 		if(!ballAcquired()){
 			rollerMotor.set(rollerSpeed);
 		}
 		else{
-			rollerMotor.set(0);
+			rollerMotor.set(0.0);
 			RollDirection=rollDirection.STOP;
 		}//it stop when the ball reach its safe holding position
 	}
 	
 	private void rollBallOut(){//called to perform the action of rolling the ball out
+		//System.out.println("OOOUt");
 		rollerMotor.set(-rollerSpeed);	
 	}//this action will not automatically stop till you set inward or stop the roller bar
 	
 	private void rollBallStop(){
-		rollerMotor.set(0);
+		//System.out.println("Hereeeeeeeeeee");
+				
+		rollerMotor.set(0.1);
 	}
 	
 	public boolean rollerArmFullUp(){
@@ -179,8 +188,10 @@ public class RollerClaw {
 			}
 			break;
 		}
+		//System.out.println(RollDirection);
 		switch(RollDirection){
 			case IN:
+			
 			rollBallIn();
 			break;
 			
@@ -189,6 +200,7 @@ public class RollerClaw {
 			break;
 			
 			case STOP:
+				//System.out.println("here");
 			rollBallStop();
 			break;
 		}
@@ -234,10 +246,12 @@ public class RollerClaw {
 	
 	
 	public void setRollerArmUp(){
+		//System.out.println("setUP");
 		ArmDirection=armDirection.UP;
 	}//called to set the roller arm tilt up till it reach the limit
 	
 	public void setRollerArmDown(){
+		//System.out.println("setDOWN");
 		ArmDirection=armDirection.DOWN;
 	}//called to set the roller arm tilt down till it reach the limit
 	

@@ -22,7 +22,8 @@ public class Robot extends IterativeRobot {
     RollerClaw claw;
     LinearLift lift;
     Control control;
-	
+	DriverStation station;
+    
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
@@ -36,6 +37,7 @@ public class Robot extends IterativeRobot {
         claw = new RollerClaw();
         // lift = new LinearLift();
         control = new Control(train, claw, lift);
+        station= new DriverStation(train, claw, lift, control);
     }
     
 	/**
@@ -72,10 +74,11 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
-        train.update();
+        //train.update();
         claw.update();
         // lift.update();
         control.update();
+        station.update();
     }
     
     /**
