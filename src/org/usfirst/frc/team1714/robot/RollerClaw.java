@@ -15,6 +15,8 @@ public class RollerClaw {
 		rollerAdjustment=20,
 		potBuffer=2,//max and min of potentiometer reading and buffer
 		rollerPotPos1 = 30,//potentiometer reading for a arm positions
+		rollerPotMax= 98,
+		rollerPotMin= 2,
 		targetPos;
 	
 	// THESE ARE PLACEHOLDER VALUES!!! CHANGE THEM!!!
@@ -51,7 +53,7 @@ public class RollerClaw {
 	
 	private void tiltRollerArmUp(){//called to perform the action of tilting roller arm up
 		//System.out.println("tiltUUPP");
-		if(!rollerArmFullUp()){
+		if(!rollerArmFullUp() && rollerPot.get() > rollerPotMin){
 			armMotor.set(armSpeed);
 		}
 		else{
@@ -63,7 +65,7 @@ public class RollerClaw {
 	private void tiltRollerArmDown(){//called to perform the action of tilting roller arm down
 		
 		//System.out.println("tiltDOWN");
-		if(!rollerArmFullDown()){
+		if(!rollerArmFullDown() && rollerPot.get() < rollerPotMax){
 			armMotor.set(-armSpeed);
 		}
 		else{
@@ -74,6 +76,7 @@ public class RollerClaw {
 	
 	private void tiltRollerArmStop(){
 		armMotor.set(0.0);
+		ArmDirection=armDirection.STOP;
 	}//force stop the moving of the roller arm
 	
 	private void rollBallIn(){//called to perform the action of rolling the ball in
