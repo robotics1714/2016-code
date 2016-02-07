@@ -1,11 +1,8 @@
 package org.usfirst.frc.team1714.robot;
 
 import edu.wpi.first.wpilibj.Talon;
-<<<<<<< HEAD
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-=======
 import edu.wpi.first.wpilibj.Timer;
->>>>>>> origin/master
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.Servo;
@@ -128,15 +125,12 @@ public class LinearLift {
 	}*/
 	//code for experiemental auto scale
 	void update() {
-<<<<<<< HEAD
 		SmartDashboard.putNumber("Winch Pot", winchPot.get());
 		SmartDashboard.putBoolean("Tilt LS", !tiltLS.get());
 		SmartDashboard.putBoolean("Winch Max LS", !winchLSMax.get());
 		SmartDashboard.putBoolean("Winch Min LS", !winchLSMin.get());		
 		
-=======
 		currentTime=Timer.getFPGATimestamp();
->>>>>>> origin/master
 		if (tiltingLiftUp) {
 			tiltLiftUp();
 		}

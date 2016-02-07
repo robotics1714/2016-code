@@ -21,12 +21,12 @@ public class DriverStation {
 		lift = linearLift;
 		leftStick = new Joystick(1);
 		rightStick = new Joystick(0);
-		xboxStick= new Joystick(2);
+		//xboxStick= new Joystick(2);
 		drive = new RobotDrive(driveTrain.tLeftFront, driveTrain.tLeftRear ,driveTrain.tRightFront, driveTrain.tRightRear);	
 	}
 	
 	public void update(){
-		drive.tankDrive(leftStick, rightStick, true);
+		/*drive.tankDrive(leftStick, rightStick, true);
 		if(scaleMode==true){
 			drive.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, true);
 			drive.setInvertedMotor(RobotDrive.MotorType.kFrontRight, true);
@@ -42,9 +42,31 @@ public class DriverStation {
 		}
 		else if(leftStick.getRawButton(7)) {//shift the transmmission to high gear
 			train.setShiftGearHigh();
+		}*/
+		if(leftStick.getRawButton(2)){//roller roll inward the robot //D-pad up
+			claw.setRollerBarIn();
+		}
+		if(leftStick.getRawButton(3)){//roller roll outward the robot //D-pad down
+			claw.setRollerBarOut();
+		}
+		if(leftStick.getRawButton(4)){//stop roller bar rolling  //D-pad right
+			claw.setRollerBarStop();
 		}
 		
-		if(xboxStick.getPOV()==0){//roller roll inward the robot //D-pad up
+		
+		if(rightStick.getRawButton(3)){//roller arm up //button Y
+			claw.setRollerArmUp();
+		}
+		else if(rightStick.getRawButton(2)){//roller arm down  //button A
+			claw.setRollerArmDown();
+		}
+		else if(rightStick.getRawButton(4)){//roller arm stop tilting  //button B
+			claw.setRollerArmStop();
+		}
+		//else if(xboxStick.getRawButton(3)){//move roller arm to a position //button X
+		//	claw.setRollerArmPos();
+		
+		/*if(xboxStick.getPOV()==0){//roller roll inward the robot //D-pad up
 			claw.setRollerBarIn();
 		}
 		if(xboxStick.getPOV()==180){//roller roll outward the robot //D-pad down
@@ -69,9 +91,9 @@ public class DriverStation {
 		}
 		else if(xboxStick.getRawButton(3)){//move roller arm to a position //button X
 			claw.setRollerArmPos();
-		}
+		}*/
 		
-		if(xboxStick.getRawButton(7)){//auto scaling //back button
+		/*if(xboxStick.getRawButton(7)){//auto scaling //back button
 		
 		}
 		if(xboxStick.getRawButton(10)){//manual override auto scaling  //press right joystick
@@ -107,7 +129,7 @@ public class DriverStation {
 		}
 		else if(leftStick.getRawButton(9)) {
 			train.setCompressorOn();
-		}
+		}*/
 	}
 	
 }
