@@ -63,9 +63,9 @@ public class DriverStation {
 		else if(rightStick.getRawButton(4)){//roller arm stop tilting  //button B
 			claw.setRollerArmStop();
 		}
-		//else if(xboxStick.getRawButton(3)){//move roller arm to a position //button X
-		//	claw.setRollerArmPos();
-		
+		else if(rightStick.getRawButton(5)){//move roller arm to a position //button X
+			claw.setRollerArmPos();
+		}
 		/*if(xboxStick.getPOV()==0){//roller roll inward the robot //D-pad up
 			claw.setRollerBarIn();
 		}

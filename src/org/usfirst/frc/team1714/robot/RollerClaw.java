@@ -13,8 +13,8 @@ public class RollerClaw {
 		armSpeed=0.5, 
 		rollerSpeed=0.5, 
 		rollerAdjustment=20,
-		potBuffer=5,//max and min of potentiometer reading and buffer
-		rollerPotPos1 = 0,//potentiometer reading for a arm positions
+		potBuffer=2,//max and min of potentiometer reading and buffer
+		rollerPotPos1 = 30,//potentiometer reading for a arm positions
 		targetPos;
 	
 	// THESE ARE PLACEHOLDER VALUES!!! CHANGE THEM!!!
@@ -151,6 +151,7 @@ public class RollerClaw {
 		SmartDashboard.putBoolean("Front LS", !frontLS.get());
 		SmartDashboard.putBoolean("Ball Detected?", !ballDetectLS.get());
 		SmartDashboard.putNumber("Arm Pot", rollerPot.get());
+		System.out.println(rollerPot.get());
 		switch(ArmDirection){
 			case UP:
 			tiltRollerArmUp();	
