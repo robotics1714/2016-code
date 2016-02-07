@@ -154,7 +154,7 @@ public class RollerClaw {
 		SmartDashboard.putBoolean("Front LS", !frontLS.get());
 		SmartDashboard.putBoolean("Ball Detected?", !ballDetectLS.get());
 		SmartDashboard.putNumber("Arm Pot", rollerPot.get());
-		System.out.println(rollerPot.get());
+		//System.out.println(rollerPot.get());
 		switch(ArmDirection){
 			case UP:
 			tiltRollerArmUp();	

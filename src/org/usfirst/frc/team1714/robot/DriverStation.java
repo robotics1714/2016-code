@@ -21,7 +21,7 @@ public class DriverStation {
 		lift = linearLift;
 		leftStick = new Joystick(1);
 		rightStick = new Joystick(0);
-		//xboxStick= new Joystick(2);
+		xboxStick= new Joystick(2);
 		drive = new RobotDrive(driveTrain.tLeftFront, driveTrain.tLeftRear ,driveTrain.tRightFront, driveTrain.tRightRear);	
 	}
 	
@@ -43,7 +43,7 @@ public class DriverStation {
 		else if(leftStick.getRawButton(7)) {//shift the transmmission to high gear
 			train.setShiftGearHigh();
 		}*/
-		if(leftStick.getRawButton(2)){//roller roll inward the robot //D-pad up
+		/*if(leftStick.getRawButton(2)){//roller roll inward the robot //D-pad up
 			claw.setRollerBarIn();
 		}
 		if(leftStick.getRawButton(3)){//roller roll outward the robot //D-pad down
@@ -65,20 +65,21 @@ public class DriverStation {
 		}
 		else if(rightStick.getRawButton(5)){//move roller arm to a position //button X
 			claw.setRollerArmPos();
-		}
-		/*if(xboxStick.getPOV()==0){//roller roll inward the robot //D-pad up
+		}*/
+		if(xboxStick.getPOV()==0){//roller roll inward the robot //D-pad up
 			claw.setRollerBarIn();
 		}
 		if(xboxStick.getPOV()==180){//roller roll outward the robot //D-pad down
 			claw.setRollerBarOut();
 		}
 		if(xboxStick.getPOV()==270){//
-			
+			claw.setRollerBarStop();
 		}
-		if(xboxStick.getPOV()==180){//stop roller bar rolling  //D-pad right
+		if(xboxStick.getPOV()==90){//stop roller bar rolling  //D-pad right
 			claw.setRollerBarStop();
 		}
 		
+		System.out.println(xboxStick.getPOV());
 		
 		if(xboxStick.getRawButton(4)){//roller arm up //button Y
 			claw.setRollerArmUp();
@@ -91,7 +92,7 @@ public class DriverStation {
 		}
 		else if(xboxStick.getRawButton(3)){//move roller arm to a position //button X
 			claw.setRollerArmPos();
-		}*/
+		}
 		
 		/*if(xboxStick.getRawButton(7)){//auto scaling //back button
 		
