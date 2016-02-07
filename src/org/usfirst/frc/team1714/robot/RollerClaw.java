@@ -10,8 +10,8 @@ public class RollerClaw {
 	private DigitalInput rearLS, frontLS, ballDetectLS;
 	private AnalogPotentiometer rollerPot;
 	private double 
-		armSpeed=0.5, 
-		rollerSpeed=0.5, 
+		armSpeed=0.25, 
+		rollerSpeed=0.25, 
 		rollerAdjustment=20,
 		potBuffer=2,//max and min of potentiometer reading and buffer
 		rollerPotPos1 = 30,//potentiometer reading for a arm positions
@@ -98,7 +98,7 @@ public class RollerClaw {
 	private void rollBallStop(){
 		//System.out.println("Hereeeeeeeeeee");
 				
-		rollerMotor.set(0.1);
+		rollerMotor.set(0.0);
 	}
 	
 	public boolean rollerArmFullUp(){
