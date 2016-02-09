@@ -2,7 +2,7 @@ package org.usfirst.frc.team1714.robot;
 
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.Timer;
+// import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.Servo;
@@ -15,25 +15,27 @@ public class LinearLift {
 	private DigitalInput winchLSMin;
 	private AnalogPotentiometer winchPot;
 	
+	/* Autolift system - really bad, don't use
 	private double currentTime;
 	private double lastTime;
 	private boolean startedAutoScale = false;
+	*/
 	
 // THESE ARE PLACEHOLDERS!!! CHANGE THEM!!!
 	final private double winchSpeed = 0;
 	final private double winchPotMax = 0;
 	final private double winchPotMin = 0;
-	final private int tiltServoPin = 0;
-	final private int tiltLSPin = 0;
-	final private int winchPotPin = 0;
-	final private int winchMotorPin = 0;
-	final private int winchLSMaxPin = 0;
-	final private int winchLSMinPin = 0;
+	final private int tiltServoPin = 3;
+	final private int tiltLSPin = 3;
+	final private int winchPotPin = 1;
+	final private int winchMotorPin = 1;
+	final private int winchLSMaxPin = 1;
+	final private int winchLSMinPin = 2;
 	final private double tiltServoPos = 0;
 // END OF PLACEHOLDER VALUES!!!
 	
 	private boolean tiltingLiftUp = false;
-	private boolean autoScaling = false;
+	// private boolean autoScaling = false;
 	
 	private enum LiftState {
 		extending, retracting, stopped
@@ -67,9 +69,11 @@ public class LinearLift {
 		currentState = LiftState.stopped;
 	}
 	
+	/*
 	void setAutoScale() {
 		autoScaling = true;
 	}
+	*/
 	
 	private void tiltLiftUp() {
 		if (tiltLS.get()) {
@@ -130,7 +134,7 @@ public class LinearLift {
 		SmartDashboard.putBoolean("Winch Max LS", !winchLSMax.get());
 		SmartDashboard.putBoolean("Winch Min LS", !winchLSMin.get());		
 		
-		currentTime=Timer.getFPGATimestamp();
+		// currentTime=Timer.getFPGATimestamp();
 		if (tiltingLiftUp) {
 			tiltLiftUp();
 		}

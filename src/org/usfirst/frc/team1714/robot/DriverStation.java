@@ -26,7 +26,7 @@ public class DriverStation {
 	}
 	
 	public void update(){
-		/*drive.tankDrive(leftStick, rightStick, true);
+		drive.tankDrive(leftStick, rightStick, true);
 		if(scaleMode==true){
 			drive.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, true);
 			drive.setInvertedMotor(RobotDrive.MotorType.kFrontRight, true);
@@ -42,17 +42,7 @@ public class DriverStation {
 		}
 		else if(leftStick.getRawButton(7)) {//shift the transmmission to high gear
 			train.setShiftGearHigh();
-		}*/
-		/*if(leftStick.getRawButton(2)){//roller roll inward the robot //D-pad up
-			claw.setRollerBarIn();
 		}
-		if(leftStick.getRawButton(3)){//roller roll outward the robot //D-pad down
-			claw.setRollerBarOut();
-		}
-		if(leftStick.getRawButton(4)){//stop roller bar rolling  //D-pad right
-			claw.setRollerBarStop();
-		}
-		
 		
 		if(rightStick.getRawButton(3)){//roller arm up //button Y
 			claw.setRollerArmUp();
@@ -65,22 +55,18 @@ public class DriverStation {
 		}
 		else if(rightStick.getRawButton(5)){//move roller arm to a position //button X
 			claw.setRollerArmPos();
-		}*/
-		if(xboxStick.getPOV()==0){//roller roll inward the robot //D-pad up
+		}
+		
+		if(xboxStick.getPOV()==180){//roller roll inward the robot //D-pad down
 			claw.setRollerBarIn();
 		}
-		if(xboxStick.getPOV()==180){//roller roll outward the robot //D-pad down
+		if(xboxStick.getPOV()==0){//roller roll outward the robot //D-pad up
 			claw.setRollerBarOut();
 		}
-		if(xboxStick.getPOV()==270){//
+		if(xboxStick.getPOV()==270 || xboxStick.getPOV()==90){ //stop roller claw with d-pad left or right
 			claw.setRollerBarStop();
 		}
-		if(xboxStick.getPOV()==90){//stop roller bar rolling  //D-pad right
-			claw.setRollerBarStop();
-		}
-		
-		System.out.println(xboxStick.getPOV());
-		
+
 		if(xboxStick.getRawButton(4)){//roller arm up //button Y
 			claw.setRollerArmUp();
 		}
@@ -94,36 +80,26 @@ public class DriverStation {
 			claw.setRollerArmPos();
 		}
 		
-		/*if(xboxStick.getRawButton(7)){//auto scaling //back button
-		
+		if(xboxStick.getRawButton(6)){//liftExtend  //right bumper
+			lift.setExtendLift();
 		}
-		if(xboxStick.getRawButton(10)){//manual override auto scaling  //press right joystick
-			//control.whatever();
-			liftOverride=true;
+		else if(xboxStick.getRawButton(5)){//liftRetract  //left bumper
+			lift.setRetractLift();
 		}
-		
-		if(liftOverride){
-			if(xboxStick.getPOV()==0){//liftExtend  //D-pad up
-				lift.setExtendLift();
-			}
-			else if(xboxStick.getPOV()==180){//liftRetrack  //D-pad down
-				lift.setRetractLift();
-			}
-			else if(xboxStick.getPOV()==270){//liftStop  //D-pad left
-				lift.setLiftStop();
-			}
-			if(xboxStick.getPOV()==180){//liftUp  //D-pad right
-				lift.setTiltLiftUp();
-			}
+		else if(xboxStick.getRawButton(8)){//liftStop  //start button
+			lift.setLiftStop();
+		}
+		if(xboxStick.getRawButton(7)){//liftUp  //back button
+			lift.setTiltLiftUp();
 		}
 		
+		/*
 		if(xboxStick.getRawButton(6)){//slightly tilt the roller arm up //right bumper
 			claw.setRollerArmAdjustUp();
 		}
 		else if(xboxStick.getRawButton(5)){//slightly tilt the roller arm down //left bumper
 			claw.setRollerArmAdjustDown();
 		}
-
 		
 		if(leftStick.getRawButton(8)) {
 			train.setCompressorOff();

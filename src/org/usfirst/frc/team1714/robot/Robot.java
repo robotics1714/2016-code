@@ -35,7 +35,7 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putData("Auto choices", chooser);
         train = new DriveTrain();
         claw = new RollerClaw();
-        // lift = new LinearLift();
+        lift = new LinearLift();
         control = new Control(train, claw, lift);
         station= new DriverStation(train, claw, lift, control);
     }
@@ -74,9 +74,9 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
-        //train.update();
+        train.update();
         claw.update();
-        // lift.update();
+        lift.update();
         control.update();
         station.update();
     }
