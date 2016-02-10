@@ -70,8 +70,17 @@ public class DriveTrain{
     	}
     }
     
-    /**transmission**/
+    void setLeftSide(double speed) {
+    	tLeftFront.set(speed);
+    	tLeftRear.set(speed);
+    }
     
+    void setRightSide(double speed) {
+    	tRightFront.set(speed);
+    	tRightRear.set(speed);
+    }
+    
+    /**transmission**/
     private void shiftGearHigh() {
     	solenoid.set(DoubleSolenoid.Value.kForward);
     	shiftingGearHigh = false;

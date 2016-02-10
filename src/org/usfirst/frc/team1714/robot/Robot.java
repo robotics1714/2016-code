@@ -2,6 +2,7 @@
 package org.usfirst.frc.team1714.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -14,15 +15,21 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 
 public class Robot extends IterativeRobot {
-    final String defaultAuto = "Default";
-    final String customAuto = "My Auto";
+    final String auto1Lowbar = "auto1Lowbar";
+    final String auto1Rough = "auto1Rough";
     String autoSelected;
     SendableChooser chooser;
+    
     DriveTrain train;
     RollerClaw claw;
     LinearLift lift;
     Control control;
 	DriverStation station;
+	
+	final double auto1LowbarTime = 10;
+	final double auto1LowbarSpeed = 0.5;
+	double currentTime = 0;
+	double lastTime = 0;
     
     /**
      * This function is run when the robot is first started up and should be
@@ -30,9 +37,10 @@ public class Robot extends IterativeRobot {
      */
     public void robotInit() {
         chooser = new SendableChooser();
-        chooser.addDefault("Default Auto", defaultAuto);
-        chooser.addObject("My Auto", customAuto);
+        chooser.addDefault("Auto 1: Lowbar", auto1Lowbar);
+        chooser.addObject("Auto 1: Rough Terrain", auto1Rough);
         SmartDashboard.putData("Auto choices", chooser);
+        
         train = new DriveTrain();
         claw = new RollerClaw();
         lift = new LinearLift();
@@ -51,8 +59,8 @@ public class Robot extends IterativeRobot {
 	 */
     public void autonomousInit() {
     	autoSelected = (String) chooser.getSelected();
-//		autoSelected = SmartDashboard.getString("Auto Selector", defaultAuto);
 		System.out.println("Auto selected: " + autoSelected);
+		lastTime = Timer.getFPGATimestamp();
     }
 
     /**
@@ -60,12 +68,21 @@ public class Robot extends IterativeRobot {
      */
     public void autonomousPeriodic() {
     	switch(autoSelected) {
-    	case customAuto:
+    	case auto1Rough:
         //Put custom auto code here   
             break;
-    	case defaultAuto:
+    	case auto1Lowbar:
     	default:
-    	//Put default auto code here
+    		currentTime = Timer.getFPGATimestamp();
+    		if((currentTime - lastTime) > auto1LowbarTime) {
+    			train.setLeftSide(0.0);
+    			train.setRightSide(0.0);
+    			System.out.println("stopping \n");
+    		}
+    		else {
+    			train.setLeftSide(auto1LowbarSpeed);
+    			train.setRightSide(auto1LowbarSpeed);
+    		}
             break;
     	}
     }

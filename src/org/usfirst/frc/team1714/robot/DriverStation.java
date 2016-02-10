@@ -22,7 +22,7 @@ public class DriverStation {
 		leftStick = new Joystick(1);
 		rightStick = new Joystick(0);
 		xboxStick= new Joystick(2);
-		drive = new RobotDrive(driveTrain.tLeftFront, driveTrain.tLeftRear ,driveTrain.tRightFront, driveTrain.tRightRear);	
+		//drive = new RobotDrive(driveTrain.tLeftFront, driveTrain.tLeftRear ,driveTrain.tRightFront, driveTrain.tRightRear);	
 	}
 	
 	public void update(){

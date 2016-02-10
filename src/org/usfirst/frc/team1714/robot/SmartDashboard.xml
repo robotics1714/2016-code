@@ -1,0 +1,82 @@
+<xml version="1.0">
+<dashboard>
+	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.ConnectionIndicator">
+		<location x="982" y="8"/>
+		<width>144</width>
+		<height>67</height>
+	</static-widget>
+	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.Label">
+		<location x="996" y="91"/>
+		<width>121</width>
+		<height>17</height>
+		<property name="Text" value="Drive Train"/>
+	</static-widget>
+	<widget field="Gear High?" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
+		<location x="983" y="112"/>
+		<width>142</width>
+		<height>45</height>
+	</widget>
+	<widget field="Winch Pot" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.ProgressBar">
+		<location x="278" y="305"/>
+		<height>39</height>
+	</widget>
+	<widget field="Arm Pot" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.ProgressBar">
+		<location x="277" y="107"/>
+		<height>39</height>
+	</widget>
+	<widget field="Winch Min LS" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
+		<location x="277" y="444"/>
+		<width>137</width>
+		<height>32</height>
+	</widget>
+	<widget field="Winch Max LS" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
+		<location x="278" y="398"/>
+		<width>139</width>
+		<height>33</height>
+	</widget>
+	<widget field="Tilt LS" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
+		<location x="278" y="356"/>
+		<width>101</width>
+		<height>30</height>
+	</widget>
+	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.Label">
+		<location x="325" y="279"/>
+		<property name="Text" value="Linear Lift"/>
+	</static-widget>
+	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.ConnectionIndicator">
+		<location x="275" y="6"/>
+		<width>153</width>
+		<height>70</height>
+	</static-widget>
+	<widget field="Rear LS" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
+		<location x="277" y="224"/>
+		<width>111</width>
+		<height>27</height>
+	</widget>
+	<widget field="Ball Detected?" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
+		<location x="276" y="152"/>
+		<width>143</width>
+		<height>30</height>
+	</widget>
+	<widget field="Front LS" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
+		<location x="277" y="190"/>
+		<width>115</width>
+		<height>25</height>
+	</widget>
+	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.VideoStreamViewerExtension">
+		<location x="453" y="8"/>
+		<width>509</width>
+		<height>468</height>
+		<property name="Camera IP Address or mDNS name" value="10.17.14.201"/>
+	</static-widget>
+	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.Label">
+		<location x="321" y="90"/>
+		<property name="Text" value="Roller Claw"/>
+	</static-widget>
+	<widget field="Auto choices" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
+		<location x="968" y="407"/>
+	</widget>
+</dashboard>
+<live-window>
+</live-window>
+</xml>
