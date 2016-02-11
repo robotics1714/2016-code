@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends IterativeRobot {
     final String auto1Lowbar = "auto1Lowbar";
     final String auto1Rough = "auto1Rough";
+    final String auto2B = "auto2B";
     String autoSelected;
     SendableChooser chooser;
     
@@ -39,13 +40,13 @@ public class Robot extends IterativeRobot {
         chooser = new SendableChooser();
         chooser.addDefault("Auto 1: Lowbar", auto1Lowbar);
         chooser.addObject("Auto 1: Rough Terrain", auto1Rough);
+        chooser.addObject("Auto 2 B", auto2B);
         SmartDashboard.putData("Auto choices", chooser);
         
         train = new DriveTrain();
         claw = new RollerClaw();
         lift = new LinearLift();
         control = new Control(train, claw, lift);
-        station= new DriverStation(train, claw, lift, control);
     }
     
 	/**
@@ -77,7 +78,19 @@ public class Robot extends IterativeRobot {
     		if((currentTime - lastTime) > auto1LowbarTime) {
     			train.setLeftSide(0.0);
     			train.setRightSide(0.0);
-    			System.out.println("stopping \n");
+    		}
+    		else {
+    			train.setLeftSide(auto1LowbarSpeed);
+    			train.setRightSide(auto1LowbarSpeed);
+    		}
+            break;
+            
+    	case auto2B:
+    		currentTime = Timer.getFPGATimestamp();
+    		if((currentTime - lastTime) > auto1LowbarTime) {
+    			train.setLeftSide(-auto1LowbarSpeed);
+    			train.setRightSide(-auto1LowbarSpeed);
+    			
     		}
     		else {
     			train.setLeftSide(auto1LowbarSpeed);
@@ -86,7 +99,9 @@ public class Robot extends IterativeRobot {
             break;
     	}
     }
-
+    public void teleopInit(){
+    	station= new DriverStation(train, claw, lift, control);
+    }
     /**
      * This function is called periodically during operator control
      */
