@@ -8,14 +8,13 @@ public class DriverStation {
 	private DriveTrain train;
 	private LinearLift lift;
 	private RollerClaw claw;
-	private Control control;
 	private RobotDrive drive;
 	
 	int button;//placeholder
 	
 	boolean scaleMode=false,liftOverride=false;
 	
-	DriverStation(DriveTrain driveTrain, RollerClaw rollerClaw, LinearLift linearLift, Control control){
+	DriverStation(DriveTrain driveTrain, RollerClaw rollerClaw, LinearLift linearLift){
 		train = driveTrain;
 		claw = rollerClaw;
 		lift = linearLift;

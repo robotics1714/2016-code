@@ -15,38 +15,67 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 
 public class Robot extends IterativeRobot {
-    final String auto1Lowbar = "auto1Lowbar";
-    final String auto1Rough = "auto1Rough";
-    final String auto2B = "auto2B";
-    String autoSelected;
-    SendableChooser chooser;
+    String defenseSelected;
+    String endSelected;
+    String delaySelected;
+    SendableChooser defenseChooser;
+    SendableChooser endChooser;
+    SendableChooser delayChooser;
     
     DriveTrain train;
     RollerClaw claw;
     LinearLift lift;
-    Control control;
 	DriverStation station;
 	
-	final double auto1LowbarTime = 10;
-	final double auto1LowbarSpeed = 0.5;
-	double currentTime = 0;
-	double lastTime = 0;
+	final double defLowbarTime = 10;
+	final double defLowbarSpeed = 0.5;
+	final double defRoughTime = 0;
+	final double defRoughSpeed = 0;
+	final double defMoatTime = 0;
+	final double defMoatSpeed = 0;
+	final double defRockTime = 0;
+	final double defRockSpeed = 0;
+	final double defRampartsTime = 0;
+	final double defRampartsSpeed = 0;
+	
+	//auto timing vars
+	 boolean defRan = false;
+	 boolean defFin = false;
+	 boolean endRan = false;
+	 boolean endFin = false;
+	 boolean delayRan = false;
+	 boolean delayFin = false;
+	 
+	 double defStartTime = 0;
+	 double endStartTime = 0;
+	 double delayStartTime = 0;
+	 double currentTime = 0;
     
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
     public void robotInit() {
-        chooser = new SendableChooser();
-        chooser.addDefault("Auto 1: Lowbar", auto1Lowbar);
-        chooser.addObject("Auto 1: Rough Terrain", auto1Rough);
-        chooser.addObject("Auto 2 B", auto2B);
-        SmartDashboard.putData("Auto choices", chooser);
+        defenseChooser = new SendableChooser();
+        defenseChooser.addDefault("Lowbar", "defLowbar");
+        defenseChooser.addObject("Rough Terrain", "defRough");
+        defenseChooser.addObject("Moat", "defMoat");
+        defenseChooser.addObject("Ramparts", "defRamparts");
+        defenseChooser.addObject("Rock Wall", "defRock");
+        SmartDashboard.putData("Defenses:", defenseChooser);
+        endChooser = new SendableChooser();
+        endChooser.addObject("Near Lowgoal", "endLG");
+        endChooser.addObject("In Neutral Zone", "endNZ");
+        endChooser.addObject("Score (EXPERIMENTAL)", "endScore");
+        SmartDashboard.putData("End:", endChooser);
+        delayChooser = new SendableChooser();
+        delayChooser.addObject("0 seconds", "delay0");
+        delayChooser.addObject("5 seconds", "delay5");
+        SmartDashboard.putData("Delay:", delayChooser);
         
         train = new DriveTrain();
         claw = new RollerClaw();
         lift = new LinearLift();
-        control = new Control(train, claw, lift);
     }
     
 	/**
@@ -58,49 +87,167 @@ public class Robot extends IterativeRobot {
 	 * You can add additional auto modes by adding additional comparisons to the switch structure below with additional strings.
 	 * If using the SendableChooser make sure to add them to the chooser code above as well.
 	 */
+    
     public void autonomousInit() {
-    	autoSelected = (String) chooser.getSelected();
-		System.out.println("Auto selected: " + autoSelected);
-		lastTime = Timer.getFPGATimestamp();
+    	delaySelected = (String) delayChooser.getSelected();
+    	defenseSelected = (String) defenseChooser.getSelected();
+    	endSelected = (String) endChooser.getSelected();
+		System.out.println("Auto selected: " + delaySelected + defenseSelected + endSelected);
     }
 
     /**
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
-    	switch(autoSelected) {
-    	case auto1Rough:
-        //Put custom auto code here   
-            break;
-    	case auto1Lowbar:
-    	default:
-    		currentTime = Timer.getFPGATimestamp();
-    		if((currentTime - lastTime) > auto1LowbarTime) {
-    			train.setLeftSide(0.0);
-    			train.setRightSide(0.0);
-    		}
-    		else {
-    			train.setLeftSide(auto1LowbarSpeed);
-    			train.setRightSide(auto1LowbarSpeed);
-    		}
-            break;
-            
-    	case auto2B:
-    		currentTime = Timer.getFPGATimestamp();
-    		if((currentTime - lastTime) > auto1LowbarTime) {
-    			train.setLeftSide(-auto1LowbarSpeed);
-    			train.setRightSide(-auto1LowbarSpeed);
-    			
-    		}
-    		else {
-    			train.setLeftSide(auto1LowbarSpeed);
-    			train.setRightSide(auto1LowbarSpeed);
-    		}
-            break;
+    	// if we're not done delaying, ...
+    	if(!delayFin) {
+	    	switch(delaySelected) {
+	    	case "delay0":
+	    	default:
+	    		currentTime = Timer.getFPGATimestamp();
+	    		// if we haven't started timing, start timing
+	    		if(!delayRan) {
+	    			delayStartTime = Timer.getFPGATimestamp();
+	    			delayRan = true;
+	    		}
+	    		// if we've reached the time we set, we're done delaying
+	    		if((currentTime - delayStartTime) > 0) {
+	    			delayFin = true;
+	    		}
+	    		break;
+	    	case "delay5":
+	    		currentTime = Timer.getFPGATimestamp();
+	    		// if we haven't started timing, start timing
+	    		if(!delayRan) {
+	    			delayStartTime = Timer.getFPGATimestamp();
+	    			delayRan = true;
+	    		}
+	    		// if we've reached the time we set, we're done delaying
+	    		if((currentTime - delayStartTime) > 5) {
+	    			delayFin = true;
+	    		}
+	    		break;
+	    	}
+    	}
+    	
+    	if(delayFin && !defFin) {
+	    	switch(defenseSelected) {
+	    	case "defRough":
+	    		currentTime = Timer.getFPGATimestamp();
+	    		// if we haven't started timing, start timing
+	    		if(!defRan) {
+	    			defStartTime = Timer.getFPGATimestamp();
+	    			defRan = true;
+	    		}
+	    		// if we've reached the time we set, we're done moving, so stop the motors.
+	    		if((currentTime - defStartTime) > defRoughTime) {
+	    			train.setLeftSide(0.0);
+	    			train.setRightSide(0.0);
+	    			defFin = true;
+	    		}
+	    		// if we haven't reached the time we set, keep moving!
+	    		else {
+	    			train.setRightSide(defRoughSpeed);
+	    			train.setLeftSide(defRoughSpeed);
+	    		}
+	            break;
+	    	case "defMoat":
+	    		currentTime = Timer.getFPGATimestamp();
+	    		// if we haven't started timing, start timing
+	    		if(!defRan) {
+	    			defStartTime = Timer.getFPGATimestamp();
+	    			defRan = true;
+	    		}
+	    		// if we've reached the time we set, we're done moving, so stop the motors.
+	    		if((currentTime - defStartTime) > defMoatTime) {
+	    			train.setLeftSide(0.0);
+	    			train.setRightSide(0.0);
+	    			defFin = true;
+	    		}
+	    		// if we haven't reached the time we set, keep moving!
+	    		else {
+	    			train.setRightSide(defMoatSpeed);
+	    			train.setLeftSide(defMoatSpeed);
+	    		}
+	    		break;
+	    	case "defRamparts":
+	    		currentTime = Timer.getFPGATimestamp();
+	    		// if we haven't started timing, start timing
+	    		if(!defRan) {
+	    			defStartTime = Timer.getFPGATimestamp();
+	    			defRan = true;
+	    		}
+	    		// if we've reached the time we set, we're done moving, so stop the motors.
+	    		if((currentTime - defStartTime) > defRampartsTime) {
+	    			train.setLeftSide(0.0);
+	    			train.setRightSide(0.0);
+	    			defFin = true;
+	    		}
+	    		// if we haven't reached the time we set, keep moving!
+	    		else {
+	    			train.setRightSide(defRampartsSpeed);
+	    			train.setLeftSide(defRampartsSpeed);
+	    		}
+	    		break;
+	    	case "defRock":
+	    		currentTime = Timer.getFPGATimestamp();
+	    		// if we haven't started timing, start timing
+	    		if(!defRan) {
+	    			defStartTime = Timer.getFPGATimestamp();
+	    			defRan = true;
+	    		}
+	    		// if we've reached the time we set, we're done moving, so stop the motors.
+	    		if((currentTime - defStartTime) > defRockTime) {
+	    			train.setLeftSide(0.0);
+	    			train.setRightSide(0.0);
+	    			defFin = true;
+	    		}
+	    		// if we haven't reached the time we set, keep moving!
+	    		else {
+	    			train.setRightSide(defRockSpeed);
+	    			train.setLeftSide(defRockSpeed);
+	    		}
+	    		break;
+	    	case "defLowbar":
+	    	default:
+	    		currentTime = Timer.getFPGATimestamp();
+	    		// if we haven't started timing, start timing
+	    		if(!defRan) {
+	    			defStartTime = Timer.getFPGATimestamp();
+	    			defRan = true;
+	    		}
+	    		// if we've reached the time we set, we're done moving, so stop the motors.
+	    		if((currentTime - defStartTime) > defLowbarTime) {
+	    			train.setLeftSide(0.0);
+	    			train.setRightSide(0.0);
+	    			defFin = true;
+	    		}
+	    		// if we haven't reached the time we set, keep moving!
+	    		else {
+	    			train.setRightSide(defLowbarSpeed);
+	    			train.setLeftSide(defLowbarSpeed);
+	    		}
+	    		break;
+    	
+	    	}
+    	}
+    	
+    	switch(endSelected) {
+		case "endLG":
+		default:
+			// INSERT CODE TO GO TO LOW GOAL
+    		break;
+    	case "endNZ":
+    		// INSERT CODE TO GO TO NEUTRAL ZONE
+    		break;
+    	case "endScore":
+    		// INSERT CODE TO SCORE
+    		break;
     	}
     }
+    
     public void teleopInit(){
-    	station= new DriverStation(train, claw, lift, control);
+    	station = new DriverStation(train, claw, lift);
     }
     /**
      * This function is called periodically during operator control
@@ -109,7 +256,6 @@ public class Robot extends IterativeRobot {
         train.update();
         claw.update();
         lift.update();
-        control.update();
         station.update();
     }
     
