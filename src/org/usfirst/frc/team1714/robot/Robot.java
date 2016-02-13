@@ -17,11 +17,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends IterativeRobot {
     String defenseSelected;
     String endSelected;
-    int delaySelected;
+    boolean ballSelected;
     int positionSelected;
     SendableChooser defenseChooser;
     SendableChooser endChooser;
-    SendableChooser delayChooser;
+    SendableChooser ballChooser;
     SendableChooser positionChooser;
     
     DriveTrain train;
@@ -52,12 +52,12 @@ public class Robot extends IterativeRobot {
 	 boolean defFin = false;
 	 boolean endRan = false;
 	 boolean endFin = false;
-	 boolean delayRan = false;
-	 boolean delayFin = false;
+	 boolean ballRan = false;
+	 boolean ballFin = false;
 	 
 	 double defStartTime = 0;
 	 double endStartTime = 0;
-	 double delayStartTime = 0;
+	 double ballStartTime = 0;
 	 double currentTime = 0;
     
     /**
@@ -77,10 +77,10 @@ public class Robot extends IterativeRobot {
         endChooser.addObject("In Neutral Zone", "endNZ");
         endChooser.addObject("Score (EXPERIMENTAL)", "endScore");
         SmartDashboard.putData("End:", endChooser);
-        delayChooser = new SendableChooser();
-        delayChooser.addObject("0 seconds", 0);
-        delayChooser.addObject("5 seconds", 5);
-        SmartDashboard.putData("Delay:", delayChooser);
+        ballChooser = new SendableChooser();
+        ballChooser.addObject("Keep Ball", true);
+        ballChooser.addObject("Drop Ball", false);
+        SmartDashboard.putData("Keep Ball:", ballChooser);
         positionChooser = new SendableChooser();
         positionChooser.addObject("Position 5 (Lowbar)", 5);
         positionChooser.addObject("Position 4", 4);
@@ -105,11 +105,11 @@ public class Robot extends IterativeRobot {
 	 */
     
     public void autonomousInit() {
-    	delaySelected = (int) delayChooser.getSelected();
+    	ballSelected = (boolean) ballChooser.getSelected();
     	defenseSelected = (String) defenseChooser.getSelected();
     	endSelected = (String) endChooser.getSelected();
     	positionSelected = (int) positionChooser.getSelected();
-		System.out.println("Auto selected: " + delaySelected + defenseSelected + endSelected);
+		System.out.println("Auto selected: " + ballSelected + defenseSelected + endSelected);
     }
 
     /**
@@ -117,37 +117,17 @@ public class Robot extends IterativeRobot {
      */
     public void autonomousPeriodic() {
     	// if we're not done delaying, ...
-    	if(!delayFin) {
-	    	switch(delaySelected) {
-	    	case 0:
-	    	default:
-	    		currentTime = Timer.getFPGATimestamp();
-	    		// if we haven't started timing, start timing
-	    		if(!delayRan) {
-	    			delayStartTime = Timer.getFPGATimestamp();
-	    			delayRan = true;
-	    		}
-	    		// if we've reached the time we set, we're done delaying
-	    		if((currentTime - delayStartTime) > 0) {
-	    			delayFin = true;
-	    		}
-	    		break;
-	    	case 5:
-	    		currentTime = Timer.getFPGATimestamp();
-	    		// if we haven't started timing, start timing
-	    		if(!delayRan) {
-	    			delayStartTime = Timer.getFPGATimestamp();
-	    			delayRan = true;
-	    		}
-	    		// if we've reached the time we set, we're done delaying
-	    		if((currentTime - delayStartTime) > 5) {
-	    			delayFin = true;
-	    		}
-	    		break;
+    	if(!ballFin && defFin && endFin) {
+	    	if(!ballSelected) {
+	    		claw.setRollerBarOut();
+	    		ballFin = true;
+	    	}
+	    	else {
+	    		ballFin = true;
 	    	}
     	}
     	
-    	if(delayFin && !defFin) {
+    	if(!defFin) {
 	    	switch(defenseSelected) {
 	    	case "defRough":
 	    		currentTime = Timer.getFPGATimestamp();
@@ -249,7 +229,7 @@ public class Robot extends IterativeRobot {
 	    	}
     	}
     	
-    	if(delayFin && defFin && !endFin) {
+    	if(defFin && !endFin) {
 	    	switch(endSelected) {
 			case "endLG":
 			default:
