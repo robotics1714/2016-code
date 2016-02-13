@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.Servo;
 
 public class LinearLift {
 	private Servo tiltServo;
-	private Talon winchMotor;
+	private Talon winchMotor1, winchMotor2;
 	public DigitalInput tiltLS;
 	public DigitalInput winchLSMax;
 	private DigitalInput winchLSMin;
@@ -28,7 +28,8 @@ public class LinearLift {
 	final private int tiltServoPin = 3;
 	final private int tiltLSPin = 3;
 	final private int winchPotPin = 1;
-	final private int winchMotorPin = 1;
+	final private int winchMotor1Pin = 1;
+	final private int winchMotor2Pin = 4;
 	final private int winchLSMaxPin = 1;
 	final private int winchLSMinPin = 2;
 	final private double tiltServoPos = 0;
@@ -46,7 +47,8 @@ public class LinearLift {
 	LinearLift() {
 		tiltServo = new Servo(tiltServoPin);
 		tiltLS = new DigitalInput(tiltLSPin);
-		winchMotor = new Talon(winchMotorPin);
+		winchMotor1 = new Talon(winchMotor1Pin);
+		winchMotor2 = new Talon(winchMotor2Pin);
 		winchLSMax = new DigitalInput(winchLSMaxPin);
 		winchLSMin = new DigitalInput(winchLSMinPin);
 		winchPot = new AnalogPotentiometer(winchPotPin);
@@ -65,7 +67,7 @@ public class LinearLift {
 	}
 	
 	void setLiftStop() {
-		winchMotor.set (0.0);
+		winchMotor1.set (0.0);
 		currentState = LiftState.stopped;
 	}
 	
@@ -87,20 +89,24 @@ public class LinearLift {
 	
 	private void extendLift() {
 		if (winchLSMax.get() && winchPot.get() < winchPotMax) {
-			winchMotor.set(winchSpeed);
+			winchMotor1.set(winchSpeed);
+			winchMotor2.set(winchSpeed);
 		}
 		else {
-			winchMotor.set(0.0);
+			winchMotor1.set(0.0);
+			winchMotor2.set(0.0);
 			currentState = LiftState.stopped;
 		}
 	}
 	
 	private void retractLift() {
 		if (winchLSMin.get() && winchPot.get() > winchPotMin) {
-			winchMotor.set(-winchSpeed);
+			winchMotor1.set(-winchSpeed);
+			winchMotor2.set(-winchSpeed);
 		}
 		else {
-			winchMotor.set(0.0);
+			winchMotor1.set(0.0);
+			winchMotor2.set(0.0);
 			currentState = LiftState.stopped;
 		}
 	}
