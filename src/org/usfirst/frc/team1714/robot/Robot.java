@@ -17,26 +17,35 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends IterativeRobot {
     String defenseSelected;
     String endSelected;
-    String delaySelected;
+    int delaySelected;
+    int positionSelected;
     SendableChooser defenseChooser;
     SendableChooser endChooser;
     SendableChooser delayChooser;
+    SendableChooser positionChooser;
     
     DriveTrain train;
     RollerClaw claw;
     LinearLift lift;
 	DriverStation station;
 	
+	// auto timing constants
 	final double defLowbarTime = 10;
 	final double defLowbarSpeed = 0.5;
-	final double defRoughTime = 0;
-	final double defRoughSpeed = 0;
+	final double defRoughTime = 5;
+	final double defRoughSpeed = 0.25;
 	final double defMoatTime = 0;
 	final double defMoatSpeed = 0;
 	final double defRockTime = 0;
 	final double defRockSpeed = 0;
 	final double defRampartsTime = 0;
 	final double defRampartsSpeed = 0;
+	final double lgSpeed = 1;
+	final double pos1Time = 7;
+	final double pos2Time = 0;
+	final double pos3Time = 0;
+	final double pos4Time = 0;
+	final double pos5Time = 0;
 	
 	//auto timing vars
 	 boolean defRan = false;
@@ -69,9 +78,16 @@ public class Robot extends IterativeRobot {
         endChooser.addObject("Score (EXPERIMENTAL)", "endScore");
         SmartDashboard.putData("End:", endChooser);
         delayChooser = new SendableChooser();
-        delayChooser.addObject("0 seconds", "delay0");
-        delayChooser.addObject("5 seconds", "delay5");
+        delayChooser.addObject("0 seconds", 0);
+        delayChooser.addObject("5 seconds", 5);
         SmartDashboard.putData("Delay:", delayChooser);
+        positionChooser = new SendableChooser();
+        positionChooser.addObject("Position 5 (Lowbar)", 5);
+        positionChooser.addObject("Position 4", 4);
+        positionChooser.addObject("Position 3", 3);
+        positionChooser.addObject("Position 2", 2);
+        positionChooser.addObject("Position 1", 1);
+        SmartDashboard.putData("Position:", positionChooser);
         
         train = new DriveTrain();
         claw = new RollerClaw();
@@ -89,9 +105,10 @@ public class Robot extends IterativeRobot {
 	 */
     
     public void autonomousInit() {
-    	delaySelected = (String) delayChooser.getSelected();
+    	delaySelected = (int) delayChooser.getSelected();
     	defenseSelected = (String) defenseChooser.getSelected();
     	endSelected = (String) endChooser.getSelected();
+    	positionSelected = (int) positionChooser.getSelected();
 		System.out.println("Auto selected: " + delaySelected + defenseSelected + endSelected);
     }
 
@@ -102,7 +119,7 @@ public class Robot extends IterativeRobot {
     	// if we're not done delaying, ...
     	if(!delayFin) {
 	    	switch(delaySelected) {
-	    	case "delay0":
+	    	case 0:
 	    	default:
 	    		currentTime = Timer.getFPGATimestamp();
 	    		// if we haven't started timing, start timing
@@ -115,7 +132,7 @@ public class Robot extends IterativeRobot {
 	    			delayFin = true;
 	    		}
 	    		break;
-	    	case "delay5":
+	    	case 5:
 	    		currentTime = Timer.getFPGATimestamp();
 	    		// if we haven't started timing, start timing
 	    		if(!delayRan) {
@@ -232,17 +249,214 @@ public class Robot extends IterativeRobot {
 	    	}
     	}
     	
-    	switch(endSelected) {
-		case "endLG":
-		default:
-			// INSERT CODE TO GO TO LOW GOAL
-    		break;
-    	case "endNZ":
-    		// INSERT CODE TO GO TO NEUTRAL ZONE
-    		break;
-    	case "endScore":
-    		// INSERT CODE TO SCORE
-    		break;
+    	if(delayFin && defFin && !endFin) {
+	    	switch(endSelected) {
+			case "endLG":
+			default:
+				switch(positionSelected) {
+				case 1:
+	    			currentTime = Timer.getFPGATimestamp();
+		    		// if we haven't started timing, start timing
+		    		if(!endRan) {
+		    			endStartTime = Timer.getFPGATimestamp();
+		    			endRan = true;
+		    		}
+		    		// if we've reached the time we set, we're done moving, so stop the motors.
+		    		if((currentTime - endStartTime) > pos1Time) {
+		    			train.setLeftSide(0.0);
+		    			train.setRightSide(0.0);
+		    			endFin = true;
+		    		}
+		    		// if we haven't reached the time we set, keep moving (towards the lowgoal)!
+		    		else {
+		    			train.setRightSide(lgSpeed);
+		    			train.setLeftSide(lgSpeed);
+		    		}
+					break;
+				case 2:
+	    			currentTime = Timer.getFPGATimestamp();
+		    		// if we haven't started timing, start timing
+		    		if(!endRan) {
+		    			endStartTime = Timer.getFPGATimestamp();
+		    			endRan = true;
+		    		}
+		    		// if we've reached the time we set, we're done moving, so stop the motors.
+		    		if((currentTime - endStartTime) > pos2Time) {
+		    			train.setLeftSide(0.0);
+		    			train.setRightSide(0.0);
+		    			endFin = true;
+		    		}
+		    		// if we haven't reached the time we set, keep moving (towards the lowgoal)!
+		    		else {
+		    			train.setRightSide(lgSpeed);
+		    			train.setLeftSide(lgSpeed);
+		    		}
+					break;
+				case 3:
+	    			currentTime = Timer.getFPGATimestamp();
+		    		// if we haven't started timing, start timing
+		    		if(!endRan) {
+		    			endStartTime = Timer.getFPGATimestamp();
+		    			endRan = true;
+		    		}
+		    		// if we've reached the time we set, we're done moving, so stop the motors.
+		    		if((currentTime - endStartTime) > pos3Time) {
+		    			train.setLeftSide(0.0);
+		    			train.setRightSide(0.0);
+		    			endFin = true;
+		    		}
+		    		// if we haven't reached the time we set, keep moving (towards the lowgoal)!
+		    		else {
+		    			train.setRightSide(lgSpeed);
+		    			train.setLeftSide(lgSpeed);
+		    		}
+					break;
+				case 4:
+	    			currentTime = Timer.getFPGATimestamp();
+		    		// if we haven't started timing, start timing
+		    		if(!endRan) {
+		    			endStartTime = Timer.getFPGATimestamp();
+		    			endRan = true;
+		    		}
+		    		// if we've reached the time we set, we're done moving, so stop the motors.
+		    		if((currentTime - endStartTime) > pos4Time) {
+		    			train.setLeftSide(0.0);
+		    			train.setRightSide(0.0);
+		    			endFin = true;
+		    		}
+		    		// if we haven't reached the time we set, keep moving (towards the lowgoal)!
+		    		else {
+		    			train.setRightSide(lgSpeed);
+		    			train.setLeftSide(lgSpeed);
+		    		}
+					break;
+				case 5:
+				default:
+	    			currentTime = Timer.getFPGATimestamp();
+		    		// if we haven't started timing, start timing
+		    		if(!endRan) {
+		    			endStartTime = Timer.getFPGATimestamp();
+		    			endRan = true;
+		    		}
+		    		// if we've reached the time we set, we're done moving, so stop the motors.
+		    		if((currentTime - endStartTime) > pos5Time) {
+		    			train.setLeftSide(0.0);
+		    			train.setRightSide(0.0);
+		    			endFin = true;
+		    		}
+		    		// if we haven't reached the time we set, keep moving (towards the lowgoal)!
+		    		else {
+		    			train.setRightSide(lgSpeed);
+		    			train.setLeftSide(lgSpeed);
+		    		}
+					break;
+				}
+	    		break;
+	    	case "endNZ":
+	    		switch(defenseSelected) {
+	    		case "defLowbar":
+	    		default:
+	    			currentTime = Timer.getFPGATimestamp();
+		    		// if we haven't started timing, start timing
+		    		if(!endRan) {
+		    			endStartTime = Timer.getFPGATimestamp();
+		    			endRan = true;
+		    		}
+		    		// if we've reached the time we set, we're done moving, so stop the motors.
+		    		if((currentTime - endStartTime) > defLowbarTime) {
+		    			train.setLeftSide(0.0);
+		    			train.setRightSide(0.0);
+		    			endFin = true;
+		    		}
+		    		// if we haven't reached the time we set, keep moving (backwards)!
+		    		else {
+		    			train.setRightSide(-defLowbarSpeed);
+		    			train.setLeftSide(-defLowbarSpeed);
+		    		}
+	    			break;
+	    		case "defRough":
+	    			currentTime = Timer.getFPGATimestamp();
+		    		// if we haven't started timing, start timing
+		    		if(!endRan) {
+		    			endStartTime = Timer.getFPGATimestamp();
+		    			endRan = true;
+		    		}
+		    		// if we've reached the time we set, we're done moving, so stop the motors.
+		    		if((currentTime - endStartTime) > defRoughTime) {
+		    			train.setLeftSide(0.0);
+		    			train.setRightSide(0.0);
+		    			endFin = true;
+		    		}
+		    		// if we haven't reached the time we set, keep moving (backwards)!
+		    		else {
+		    			train.setRightSide(-defRoughSpeed);
+		    			train.setLeftSide(-defRoughSpeed);
+		    		}
+	    			break;
+	    		case "defRock":
+	    			currentTime = Timer.getFPGATimestamp();
+		    		// if we haven't started timing, start timing
+		    		if(!endRan) {
+		    			endStartTime = Timer.getFPGATimestamp();
+		    			endRan = true;
+		    		}
+		    		// if we've reached the time we set, we're done moving, so stop the motors.
+		    		if((currentTime - endStartTime) > defRockTime) {
+		    			train.setLeftSide(0.0);
+		    			train.setRightSide(0.0);
+		    			endFin = true;
+		    		}
+		    		// if we haven't reached the time we set, keep moving (backwards)!
+		    		else {
+		    			train.setRightSide(-defRockSpeed);
+		    			train.setLeftSide(-defRockSpeed);
+		    		}
+	    			break;
+	    		case "defMoat":
+	    			currentTime = Timer.getFPGATimestamp();
+		    		// if we haven't started timing, start timing
+		    		if(!endRan) {
+		    			endStartTime = Timer.getFPGATimestamp();
+		    			endRan = true;
+		    		}
+		    		// if we've reached the time we set, we're done moving, so stop the motors.
+		    		if((currentTime - endStartTime) > defMoatTime) {
+		    			train.setLeftSide(0.0);
+		    			train.setRightSide(0.0);
+		    			endFin = true;
+		    		}
+		    		// if we haven't reached the time we set, keep moving (backwards)!
+		    		else {
+		    			train.setRightSide(-defMoatSpeed);
+		    			train.setLeftSide(-defMoatSpeed);
+		    		}
+	    			break;
+	    		case "defRamparts":
+	    			currentTime = Timer.getFPGATimestamp();
+		    		// if we haven't started timing, start timing
+		    		if(!endRan) {
+		    			endStartTime = Timer.getFPGATimestamp();
+		    			endRan = true;
+		    		}
+		    		// if we've reached the time we set, we're done moving, so stop the motors.
+		    		if((currentTime - endStartTime) > defRampartsTime) {
+		    			train.setLeftSide(0.0);
+		    			train.setRightSide(0.0);
+		    			endFin = true;
+		    		}
+		    		// if we haven't reached the time we set, keep moving (backwards)!
+		    		else {
+		    			train.setRightSide(-defRampartsSpeed);
+		    			train.setLeftSide(-defRampartsSpeed);
+		    		}
+	    			break;
+	    		}
+	    		break;
+	    	case "endScore":
+	    		//INSERT CODE TO SCORE
+	    		endFin = true;
+	    		break;
+	    	}
     	}
     }
     

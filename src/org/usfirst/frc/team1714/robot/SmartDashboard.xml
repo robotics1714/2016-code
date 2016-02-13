@@ -1,5 +1,12 @@
 <xml version="1.0">
 <dashboard>
+	<widget field="Position:" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
+		<location x="15" y="328"/>
+	</widget>
+	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.Label">
+		<location x="15" y="324"/>
+		<property name="Text" value="Position:"/>
+	</static-widget>
 	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.Label">
 		<location x="16" y="253"/>
 		<property name="Text" value="Delay:"/>

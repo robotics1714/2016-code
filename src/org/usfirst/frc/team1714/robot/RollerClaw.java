@@ -17,7 +17,7 @@ public class RollerClaw {
 		armMotorPin = 2,
 		rearLSPin = 4,
 		frontLSPin = 5,
-		ballDetectLSPin = 6,
+		ballDetectLSPin = 0, //6
 		rollerPotPin = 2;
 	private double 
 		armSpeed=0.25, 
