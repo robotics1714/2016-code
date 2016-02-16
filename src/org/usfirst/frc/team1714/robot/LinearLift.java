@@ -53,6 +53,7 @@ public class LinearLift {
 		winchLSMax = new DigitalInput(winchLSMaxPin);
 		winchLSMin = new DigitalInput(winchLSMinPin);
 		winchEnc = new Encoder(winchEncPin1, winchEncPin2);
+		winchEnc.reset();
 	}
 	
 	void setTiltLiftUp() {
