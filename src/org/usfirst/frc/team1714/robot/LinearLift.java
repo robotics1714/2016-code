@@ -4,8 +4,8 @@ import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 // import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.Servo;
+import edu.wpi.first.wpilibj.Encoder;
 
 public class LinearLift {
 	private Servo tiltServo;
@@ -13,7 +13,7 @@ public class LinearLift {
 	public DigitalInput tiltLS;
 	public DigitalInput winchLSMax;
 	private DigitalInput winchLSMin;
-	private AnalogPotentiometer winchPot;
+	private Encoder winchEnc;
 	
 	/* Autolift system - really bad, don't use
 	private double currentTime;
@@ -23,11 +23,12 @@ public class LinearLift {
 	
 // THESE ARE PLACEHOLDERS!!! CHANGE THEM!!!
 	final private double winchSpeed = 0;
-	final private double winchPotMax = 0;
-	final private double winchPotMin = 0;
+	final private double winchEncMax = 0;
+	final private double winchEncMin = 0;
 	final private int tiltServoPin = 3;
 	final private int tiltLSPin = 3;
-	final private int winchPotPin = 1;
+	final private int winchEncPin1 = 0;
+	final private int winchEncPin2 = 0;
 	final private int winchMotor1Pin = 1;
 	final private int winchMotor2Pin = 4;
 	final private int winchLSMaxPin = 1;
@@ -51,7 +52,7 @@ public class LinearLift {
 		winchMotor2 = new Talon(winchMotor2Pin);
 		winchLSMax = new DigitalInput(winchLSMaxPin);
 		winchLSMin = new DigitalInput(winchLSMinPin);
-		winchPot = new AnalogPotentiometer(winchPotPin);
+		winchEnc = new Encoder(winchEncPin1, winchEncPin2);
 	}
 	
 	void setTiltLiftUp() {
@@ -88,7 +89,7 @@ public class LinearLift {
 	}
 	
 	private void extendLift() {
-		if (winchLSMax.get() && winchPot.get() < winchPotMax) {
+		if (winchLSMax.get() && winchEnc.get() < winchEncMax) {
 			winchMotor1.set(winchSpeed);
 			winchMotor2.set(winchSpeed);
 		}
@@ -100,7 +101,7 @@ public class LinearLift {
 	}
 	
 	private void retractLift() {
-		if (winchLSMin.get() && winchPot.get() > winchPotMin) {
+		if (winchLSMin.get() && winchEnc.get() > winchEncMin) {
 			winchMotor1.set(-winchSpeed);
 			winchMotor2.set(-winchSpeed);
 		}
@@ -134,8 +135,9 @@ public class LinearLift {
 		}
 	}*/
 	//code for experiemental auto scale
+	
 	void update() {
-		SmartDashboard.putNumber("Winch Pot", winchPot.get());
+		SmartDashboard.putNumber("Winch Enc", winchEnc.get());
 		SmartDashboard.putBoolean("Tilt LS", !tiltLS.get());
 		SmartDashboard.putBoolean("Winch Max LS", !winchLSMax.get());
 		SmartDashboard.putBoolean("Winch Min LS", !winchLSMin.get());		
