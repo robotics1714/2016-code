@@ -10,8 +10,8 @@ import edu.wpi.first.wpilibj.Encoder;
 public class LinearLift {
 	private Servo tiltServo;
 	private Talon winchMotor1, winchMotor2;
-	public DigitalInput tiltLS;
-	public DigitalInput winchLSMax;
+	// public DigitalInput tiltLS;
+	// public DigitalInput winchLSMax;
 	private DigitalInput winchLSMin;
 	private Encoder winchEnc;
 	
@@ -26,17 +26,18 @@ public class LinearLift {
 	final private double winchEncMax = 0;
 	final private double winchEncMin = 0;
 	final private int tiltServoPin = 3;
-	final private int tiltLSPin = 3;
+	// final private int tiltLSPin = 3;
 	final private int winchEncPin1 = 0;
 	final private int winchEncPin2 = 0;
 	final private int winchMotor1Pin = 1;
 	final private int winchMotor2Pin = 4;
-	final private int winchLSMaxPin = 1;
+	// final private int winchLSMaxPin = 1;
 	final private int winchLSMinPin = 2;
 	final private double tiltServoPos = 0;
 // END OF PLACEHOLDER VALUES!!!
 	
 	private boolean tiltingLiftUp = false;
+	private boolean liftTilted = false;
 	// private boolean autoScaling = false;
 	
 	private enum LiftState {
@@ -47,10 +48,10 @@ public class LinearLift {
 	
 	LinearLift() {
 		tiltServo = new Servo(tiltServoPin);
-		tiltLS = new DigitalInput(tiltLSPin);
+		// tiltLS = new DigitalInput(tiltLSPin);
 		winchMotor1 = new Talon(winchMotor1Pin);
 		winchMotor2 = new Talon(winchMotor2Pin);
-		winchLSMax = new DigitalInput(winchLSMaxPin);
+		// winchLSMax = new DigitalInput(winchLSMaxPin);
 		winchLSMin = new DigitalInput(winchLSMinPin);
 		winchEnc = new Encoder(winchEncPin1, winchEncPin2);
 		winchEnc.reset();
@@ -61,13 +62,23 @@ public class LinearLift {
 	}
 	
 	void setExtendLift() {
-		currentState = LiftState.extending;
+		if(liftTilted) {
+			currentState = LiftState.extending;
+		}
 	}
 	
 	void setRetractLift() {
-		currentState = LiftState.retracting;
+		if(liftTilted) {
+			currentState = LiftState.retracting;
+		}
 	}
 	
+	void setResetLift() {
+		// EVEN IF THE LIFT IS TILTED PHYSICALLY, YOU MUST "TILT" THE LIFT IN SOFTWARE BEFORE RESETTING!!!!!!!!!!
+		if(liftTilted) {
+			resetLift();
+		}
+	}
 	void setLiftStop() {
 		winchMotor1.set (0.0);
 		currentState = LiftState.stopped;
@@ -80,17 +91,14 @@ public class LinearLift {
 	*/
 	
 	private void tiltLiftUp() {
-		if (tiltLS.get()) {
 			tiltServo.set(tiltServoPos);
-		} 
-		else {
 			tiltServo.set(0.0);
 			tiltingLiftUp = false;
-		}
+			liftTilted = true;
 	}
 	
 	private void extendLift() {
-		if (winchLSMax.get() && winchEnc.get() < winchEncMax) {
+		if (/*winchLSMax.get() && */winchEnc.get() < winchEncMax) {
 			winchMotor1.set(winchSpeed);
 			winchMotor2.set(winchSpeed);
 		}
@@ -103,6 +111,18 @@ public class LinearLift {
 	
 	private void retractLift() {
 		if (winchLSMin.get() && winchEnc.get() > winchEncMin) {
+			winchMotor1.set(-winchSpeed);
+			winchMotor2.set(-winchSpeed);
+		}
+		else {
+			winchMotor1.set(0.0);
+			winchMotor2.set(0.0);
+			currentState = LiftState.stopped;
+		}
+	}
+
+	private void resetLift() {
+		if (winchLSMin.get()) {
 			winchMotor1.set(-winchSpeed);
 			winchMotor2.set(-winchSpeed);
 		}
@@ -139,8 +159,8 @@ public class LinearLift {
 	
 	void update() {
 		SmartDashboard.putNumber("Winch Enc", winchEnc.get());
-		SmartDashboard.putBoolean("Tilt LS", !tiltLS.get());
-		SmartDashboard.putBoolean("Winch Max LS", !winchLSMax.get());
+		// SmartDashboard.putBoolean("Tilt LS", !tiltLS.get());
+		// SmartDashboard.putBoolean("Winch Max LS", !winchLSMax.get());
 		SmartDashboard.putBoolean("Winch Min LS", !winchLSMin.get());		
 		
 		// currentTime=Timer.getFPGATimestamp();
