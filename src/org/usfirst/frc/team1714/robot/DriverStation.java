@@ -36,25 +36,13 @@ public class DriverStation {
 			scaleMode=!scaleMode;
 		}
 			
-		if(leftStick.getRawButton(6)) {//shift the transmission to low gear
+		if(leftStick.getRawButton(2)) {//shift the transmission to low gear
 			train.setShiftGearLow();
 		}
-		else if(leftStick.getRawButton(7)) {//shift the transmmission to high gear
+		else if(leftStick.getRawButton(3)) {//shift the transmmission to high gear
 			train.setShiftGearHigh();
 		}
 		
-		if(rightStick.getRawButton(3)){//roller arm up //button Y
-			claw.setRollerArmUp();
-		}
-		else if(rightStick.getRawButton(2)){//roller arm down  //button A
-			claw.setRollerArmDown();
-		}
-		else if(rightStick.getRawButton(4)){//roller arm stop tilting  //button B
-			claw.setRollerArmStop();
-		}
-		else if(rightStick.getRawButton(5)){//move roller arm to a position //button X
-			claw.setRollerArmPos();
-		}
 		
 		if(xboxStick.getPOV()==180){//roller roll inward the robot //D-pad down
 			claw.setRollerBarIn();
@@ -99,13 +87,13 @@ public class DriverStation {
 		else if(xboxStick.getRawButton(5)){//slightly tilt the roller arm down //left bumper
 			claw.setRollerArmAdjustDown();
 		}
-		
+		*/
 		if(leftStick.getRawButton(8)) {
 			train.setCompressorOff();
 		}
 		else if(leftStick.getRawButton(9)) {
 			train.setCompressorOn();
-		}*/
+		}
 	}
 	
 }
