@@ -144,8 +144,20 @@ public class Robot extends IterativeRobot {
 	    		}
 	    		// if we haven't reached the time we set, keep moving!
 	    		else {
-	    			train.setRightSide(defRoughSpeed);
-	    			train.setLeftSide(defRoughSpeed);
+	    			//train.setRightSide(defRoughSpeed);
+	    			//train.setLeftSide(defRoughSpeed);
+	    			if(train.angle > -8 && train.angle < 8){
+	    				train.setRightSide(defRoughSpeed);
+	    				train.setLeftSide(defRoughSpeed);
+	    	        }
+	    	        else if(train.angle>8){
+	    	        	train.setRightSide(defRoughSpeed*1.3);
+	    	        	train.setLeftSide(defRoughSpeed/1.3);
+	    	        }
+	    	        else if(train.angle<-8){
+	    	        	train.setRightSide(defRoughSpeed/1.3);
+	    	        	train.setLeftSide(defRoughSpeed*1.3);
+	    	        }
 	    		}
 	            break;
 	    	case "defMoat":
@@ -163,8 +175,20 @@ public class Robot extends IterativeRobot {
 	    		}
 	    		// if we haven't reached the time we set, keep moving!
 	    		else {
-	    			train.setRightSide(defMoatSpeed);
-	    			train.setLeftSide(defMoatSpeed);
+	    			//train.setRightSide(defMoatSpeed);
+	    			//train.setLeftSide(defMoatSpeed);
+	    			if(train.angle > -8 && train.angle < 8){
+	    				train.setRightSide(defMoatSpeed);
+	    				train.setLeftSide(defMoatSpeed);
+	    	        }
+	    	        else if(train.angle>8){
+	    	        	train.setRightSide(defMoatSpeed*1.3);
+	    	        	train.setLeftSide(defMoatSpeed/1.3);
+	    	        }
+	    	        else if(train.angle<-8){
+	    	        	train.setRightSide(defMoatSpeed/1.3);
+	    	        	train.setLeftSide(defMoatSpeed*1.3);
+	    	        }
 	    		}
 	    		break;
 	    	case "defRamparts":
@@ -182,8 +206,20 @@ public class Robot extends IterativeRobot {
 	    		}
 	    		// if we haven't reached the time we set, keep moving!
 	    		else {
-	    			train.setRightSide(defRampartsSpeed);
-	    			train.setLeftSide(defRampartsSpeed);
+	    			//train.setRightSide(defRampartsSpeed);
+	    			//train.setLeftSide(defRampartsSpeed);
+	    			if(train.angle > -8 && train.angle < 8){
+	    				train.setRightSide(defRampartsSpeed);
+	    				train.setLeftSide(defRampartsSpeed);
+	    	        }
+	    	        else if(train.angle>8){
+	    	        	train.setRightSide(defRampartsSpeed*1.3);
+	    	        	train.setLeftSide(defRampartsSpeed/1.3);
+	    	        }
+	    	        else if(train.angle<-8){
+	    	        	train.setRightSide(defRampartsSpeed/1.3);
+	    	        	train.setLeftSide(defRampartsSpeed*1.3);
+	    	        }
 	    		}
 	    		break;
 	    	case "defRock":
@@ -201,8 +237,20 @@ public class Robot extends IterativeRobot {
 	    		}
 	    		// if we haven't reached the time we set, keep moving!
 	    		else {
-	    			train.setRightSide(defRockSpeed);
-	    			train.setLeftSide(defRockSpeed);
+	    			//train.setRightSide(defRockSpeed);
+	    			//train.setLeftSide(defRockSpeed);
+	    			if(train.angle > -8 && train.angle < 8){
+	    				train.setRightSide(defRockSpeed);
+	    				train.setLeftSide(defRockSpeed);
+	    	        }
+	    	        else if(train.angle>8){
+	    	        	train.setRightSide(defRockSpeed*1.3);
+	    	        	train.setLeftSide(defRockSpeed/1.3);
+	    	        }
+	    	        else if(train.angle<-8){
+	    	        	train.setRightSide(defRockSpeed/1.3);
+	    	        	train.setLeftSide(defRockSpeed*1.3);
+	    	        }
 	    		}
 	    		break;
 	    	case "defLowbar":
@@ -221,8 +269,20 @@ public class Robot extends IterativeRobot {
 	    		}
 	    		// if we haven't reached the time we set, keep moving!
 	    		else {
-	    			train.setRightSide(defLowbarSpeed);
-	    			train.setLeftSide(defLowbarSpeed);
+	    			//train.setRightSide(defLowbarSpeed);
+	    			//train.setLeftSide(defLowbarSpeed);
+	    			if(train.angle > -8 && train.angle < 8){
+	    				train.setRightSide(defLowbarSpeed);
+	    				train.setLeftSide(defLowbarSpeed);
+	    	        }
+	    	        else if(train.angle>8){
+	    	        	train.setRightSide(defLowbarSpeed*1.3);
+	    	        	train.setLeftSide(defLowbarSpeed/1.3);
+	    	        }
+	    	        else if(train.angle<-8){
+	    	        	train.setRightSide(defLowbarSpeed/1.3);
+	    	        	train.setLeftSide(defLowbarSpeed*1.3);
+	    	        }
 	    		}
 	    		break;
     	
