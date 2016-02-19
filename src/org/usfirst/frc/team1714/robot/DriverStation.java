@@ -10,6 +10,9 @@ public class DriverStation {
 	private RollerClaw claw;
 	private RobotDrive drive;
 	
+	double  rightStickValue,
+			leftStickValue;
+	
 	int button;//placeholder
 	
 	boolean scaleMode=false,liftOverride=false;
@@ -25,7 +28,21 @@ public class DriverStation {
 	}
 	
 	public void update(){
-		drive.tankDrive(leftStick, rightStick, true);
+		if(leftStick.getY()<0.08 && leftStick.getY()>-0.08){
+			leftStickValue=0;
+		}
+		else{
+			leftStickValue=-leftStick.getY();
+		}
+		
+		if(rightStick.getY()<0.08 && rightStick.getY()>-0.08){
+			rightStickValue=0;
+		}
+		else{
+			rightStickValue=-leftStick.getY();
+		}
+		
+		drive.tankDrive(leftStickValue, rightStickValue, true);
 		if(scaleMode==true){
 			drive.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, true);
 			drive.setInvertedMotor(RobotDrive.MotorType.kFrontRight, true);
