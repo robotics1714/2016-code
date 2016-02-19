@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
 
 public class DriverStation {
-	Joystick leftStick, rightStick, xboxStick;
+	Joystick leftStick, leftStickReserve, rightStick, xboxStick;
 	private DriveTrain train;
 	private LinearLift lift;
 	private RollerClaw claw;
@@ -19,6 +19,7 @@ public class DriverStation {
 		claw = rollerClaw;
 		lift = linearLift;
 		leftStick = new Joystick(1);
+		leftStickReserve = leftStick;
 		rightStick = new Joystick(0);
 		xboxStick= new Joystick(2);
 		drive = new RobotDrive(driveTrain.tLeftFront, driveTrain.tLeftRear ,driveTrain.tRightFront, driveTrain.tRightRear);	
@@ -32,14 +33,14 @@ public class DriverStation {
 			drive.setInvertedMotor(RobotDrive.MotorType.kRearLeft, true);
 			drive.setInvertedMotor(RobotDrive.MotorType.kRearRight, true);
 		}
-		if(leftStick.getRawButton(button)){//enter scale mode, reverse the motor control
+		if(rightStick.getRawButton(button)){//enter scale mode, reverse the motor control
 			scaleMode=!scaleMode;
 		}
 			
-		if(leftStick.getRawButton(2)) {//shift the transmission to low gear
+		if(rightStick.getRawButton(2)) {//shift the transmission to low gear
 			train.setShiftGearLow();
 		}
-		else if(leftStick.getRawButton(3)) {//shift the transmmission to high gear
+		else if(rightStick.getRawButton(3)) {//shift the transmmission to high gear
 			train.setShiftGearHigh();
 		}
 		
@@ -88,11 +89,19 @@ public class DriverStation {
 			claw.setRollerArmAdjustDown();
 		}
 		*/
-		if(leftStick.getRawButton(8)) {
+		if(rightStick.getRawButton(8)) {
 			train.setCompressorOff();
 		}
-		else if(leftStick.getRawButton(9)) {
+		else if(rightStick.getRawButton(9)) {
 			train.setCompressorOn();
+		}
+		
+		// One-Stick Drive
+		if(rightStick.getRawButton(5)) {
+			leftStick = rightStick;
+		}
+		else {
+			leftStick = leftStickReserve;
 		}
 	}
 	
