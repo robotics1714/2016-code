@@ -11,7 +11,8 @@ public class DriverStation {
 	private RobotDrive drive;
 	
 	double  rightStickValue,
-			leftStickValue;
+			leftStickValue,
+			deadzone=0.08;
 	
 	int button;//placeholder
 	
@@ -28,14 +29,14 @@ public class DriverStation {
 	}
 	
 	public void update(){
-		if(leftStick.getY()<0.08 && leftStick.getY()>-0.08){
+		if(leftStick.getY()<deadzone && leftStick.getY()>-deadzone){
 			leftStickValue=0;
 		}
 		else{
 			leftStickValue=-leftStick.getY();
 		}
 		
-		if(rightStick.getY()<0.08 && rightStick.getY()>-0.08){
+		if(rightStick.getY()<deadzone && rightStick.getY()>-deadzone){
 			rightStickValue=0;
 		}
 		else{
