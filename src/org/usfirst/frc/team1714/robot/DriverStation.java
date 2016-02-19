@@ -1,14 +1,16 @@
 package org.usfirst.frc.team1714.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.RobotDrive;
 
 public class DriverStation {
 	Joystick leftStick, rightStick, xboxStick;
 	private DriveTrain train;
 	private LinearLift lift;
 	private RollerClaw claw;
-	private RobotDrive drive;
+	private double rightSpeed = 0;
+	private double leftSpeed = 0;
+	private double speedIncrement = 0.1;
+	// private RobotDrive drive;
 	
 	int button;//placeholder
 	
@@ -21,79 +23,30 @@ public class DriverStation {
 		leftStick = new Joystick(1);
 		rightStick = new Joystick(0);
 		xboxStick= new Joystick(2);
-		drive = new RobotDrive(driveTrain.tLeftFront, driveTrain.tLeftRear ,driveTrain.tRightFront, driveTrain.tRightRear);	
+		// drive = new RobotDrive(driveTrain.tLeftFront, driveTrain.tLeftRear ,driveTrain.tRightFront, driveTrain.tRightRear);	
 	}
 	
 	public void update(){
-		drive.tankDrive(leftStick, rightStick, true);
-		if(scaleMode==true){
-			drive.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, true);
-			drive.setInvertedMotor(RobotDrive.MotorType.kFrontRight, true);
-			drive.setInvertedMotor(RobotDrive.MotorType.kRearLeft, true);
-			drive.setInvertedMotor(RobotDrive.MotorType.kRearRight, true);
+		if(rightStick.getRawButton(0) || leftStick.getRawButton(0)) {
+			leftSpeed = 0;
+			rightSpeed = 0;
 		}
-		if(leftStick.getRawButton(button)){//enter scale mode, reverse the motor control
-			scaleMode=!scaleMode;
-		}
+		else {
+			if(rightStick.getRawButton(2)) {
+				rightSpeed -= speedIncrement;
+			}
+			else if(rightStick.getRawButton(3)) {
+				rightSpeed += speedIncrement;
+			}
 			
-		if(leftStick.getRawButton(2)) {//shift the transmission to low gear
-			train.setShiftGearLow();
+			if(leftStick.getRawButton(2)) {
+				leftSpeed -= speedIncrement;
+			}
+			else if(leftStick.getRawButton(3)) {
+				leftSpeed += speedIncrement;
+			}
 		}
-		else if(leftStick.getRawButton(3)) {//shift the transmmission to high gear
-			train.setShiftGearHigh();
-		}
-		
-		
-		if(xboxStick.getPOV()==180){//roller roll inward the robot //D-pad down
-			claw.setRollerBarIn();
-		}
-		if(xboxStick.getPOV()==0){//roller roll outward the robot //D-pad up
-			claw.setRollerBarOut();
-		}
-		if(xboxStick.getPOV()==270 || xboxStick.getPOV()==90){ //stop roller claw with d-pad left or right
-			claw.setRollerBarStop();
-		}
-
-		if(xboxStick.getRawButton(4)){//roller arm up //button Y
-			claw.setRollerArmUp();
-		}
-		else if(xboxStick.getRawButton(1)){//roller arm down  //button A
-			claw.setRollerArmDown();
-		}
-		else if(xboxStick.getRawButton(2)){//roller arm stop tilting  //button B
-			claw.setRollerArmStop();
-		}
-		else if(xboxStick.getRawButton(3)){//move roller arm to a position //button X
-			claw.setRollerArmPos();
-		}
-		
-		if(xboxStick.getRawButton(6)){//liftExtend  //right bumper
-			lift.setExtendLift();
-		}
-		else if(xboxStick.getRawButton(5)){//liftRetract  //left bumper
-			lift.setRetractLift();
-		}
-		else if(xboxStick.getRawButton(8)){//liftStop  //start button
-			lift.setLiftStop();
-		}
-		if(xboxStick.getRawButton(7)){//liftUp  //back button
-			lift.setTiltLiftUp();
-		}
-		
-		/*
-		if(xboxStick.getRawButton(6)){//slightly tilt the roller arm up //right bumper
-			claw.setRollerArmAdjustUp();
-		}
-		else if(xboxStick.getRawButton(5)){//slightly tilt the roller arm down //left bumper
-			claw.setRollerArmAdjustDown();
-		}
-		*/
-		if(leftStick.getRawButton(8)) {
-			train.setCompressorOff();
-		}
-		else if(leftStick.getRawButton(9)) {
-			train.setCompressorOn();
-		}
+		train.setLeftSide(leftSpeed);
+		train.setRightSide(rightSpeed);
 	}
-	
 }
