@@ -45,6 +45,15 @@ public class DriverStation {
 			else if(leftStick.getRawButton(3)) {
 				leftSpeed += speedIncrement;
 			}
+			
+			if(rightStick.getRawButton(7)) {
+				train.setShiftGearLow();
+			}
+			else if(rightStick.getRawButton(6)) {
+				train.setShiftGearHigh();
+			}
+			
+			
 		}
 		train.setLeftSide(leftSpeed);
 		train.setRightSide(rightSpeed);
