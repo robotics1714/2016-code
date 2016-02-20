@@ -12,7 +12,6 @@ public class LinearLift {
 	private Talon winchMotor1, winchMotor2;
 	public DigitalInput tiltLS;
 	public DigitalInput winchLSMax;
-	private DigitalInput winchLSMin;
 	private AnalogPotentiometer winchPot;
 	
 	/* Autolift system - really bad, don't use
@@ -31,7 +30,6 @@ public class LinearLift {
 	final private int winchMotor1Pin = 1;
 	final private int winchMotor2Pin = 4;
 	final private int winchLSMaxPin = 1;
-	final private int winchLSMinPin = 2;
 	final private double tiltServoPos = 0;
 // END OF PLACEHOLDER VALUES!!!
 	
@@ -50,7 +48,6 @@ public class LinearLift {
 		winchMotor1 = new Talon(winchMotor1Pin);
 		winchMotor2 = new Talon(winchMotor2Pin);
 		winchLSMax = new DigitalInput(winchLSMaxPin);
-		winchLSMin = new DigitalInput(winchLSMinPin);
 		winchPot = new AnalogPotentiometer(winchPotPin);
 	}
 	
@@ -100,7 +97,7 @@ public class LinearLift {
 	}
 	
 	private void retractLift() {
-		if (winchLSMin.get() && winchPot.get() > winchPotMin) {
+		if (winchPot.get() > winchPotMin) {
 			winchMotor1.set(-winchSpeed);
 			winchMotor2.set(-winchSpeed);
 		}
@@ -138,7 +135,6 @@ public class LinearLift {
 		SmartDashboard.putNumber("Winch Pot", winchPot.get());
 		SmartDashboard.putBoolean("Tilt LS", !tiltLS.get());
 		SmartDashboard.putBoolean("Winch Max LS", !winchLSMax.get());
-		SmartDashboard.putBoolean("Winch Min LS", !winchLSMin.get());		
 		
 		// currentTime=Timer.getFPGATimestamp();
 		if (tiltingLiftUp) {
