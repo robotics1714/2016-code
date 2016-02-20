@@ -53,7 +53,39 @@ public class DriverStation {
 				train.setShiftGearHigh();
 			}
 			
+			if(rightStick.getRawButton(5)) {
+				lift.setLiftStop();
+			}
+			else if(rightStick.getRawButton(8)) {
+				lift.setRetractLift();
+			}
+			else if(rightStick.getRawButton(9)) {
+				lift.setExtendLift();
+			}
 			
+			if(rightStick.getRawButton(4)) {
+				claw.setRollerBarStop();
+			}
+			else if(rightStick.getRawButton(10)) {
+				claw.setRollerBarIn();
+			}
+			else if(rightStick.getRawButton(11)) {
+				claw.setRollerBarOut();
+			}
+			
+			if(leftStick.getRawButton(8) && leftStick.getRawButton(9)) {
+				lift.setTiltLiftUp();
+			}
+			
+			if(leftStick.getRawButton(5)) {
+				claw.setRollerArmStop();
+			}
+			else if(leftStick.getRawButton(10)) {
+				claw.setRollerArmDown();
+			}
+			else if(leftStick.getRawButton(11)) {
+				claw.setRollerArmUp();
+			}
 		}
 		train.setLeftSide(leftSpeed);
 		train.setRightSide(rightSpeed);
