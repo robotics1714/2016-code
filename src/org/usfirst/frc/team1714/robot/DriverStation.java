@@ -32,10 +32,12 @@ public class DriverStation {
 			drive.setInvertedMotor(RobotDrive.MotorType.kRearLeft, true);
 			drive.setInvertedMotor(RobotDrive.MotorType.kRearRight, true);
 		}
+		/*
 		if(leftStick.getRawButton(button)){//enter scale mode, reverse the motor control
 			scaleMode=!scaleMode;
 		}
-			
+		*/
+		
 		if(leftStick.getRawButton(2)) {//shift the transmission to low gear
 			train.setShiftGearLow();
 		}
