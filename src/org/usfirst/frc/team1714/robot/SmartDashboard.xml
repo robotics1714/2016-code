@@ -1,5 +1,17 @@
 <xml version="1.0">
 <dashboard>
+	<widget field="Roller Motor" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="33" y="27"/>
+	</widget>
+	<widget field="Winch Enc" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="48" y="252"/>
+	</widget>
+	<widget field="Keep Ball:" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
+		<location x="0" y="183"/>
+	</widget>
+	<widget field="Arm Pot" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="283" y="122"/>
+	</widget>
 	<widget field="Position:" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
 		<location x="15" y="328"/>
 	</widget>
@@ -49,11 +61,6 @@
 	<widget field="Winch Pot" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.ProgressBar">
 		<location x="278" y="299"/>
 		<height>39</height>
-	</widget>
-	<widget field="Arm Pot" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.ProgressBar">
-		<location x="277" y="107"/>
-		<height>39</height>
-		<property name="Background" value="239.239.239.255"/>
 	</widget>
 	<widget field="Winch Min LS" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
 		<location x="277" y="444"/>

@@ -27,7 +27,7 @@ public class DriverStation {
 	}
 	
 	public void update(){
-		if(rightStick.getRawButton(0) || leftStick.getRawButton(0)) {
+		if(rightStick.getRawButton(1) || leftStick.getRawButton(1)) {
 			leftSpeed = 0;
 			rightSpeed = 0;
 		}

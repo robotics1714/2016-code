@@ -45,7 +45,6 @@ public class DriveTrain{
 
     public void update(){
 		SmartDashboard.putBoolean("Gear High?", (solenoid.get() == DoubleSolenoid.Value.kForward));
-    	
     	angle = gyro.getAngle();
     	X = acc.getX();
     	Y = acc.getY();
