@@ -20,7 +20,7 @@ public class RollerClaw {
 		rollerPotPin = 2;
 	private double 
 		armSpeed=0.25, 
-		rollerSpeed=0.25, 
+		rollerSpeed=0.75, 
 		rollerAdjustment=20,
 		potBuffer=2,//max and min of potentiometer reading and buffer
 		rollerPotPos1 = 30,//potentiometer reading for a arm positions
