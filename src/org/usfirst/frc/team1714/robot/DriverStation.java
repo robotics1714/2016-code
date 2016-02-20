@@ -63,6 +63,10 @@ public class DriverStation {
 				lift.setExtendLift();
 			}
 			
+			if(leftStick.getRawButton(8)) {
+				lift.setTiltLiftUp();
+			}
+			
 			if(rightStick.getRawButton(4)) {
 				claw.setRollerBarStop();
 			}

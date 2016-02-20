@@ -20,9 +20,9 @@ public class LinearLift {
 	*/
 	
 // THESE ARE PLACEHOLDERS!!! CHANGE THEM!!!
-	final private double winchSpeed = 0.1;
-	final private double winchEncMax = 100000;
-	final private double winchEncMin = -100000;
+	final private double winchSpeed = 0.5;
+	final private double winchEncMax = 100003240;
+	final private double winchEncMin = -100001000;
 	final private int tiltServoPin = 4;
 	// final private int tiltLSPin = 3;
 	final private int winchEncPin1 = 6;
@@ -77,7 +77,8 @@ public class LinearLift {
 	*/
 	
 	void setLiftStop() {
-		winchMotor1.set (0.0);
+		winchMotor1.set(0.0);
+		winchMotor2.set(0.0);
 		currentState = LiftState.stopped;
 	}
 	
@@ -158,6 +159,7 @@ public class LinearLift {
 	
 	void update() {
 		SmartDashboard.putNumber("Winch Enc", winchEnc.get());
+		SmartDashboard.putString("Lift Status", currentState.toString());
 		// SmartDashboard.putBoolean("Tilt LS", !tiltLS.get());
 		// SmartDashboard.putBoolean("Winch Max LS", !winchLSMax.get());
 		
