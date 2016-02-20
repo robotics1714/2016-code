@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.AnalogPotentiometer;
 
 public class RollerClaw {
 	private Talon rollerMotor, armMotor; 
-	private DigitalInput rearLS, frontLS, ballDetectLS;
+	private DigitalInput rearLS, ballDetectLS;
 	private AnalogPotentiometer rollerPot;
 	private double targetPos;
 	
@@ -16,7 +16,6 @@ public class RollerClaw {
 		rollerMotorPin = 0,
 		armMotorPin = 2,
 		rearLSPin = 4,
-		frontLSPin = 5,
 		ballDetectLSPin = 0, //6
 		rollerPotPin = 2;
 	private double 
@@ -44,7 +43,6 @@ public class RollerClaw {
 		rollerMotor = new Talon(rollerMotorPin);
 		armMotor = new Talon(armMotorPin);
 		rearLS = new DigitalInput(rearLSPin);
-		frontLS = new DigitalInput(frontLSPin);
 		ballDetectLS = new DigitalInput(ballDetectLSPin);
 		rollerPot = new AnalogPotentiometer(rollerPotPin, 100);
 		ArmDirection=armDirection.STOP;
@@ -65,7 +63,7 @@ public class RollerClaw {
 	private void tiltRollerArmDown(){//called to perform the action of tilting roller arm down
 		
 		//System.out.println("tiltDOWN");
-		if(!rollerArmFullDown() && rollerPot.get() < rollerPotMax){
+		if(rollerPot.get() < rollerPotMax){
 			armMotor.set(-armSpeed);
 		}
 		else{
@@ -105,9 +103,7 @@ public class RollerClaw {
 		return !rearLS.get();
 	}//limit switch to prevent roller arm from tilting backward too much
 	
-	public boolean rollerArmFullDown(){
-		return !frontLS.get();
-	}//limit switch to prevent roller arm from tilting forward too much
+	//limit switch to prevent roller arm from tilting forward too much
 	
 	public boolean ballAcquired(){
 		return !ballDetectLS.get();
@@ -151,7 +147,6 @@ public class RollerClaw {
 	
 	public void update(){
 		SmartDashboard.putBoolean("Rear LS", !rearLS.get());
-		SmartDashboard.putBoolean("Front LS", !frontLS.get());
 		SmartDashboard.putBoolean("Ball Detected?", !ballDetectLS.get());
 		SmartDashboard.putNumber("Arm Pot", rollerPot.get());
 		//System.out.println(rollerPot.get());
