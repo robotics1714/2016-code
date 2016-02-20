@@ -24,8 +24,8 @@ public class DriveTrain{
     final private int tLeftFrontPin = 2;
     final private int tLeftRearPin = 3;
     final private int gyroPin = 0;
-    final private int solenoidPin1 = 0;
-    final private int solenoidPin2 = 1;
+    final private int solenoidPin1 = 1;
+    final private int solenoidPin2 = 0;
     final private int pcmID = 1;
     // END OF PLACEHOLDER VALUES!!!
     
