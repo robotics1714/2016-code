@@ -23,12 +23,12 @@ public class LinearLift {
 	final private double winchSpeed = 0;
 	final private double winchEncMax = 0;
 	final private double winchEncMin = 0;
-	final private int tiltServoPin = 3;
+	final private int tiltServoPin = 4;
 	// final private int tiltLSPin = 3;
 	final private int winchEncPin1 = 6;
 	final private int winchEncPin2 = 7;
-	final private int winchMotor1Pin = 1;
-	final private int winchMotor2Pin = 4;
+	final private int winchMotor1Pin = 6;
+	final private int winchMotor2Pin = 7;
 	final private double tiltServoPos = 0;
 // END OF PLACEHOLDER VALUES!!!
 	
