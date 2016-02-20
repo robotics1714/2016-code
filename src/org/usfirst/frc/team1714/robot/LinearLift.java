@@ -3,7 +3,6 @@ package org.usfirst.frc.team1714.robot;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 // import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.Encoder;
 
@@ -12,7 +11,6 @@ public class LinearLift {
 	private Talon winchMotor1, winchMotor2;
 	// public DigitalInput tiltLS;
 	// public DigitalInput winchLSMax;
-	private DigitalInput winchLSMin;
 	private Encoder winchEnc;
 	
 	/* Autolift system - really bad, don't use
@@ -31,8 +29,6 @@ public class LinearLift {
 	final private int winchEncPin2 = 0;
 	final private int winchMotor1Pin = 1;
 	final private int winchMotor2Pin = 4;
-	// final private int winchLSMaxPin = 1;
-	final private int winchLSMinPin = 2;
 	final private double tiltServoPos = 0;
 // END OF PLACEHOLDER VALUES!!!
 	
@@ -51,8 +47,6 @@ public class LinearLift {
 		// tiltLS = new DigitalInput(tiltLSPin);
 		winchMotor1 = new Talon(winchMotor1Pin);
 		winchMotor2 = new Talon(winchMotor2Pin);
-		// winchLSMax = new DigitalInput(winchLSMaxPin);
-		winchLSMin = new DigitalInput(winchLSMinPin);
 		winchEnc = new Encoder(winchEncPin1, winchEncPin2);
 		winchEnc.reset();
 	}
@@ -73,12 +67,15 @@ public class LinearLift {
 		}
 	}
 	
+	/* DEPRECATED
 	void setResetLift() {
 		// EVEN IF THE LIFT IS TILTED PHYSICALLY, YOU MUST "TILT" THE LIFT IN SOFTWARE BEFORE RESETTING!!!!!!!!!!
 		if(liftTilted) {
 			resetLift();
 		}
 	}
+	*/
+	
 	void setLiftStop() {
 		winchMotor1.set (0.0);
 		currentState = LiftState.stopped;
@@ -110,7 +107,7 @@ public class LinearLift {
 	}
 	
 	private void retractLift() {
-		if (winchLSMin.get() && winchEnc.get() > winchEncMin) {
+		if (winchEnc.get() > winchEncMin) {
 			winchMotor1.set(-winchSpeed);
 			winchMotor2.set(-winchSpeed);
 		}
@@ -121,6 +118,7 @@ public class LinearLift {
 		}
 	}
 
+	/* DEPRECATED
 	private void resetLift() {
 		if (winchLSMin.get()) {
 			winchMotor1.set(-winchSpeed);
@@ -132,6 +130,7 @@ public class LinearLift {
 			currentState = LiftState.stopped;
 		}
 	}
+	*/
 	
 	/*public void autoScale() {
 		
@@ -161,7 +160,6 @@ public class LinearLift {
 		SmartDashboard.putNumber("Winch Enc", winchEnc.get());
 		// SmartDashboard.putBoolean("Tilt LS", !tiltLS.get());
 		// SmartDashboard.putBoolean("Winch Max LS", !winchLSMax.get());
-		SmartDashboard.putBoolean("Winch Min LS", !winchLSMin.get());		
 		
 		// currentTime=Timer.getFPGATimestamp();
 		if (tiltingLiftUp) {
