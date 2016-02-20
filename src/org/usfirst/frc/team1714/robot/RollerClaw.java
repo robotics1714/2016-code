@@ -13,7 +13,7 @@ public class RollerClaw {
 	
 	// THESE ARE PLACEHOLDER VALUES!!! CHANGE THEM!!!
 	private final int 
-		rollerMotorPin = 0,
+		rollerMotorPin = 5,
 		armMotorPin = 2,
 		rearLSPin = 4,
 		ballDetectLSPin = 0, //6
