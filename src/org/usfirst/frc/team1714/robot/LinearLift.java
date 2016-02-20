@@ -20,9 +20,9 @@ public class LinearLift {
 	*/
 	
 // THESE ARE PLACEHOLDERS!!! CHANGE THEM!!!
-	final private double winchSpeed = 0;
-	final private double winchEncMax = 0;
-	final private double winchEncMin = 0;
+	final private double winchSpeed = 0.1;
+	final private double winchEncMax = 100000;
+	final private double winchEncMin = -100000;
 	final private int tiltServoPin = 4;
 	// final private int tiltLSPin = 3;
 	final private int winchEncPin1 = 6;
