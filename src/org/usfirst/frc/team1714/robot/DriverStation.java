@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1714.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriverStation {
 	Joystick leftStick, rightStick, xboxStick;
@@ -101,6 +102,9 @@ public class DriverStation {
 		rightDecreasePressedLast = rightStick.getRawButton(2);
 		leftIncreasePressedLast = leftStick.getRawButton(3);
 		leftDecreasePressedLast = leftStick.getRawButton(2);
+		
+		SmartDashboard.putNumber("Right Side", train.tRightFront.get());
+		SmartDashboard.putNumber("Left Side", train.tLeftFront.get());
 		
 	}
 }

@@ -70,8 +70,8 @@ public class DriveTrain{
     }
     
     void setLeftSide(double speed) {
-    	tLeftFront.set(speed);
-    	tLeftRear.set(speed);
+    	tLeftFront.set(-speed);
+    	tLeftRear.set(-speed);
     }
     
     void setRightSide(double speed) {
