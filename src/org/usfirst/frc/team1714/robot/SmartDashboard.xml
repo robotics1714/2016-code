@@ -1,5 +1,20 @@
 <xml version="1.0">
 <dashboard>
+	<widget field="Lift Status" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="974" y="205"/>
+	</widget>
+	<widget field="Roller Motor" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="279" y="329"/>
+	</widget>
+	<widget field="Winch Enc" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="286" y="299"/>
+	</widget>
+	<widget field="Keep Ball:" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
+		<location x="6" y="268"/>
+	</widget>
+	<widget field="Arm Pot" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="283" y="122"/>
+	</widget>
 	<widget field="Position:" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
 		<location x="15" y="328"/>
 	</widget>
@@ -20,7 +35,7 @@
 		<property name="Text" value="Defense:"/>
 	</static-widget>
 	<widget field="End:" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
-		<location x="14" y="162"/>
+		<location x="10" y="165"/>
 	</widget>
 	<widget field="Delay:" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
 		<location x="15" y="259"/>
@@ -45,15 +60,6 @@
 		<width>142</width>
 		<height>45</height>
 		<property name="Color to show when false" value="0.0.0.0"/>
-	</widget>
-	<widget field="Winch Pot" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.ProgressBar">
-		<location x="278" y="299"/>
-		<height>39</height>
-	</widget>
-	<widget field="Arm Pot" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.ProgressBar">
-		<location x="277" y="107"/>
-		<height>39</height>
-		<property name="Background" value="239.239.239.255"/>
 	</widget>
 	<widget field="Winch Min LS" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
 		<location x="277" y="444"/>
@@ -103,7 +109,7 @@
 		<property name="Color to show when false" value="0.0.0.255"/>
 	</widget>
 	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.VideoStreamViewerExtension">
-		<location x="453" y="8"/>
+		<location x="451" y="6"/>
 		<width>509</width>
 		<height>468</height>
 		<property name="Camera IP Address or mDNS name" value="10.17.14.201"/>
@@ -118,4 +124,5 @@
 </dashboard>
 <live-window>
 </live-window>
+	<hidden field="Winch Pot"/>
 </xml>
