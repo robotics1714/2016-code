@@ -13,19 +13,19 @@ public class RollerClaw {
 	
 	// THESE ARE PLACEHOLDER VALUES!!! CHANGE THEM!!!
 	private final int 
-		rollerMotorPin = 0,
-		armMotorPin = 2,
-		rearLSPin = 4,
-		ballDetectLSPin = 0, //6
+		rollerMotorPin = 5,
+		armMotorPin = 3,
+		rearLSPin = 8,
+		ballDetectLSPin = 9, //6
 		rollerPotPin = 2;
 	private double 
-		armSpeed=0.25, 
-		rollerSpeed=0.25, 
+		armSpeed=1, 
+		rollerSpeed=1, 
 		rollerAdjustment=20,
 		potBuffer=2,//max and min of potentiometer reading and buffer
 		rollerPotPos1 = 30,//potentiometer reading for a arm positions
-		rollerPotMax= 98,
-		rollerPotMin= 2;
+		rollerPotMax= 80,
+		rollerPotMin= 55;
 	// END OF PLACEHOLDER VALUES!!!
 	
 	public enum armDirection{
