@@ -510,7 +510,7 @@ public class Robot extends IterativeRobot {
     public void teleopPeriodic() {
         train.update();
         claw.update();
-        // lift.update();
+        lift.update();
         station.update();
     }
     
