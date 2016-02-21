@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.Joystick;
 
 public class DriverStation {
 	Joystick leftStick, rightStick, xboxStick;
+	
 	private DriveTrain train;
 	private LinearLift lift;
 	private RollerClaw claw;
@@ -12,7 +13,10 @@ public class DriverStation {
 	private double speedIncrement = 0.1;
 	// private RobotDrive drive;
 	
-	int button;//placeholder
+	boolean rightIncreasePressedLast = false;
+	boolean rightDecreasePressedLast = false;
+	boolean leftIncreasePressedLast = false;
+	boolean leftDecreasePressedLast = false;
 	
 	boolean scaleMode=false,liftOverride=false;
 	
@@ -32,17 +36,17 @@ public class DriverStation {
 			rightSpeed = 0;
 		}
 		else {
-			if(rightStick.getRawButton(2)) {
+			if(rightStick.getRawButton(2) && !rightDecreasePressedLast) {
 				rightSpeed -= speedIncrement;
 			}
-			else if(rightStick.getRawButton(3)) {
+			else if(rightStick.getRawButton(3) && !rightIncreasePressedLast) {
 				rightSpeed += speedIncrement;
 			}
 			
-			if(leftStick.getRawButton(2)) {
+			if(leftStick.getRawButton(2) && !leftDecreasePressedLast) {
 				leftSpeed -= speedIncrement;
 			}
-			else if(leftStick.getRawButton(3)) {
+			else if(leftStick.getRawButton(3) && !leftIncreasePressedLast) {
 				leftSpeed += speedIncrement;
 			}
 			
@@ -93,5 +97,10 @@ public class DriverStation {
 		}
 		train.setLeftSide(leftSpeed);
 		train.setRightSide(rightSpeed);
+		rightIncreasePressedLast = rightStick.getRawButton(3);
+		rightDecreasePressedLast = rightStick.getRawButton(2);
+		leftIncreasePressedLast = leftStick.getRawButton(3);
+		leftDecreasePressedLast = leftStick.getRawButton(2);
+		
 	}
 }
