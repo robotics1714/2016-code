@@ -38,10 +38,10 @@ public class DriverStation {
 		}
 		*/
 		
-		if(leftStick.getRawButton(2)) {//shift the transmission to low gear
+		if(rightStick.getRawButton(2)) {//shift the transmission to low gear
 			train.setShiftGearLow();
 		}
-		else if(leftStick.getRawButton(3)) {//shift the transmmission to high gear
+		else if(rightStick.getRawButton(3)) {//shift the transmmission to high gear
 			train.setShiftGearHigh();
 		}
 		
@@ -90,10 +90,10 @@ public class DriverStation {
 			claw.setRollerArmAdjustDown();
 		}
 		*/
-		if(leftStick.getRawButton(8)) {
+		if(rightStick.getRawButton(8)) {
 			train.setCompressorOff();
 		}
-		else if(leftStick.getRawButton(9)) {
+		else if(rightStick.getRawButton(9)) {
 			train.setCompressorOn();
 		}
 	}

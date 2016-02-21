@@ -19,12 +19,13 @@ public class RollerClaw {
 		ballDetectLSPin = 9, //6
 		rollerPotPin = 2;
 	private double 
-		armSpeed = 1, 
+		armUpSpeed = 1,
+		armDownSpeed = -0.45,
 		rollerSpeed = 1, 
 		rollerAdjustment = 20,
 		potBuffer=2,//max and min of potentiometer reading and buffer
-		rollerPotPos1 = 30,//potentiometer reading for a arm positions
-		rollerPotMax= 80,
+		rollerPotPos1 = 80,//potentiometer reading for a arm positions
+		rollerPotMax= 85,
 		rollerPotMin= 55;
 	// END OF PLACEHOLDER VALUES!!!
 	
@@ -52,7 +53,7 @@ public class RollerClaw {
 	private void tiltRollerArmUp(){//called to perform the action of tilting roller arm up
 		//System.out.println("tiltUUPP");
 		if(!rollerArmFullUp() && rollerPot.get() > rollerPotMin){
-			armMotor.set(armSpeed);
+			armMotor.set(armUpSpeed);
 		}
 		else{
 			ArmDirection=armDirection.STOP;
@@ -64,7 +65,7 @@ public class RollerClaw {
 		
 		//System.out.println("tiltDOWN");
 		if(rollerPot.get() < rollerPotMax){
-			armMotor.set(-armSpeed);
+			armMotor.set(armDownSpeed);
 		}
 		else{
 			armMotor.set(0.0);
@@ -177,13 +178,13 @@ public class RollerClaw {
 			break;
 			
 			case POSITION:
-			if(rollerPot.get() > targetPos+potBuffer){
+			if(rollerPot.get() < targetPos-potBuffer){
 				tiltRollerArmDown();
 			}
-			else if(rollerPot.get() < targetPos-potBuffer){
+			else if(rollerPot.get() > targetPos+potBuffer){
 				tiltRollerArmUp();
 			}
-			else if(rollerPot.get() < targetPos+potBuffer && rollerPot.get() > targetPos-potBuffer){
+			else if(rollerPot.get() > targetPos-potBuffer && rollerPot.get() < targetPos+potBuffer){
 				tiltRollerArmStop();
 			}
 			break;

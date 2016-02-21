@@ -1,5 +1,11 @@
 <xml version="1.0">
 <dashboard>
+	<widget field="Left Side" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="1096" y="321"/>
+	</widget>
+	<widget field="Right Side" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="1089" y="294"/>
+	</widget>
 	<widget field="Lift Status" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="974" y="205"/>
 	</widget>
@@ -10,7 +16,7 @@
 		<location x="286" y="299"/>
 	</widget>
 	<widget field="Keep Ball:" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
-		<location x="6" y="268"/>
+		<location x="12" y="264"/>
 	</widget>
 	<widget field="Arm Pot" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="283" y="122"/>
@@ -57,9 +63,8 @@
 	</static-widget>
 	<widget field="Gear High?" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
 		<location x="983" y="112"/>
-		<width>142</width>
-		<height>45</height>
-		<property name="Color to show when false" value="0.0.0.0"/>
+		<width>300</width>
+		<height>76</height>
 	</widget>
 	<widget field="Winch Min LS" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
 		<location x="277" y="444"/>
@@ -124,5 +129,4 @@
 </dashboard>
 <live-window>
 </live-window>
-	<hidden field="Winch Pot"/>
 </xml>
