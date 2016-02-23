@@ -23,7 +23,7 @@ public class DriveTrain{
     final private int tRightRearPin = 5;
     final private int tLeftFrontPin = 2;
     final private int tLeftRearPin = 3;
-    final private int gyroPin = 0;
+    final private int gyroPin = 3;
     final private int solenoidPin1 = 1;
     final private int solenoidPin2 = 0;
     final private int pcmID = 1;

@@ -40,8 +40,8 @@ public class Robot extends IterativeRobot {
 	final double defRockSpeed = 0;
 	final double defRampartsTime = 0;
 	final double defRampartsSpeed = 0;
-	final double def2Time = 2;
-	final double def2Speed = 0.2;
+	final double def2Time = 5;
+	final double def2Speed = 0.3;
 	final double lgSpeed = 1;
 	final double pos1Time = 7;
 	final double pos2Time = 0;

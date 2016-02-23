@@ -29,7 +29,7 @@ public class LinearLift {
 	final private int winchEncPin2 = 7;
 	final private int winchMotor1Pin = 6;
 	final private int winchMotor2Pin = 7;
-	final private double tiltServoPos = 0;
+	final private double tiltServoPos = 1.0;
 // END OF PLACEHOLDER VALUES!!!
 	
 	private boolean tiltingLiftUp = false;
@@ -90,7 +90,7 @@ public class LinearLift {
 	
 	private void tiltLiftUp() {
 			tiltServo.set(tiltServoPos);
-			tiltServo.set(0.0);
+			//tiltServo.set(0.0);
 			tiltingLiftUp = false;
 			liftTilted = true;
 	}
