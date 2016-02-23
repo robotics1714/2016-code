@@ -25,7 +25,7 @@ public class DriverStation {
 	}
 	
 	public void update(){
-		drive.tankDrive(leftStick, rightStick, true);
+		drive.tankDrive(leftStick, rightStick, false);
 		if(scaleMode==true){
 			drive.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, true);
 			drive.setInvertedMotor(RobotDrive.MotorType.kFrontRight, true);

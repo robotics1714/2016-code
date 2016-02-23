@@ -120,6 +120,7 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
+    	SmartDashboard.putNumber("Roller Pot", claw.rollerPot.get());
     	// if we're not done delaying, ...
     	if(!ballFin && defFin && endFin) {
 	    	if(!ballSelected) {
@@ -132,6 +133,19 @@ public class Robot extends IterativeRobot {
     	}
     	
     	if(!defFin) {
+    		if(claw.rollerPot.get() < (claw.targetPos-claw.potBuffer)){
+				claw.adjustRollerArmDown();
+				System.out.println("adjusting arm down");
+			}
+			else if(claw.rollerPot.get() > (claw.targetPos+claw.potBuffer)){
+				claw.adjustRollerArmUp();
+				System.out.println("adjusting arm up");
+			}
+			else if(claw.rollerPot.get() > claw.targetPos-claw.potBuffer && claw.rollerPot.get() < claw.targetPos+claw.potBuffer){
+				claw.holdRollerArm();
+				System.out.println("holding arm");
+			}
+    		
 	    	switch(defenseSelected) {
 	    	case "defRough":
 	    		currentTime = Timer.getFPGATimestamp();

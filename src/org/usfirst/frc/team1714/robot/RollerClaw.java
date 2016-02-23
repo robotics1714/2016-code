@@ -8,8 +8,8 @@ import edu.wpi.first.wpilibj.AnalogPotentiometer;
 public class RollerClaw {
 	private Talon rollerMotor, armMotor; 
 	private DigitalInput rearLS, ballDetectLS;
-	private AnalogPotentiometer rollerPot;
-	private double targetPos;
+	AnalogPotentiometer rollerPot;
+	double targetPos;
 	
 	// THESE ARE PLACEHOLDER VALUES!!! CHANGE THEM!!!
 	private final int 
@@ -18,13 +18,16 @@ public class RollerClaw {
 		rearLSPin = 8,
 		ballDetectLSPin = 9, //6
 		rollerPotPin = 2;
-	private double 
+	final double 
 		armUpSpeed = 1,
 		armDownSpeed = -0.45,
+		armHoldSpeed = 0.1,
+		armAdjustUpSpeed = 0.5,
+		armAdjustDownSpeed = -0.35,
 		rollerSpeed = 1, 
 		rollerAdjustment = 20,
-		potBuffer=2,//max and min of potentiometer reading and buffer
-		rollerPotPos1 = 80,//potentiometer reading for a arm positions
+		potBuffer=3,//max and min of potentiometer reading and buffer
+		rollerPotPos1 = 84,//potentiometer reading for a arm positions
 		rollerPotMax= 85,
 		rollerPotMin= 55;
 	// END OF PLACEHOLDER VALUES!!!
@@ -77,6 +80,18 @@ public class RollerClaw {
 		armMotor.set(0.0);
 		ArmDirection=armDirection.STOP;
 	}//force stop the moving of the roller arm
+	
+	void holdRollerArm() {
+		armMotor.set(armHoldSpeed);
+	}
+	
+	void adjustRollerArmUp() {
+		armMotor.set(armAdjustUpSpeed);
+	}
+	
+	void adjustRollerArmDown() {
+		armMotor.set(armAdjustDownSpeed);
+	}
 	
 	private void rollBallIn(){//called to perform the action of rolling the ball in
 		//System.out.println("IInnn");
@@ -179,13 +194,13 @@ public class RollerClaw {
 			
 			case POSITION:
 			if(rollerPot.get() < targetPos-potBuffer){
-				tiltRollerArmDown();
+				adjustRollerArmDown();
 			}
 			else if(rollerPot.get() > targetPos+potBuffer){
-				tiltRollerArmUp();
+				adjustRollerArmUp();
 			}
 			else if(rollerPot.get() > targetPos-potBuffer && rollerPot.get() < targetPos+potBuffer){
-				tiltRollerArmStop();
+				holdRollerArm();
 			}
 			break;
 		}
