@@ -133,15 +133,15 @@ public class Robot extends IterativeRobot {
     	}
     	
     	if(!defFin) {
-    		if(claw.rollerPot.get() < (claw.targetPos-claw.potBuffer)){
+    		if(claw.rollerPot.get() < (claw.rollerPotPos1-claw.potBuffer)){
 				claw.adjustRollerArmDown();
 				System.out.println("adjusting arm down");
 			}
-			else if(claw.rollerPot.get() > (claw.targetPos+claw.potBuffer)){
+			else if(claw.rollerPot.get() > (claw.rollerPotPos1+claw.potBuffer)){
 				claw.adjustRollerArmUp();
 				System.out.println("adjusting arm up");
 			}
-			else if(claw.rollerPot.get() > claw.targetPos-claw.potBuffer && claw.rollerPot.get() < claw.targetPos+claw.potBuffer){
+			else if(claw.rollerPot.get() > claw.rollerPotPos1-claw.potBuffer && claw.rollerPot.get() < claw.rollerPotPos1+claw.potBuffer){
 				claw.holdRollerArm();
 				System.out.println("holding arm");
 			}
