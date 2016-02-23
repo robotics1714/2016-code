@@ -29,7 +29,7 @@ public class Robot extends IterativeRobot {
     LinearLift lift;
 	DriverStation station;
 	
-	// auto timing constants
+	// THESE ARE PLACHOLDERS, CHANGE THEM !!!
 	final double defLowbarTime = 10;
 	final double defLowbarSpeed = 0.5;
 	final double defRoughTime = 5;
@@ -40,6 +40,8 @@ public class Robot extends IterativeRobot {
 	final double defRockSpeed = 0;
 	final double defRampartsTime = 0;
 	final double defRampartsSpeed = 0;
+	final double def2Time = 2;
+	final double def2Speed = 0.2;
 	final double lgSpeed = 1;
 	final double pos1Time = 7;
 	final double pos2Time = 0;
@@ -71,10 +73,12 @@ public class Robot extends IterativeRobot {
         defenseChooser.addObject("Moat", "defMoat");
         defenseChooser.addObject("Ramparts", "defRamparts");
         defenseChooser.addObject("Rock Wall", "defRock");
+        defenseChooser.addObject("Reach (any defense)", "def2");
         SmartDashboard.putData("Defenses:", defenseChooser);
         endChooser = new SendableChooser();
         endChooser.addObject("Near Lowgoal", "endLG");
         endChooser.addObject("In Neutral Zone", "endNZ");
+        endChooser.addObject("Reach Defense", "end2");
         endChooser.addObject("Score (EXPERIMENTAL)", "endScore");
         SmartDashboard.putData("End:", endChooser);
         ballChooser = new SendableChooser();
@@ -206,7 +210,6 @@ public class Robot extends IterativeRobot {
 	    		}
 	    		break;
 	    	case "defLowbar":
-	    	default:
 	    		currentTime = Timer.getFPGATimestamp();
 	    		// if we haven't started timing, start timing
 	    		if(!defRan) {
@@ -225,14 +228,32 @@ public class Robot extends IterativeRobot {
 	    			train.setLeftSide(defLowbarSpeed);
 	    		}
 	    		break;
-    	
+	    	case "def2":
+	    	default:
+	    		currentTime = Timer.getFPGATimestamp();
+	    		// if we haven't started timing, start timing
+	    		if(!defRan) {
+	    			defStartTime = Timer.getFPGATimestamp();
+	    			defRan = true;
+	    		}
+	    		// if we've reached the time we set, we're done moving, so stop the motors.
+	    		if((currentTime - defStartTime) > def2Time) {
+	    			train.setLeftSide(0.0);
+	    			train.setRightSide(0.0);
+	    			defFin = true;
+	    		}
+	    		// if we haven't reached the time we set, keep moving!
+	    		else {
+	    			train.setRightSide(def2Speed);
+	    			train.setLeftSide(def2Speed);
+	    		}
+	    		break;
 	    	}
     	}
     	
     	if(defFin && !endFin) {
 	    	switch(endSelected) {
 			case "endLG":
-			default:
 				switch(positionSelected) {
 				case 1:
 	    			currentTime = Timer.getFPGATimestamp();
@@ -335,7 +356,6 @@ public class Robot extends IterativeRobot {
 	    	case "endNZ":
 	    		switch(defenseSelected) {
 	    		case "defLowbar":
-	    		default:
 	    			currentTime = Timer.getFPGATimestamp();
 		    		// if we haven't started timing, start timing
 		    		if(!endRan) {
@@ -429,16 +449,18 @@ public class Robot extends IterativeRobot {
 		    			train.setRightSide(-defRampartsSpeed);
 		    			train.setLeftSide(-defRampartsSpeed);
 		    		}
-	    			break;
+		    		break;
 	    		}
-	    		break;
+    		case "end2":
+    		default:
+    			break;
 	    	case "endScore":
 	    		//INSERT CODE TO SCORE
 	    		endFin = true;
 	    		break;
 	    	}
     	}
-    }
+	}
     
     public void teleopInit(){
     	station = new DriverStation(train, claw, lift);
