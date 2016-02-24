@@ -123,8 +123,9 @@ public class Robot extends IterativeRobot {
     public void autonomousPeriodic() {
     	SmartDashboard.putNumber("Roller Pot", claw.rollerPot.get());
     	// if we're not done delaying, ...
-    	if(!ballFin && defFin && endFin) {
+    	if(!ballFin && defFin && !endFin) {
 	    	if(!ballSelected) {
+    			ballPosessed = true;
 	    		claw.setRollerBarOut();
 	    		ballFin = true;
 	    	}
@@ -136,7 +137,6 @@ public class Robot extends IterativeRobot {
     	if(!defFin) {
     		if(!ballPosessed){
     			claw.setRollerBarIn();
-    			ballPosessed = true;
     		}
     		
     		if(claw.rollerPot.get() < (claw.rollerPotPos1-claw.potBuffer)){
