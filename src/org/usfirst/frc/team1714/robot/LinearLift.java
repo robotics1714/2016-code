@@ -29,7 +29,7 @@ public class LinearLift {
 	// final private int tiltLSPin = 3;
 	final private int winchEncPin1 = 6;
 	final private int winchEncPin2 = 7;
-	// FIX ME final private int lockSlndPin = 0;
+	final private int lockSlndPin = 2;
 	final private int winchMotor1Pin = 6;
 	final private int winchMotor2Pin = 7;
 	final private double tiltServoPos = 1.0;
