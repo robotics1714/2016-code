@@ -81,6 +81,12 @@ public class DriverStation {
 		if(xboxStick.getRawButton(7)){//liftUp  //back button
 			lift.setTiltLiftUp();
 		}
+		if(xboxStick.getRawButton(9)) {
+			lift.resetLift();
+		}
+		if(xboxStick.getRawButton(10)) {
+			claw.setArmPowerLift();
+		}
 		
 		/*
 		if(xboxStick.getRawButton(6)){//slightly tilt the roller arm up //right bumper
@@ -90,11 +96,21 @@ public class DriverStation {
 			claw.setRollerArmAdjustDown();
 		}
 		*/
+		
 		if(rightStick.getRawButton(8)) {
 			train.setCompressorOff();
 		}
 		else if(rightStick.getRawButton(9)) {
 			train.setCompressorOn();
+			
+			
+			
+		if(rightStick.getRawButton(6)){
+			lift.lockLift();
+		}
+		if(rightStick.getRawButton(7)){
+			lift.unlockLift();
+		}
 		}
 	}
 	

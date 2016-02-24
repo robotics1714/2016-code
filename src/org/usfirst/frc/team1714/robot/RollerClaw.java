@@ -19,11 +19,11 @@ public class RollerClaw {
 		ballDetectLSPin = 9, //6
 		rollerPotPin = 2;
 	final double 
-		armUpSpeed = 0.2,
-		armDownSpeed = -0.45,
+		armUpSpeed = 0.7,
+		armDownSpeed = -0.8,
 		armHoldSpeed = 0.1,
-		armAdjustUpSpeed = 0.1,
-		armAdjustDownSpeed = -0.35,
+		armAdjustUpSpeed = 0.4,
+		armAdjustDownSpeed = -0.5,
 		rollerSpeed = 1, 
 		rollerAdjustment = 20,
 		potBuffer=3,//max and min of potentiometer reading and buffer
@@ -33,7 +33,7 @@ public class RollerClaw {
 	// END OF PLACEHOLDER VALUES!!!
 	
 	public enum armDirection{
-		UP,POSITION,DOWN,ADJUSTUP,ADJUSTDOWN,STOP
+		UP,POSITION,DOWN,ADJUSTUP,ADJUSTDOWN,STOP,POWERLIFT
 	}
 	
 	public enum rollDirection{
@@ -81,6 +81,19 @@ public class RollerClaw {
 		ArmDirection=armDirection.STOP;
 	}//force stop the moving of the roller arm
 	
+	private void armPowerLift(){
+		if(!rollerArmFullUp() && rollerPot.get() > rollerPotMin){
+			armMotor.set(1.0);
+		}
+		else{
+			ArmDirection=armDirection.STOP;
+			armMotor.set(0.0);
+		}//when it reach the limit it stop
+	}
+	
+	void setArmPowerLift(){
+		ArmDirection=armDirection.POWERLIFT;
+	}
 	void holdRollerArm() {
 		armMotor.set(armHoldSpeed);
 	}
@@ -202,6 +215,10 @@ public class RollerClaw {
 			else if(rollerPot.get() > targetPos-potBuffer && rollerPot.get() < targetPos+potBuffer){
 				holdRollerArm();
 			}
+			break;
+			
+			case POWERLIFT:
+				armPowerLift();
 			break;
 		}
 		//System.out.println(RollDirection);

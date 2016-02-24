@@ -4,13 +4,14 @@ import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 // import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Servo;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Solenoid;
 
 public class LinearLift {
 	private Servo tiltServo;
 	private Talon winchMotor1, winchMotor2;
-	private Solenoid lockSlnd;
+	private DoubleSolenoid lockSlnd;
 	// public DigitalInput tiltLS;
 	// public DigitalInput winchLSMax;
 	private Encoder winchEnc;
@@ -23,16 +24,18 @@ public class LinearLift {
 	
 // THESE ARE PLACEHOLDERS!!! CHANGE THEM!!!
 	final private double winchSpeed = 0.5;
-	final private double winchEncMax = 100003240;
-	final private double winchEncMin = -100001000;
+	final private double winchEncMax = 2939;
+	final private double winchEncMin = -25;
 	final private int tiltServoPin = 4;
 	// final private int tiltLSPin = 3;
 	final private int winchEncPin1 = 6;
 	final private int winchEncPin2 = 7;
-	final private int lockSlndPin = 2;
+	final private int lockSlndPin1 = 2;
+	final private int lockSlndPin2 = 3;
 	final private int winchMotor1Pin = 6;
 	final private int winchMotor2Pin = 7;
 	final private double tiltServoPos = 1.0;
+	final private int lockSlndpcmID = 1;
 // END OF PLACEHOLDER VALUES!!!
 	
 	private boolean tiltingLiftUp = false;
@@ -51,7 +54,9 @@ public class LinearLift {
 		winchMotor1 = new Talon(winchMotor1Pin);
 		winchMotor2 = new Talon(winchMotor2Pin);
 		winchEnc = new Encoder(winchEncPin1, winchEncPin2);
-		lockSlnd = new Solenoid(lockSlndPin);
+		lockSlnd = new DoubleSolenoid(lockSlndpcmID,lockSlndPin1,lockSlndPin2);
+		lockSlnd.set(DoubleSolenoid.Value.kForward);
+		SmartDashboard.putBoolean("Starting LL Lock", (lockSlnd.get() == DoubleSolenoid.Value.kForward));
 		winchEnc.reset();
 	}
 	
@@ -86,6 +91,14 @@ public class LinearLift {
 		currentState = LiftState.stopped;
 	}
 	
+	void lockLift() {
+		lockSlnd.set(DoubleSolenoid.Value.kForward);
+	}
+	
+	void unlockLift() {
+		lockSlnd.set(DoubleSolenoid.Value.kReverse);
+	}
+	
 	/*
 	void setAutoScale() {
 		autoScaling = true;
@@ -97,6 +110,10 @@ public class LinearLift {
 			//tiltServo.set(0.0);
 			tiltingLiftUp = false;
 			liftTilted = true;
+	}
+	
+	void resetLift() {
+		tiltServo.set(0.0);
 	}
 	
 	private void extendLift() {
@@ -119,7 +136,9 @@ public class LinearLift {
 		else {
 			winchMotor1.set(0.0);
 			winchMotor2.set(0.0);
-			lockSlnd.set(false);
+			lockSlnd.set(DoubleSolenoid.Value.kReverse);
+			SmartDashboard.putBoolean("ending LL Lock", (lockSlnd.get() == DoubleSolenoid.Value.kForward));
+			System.out.println("I tried to lock the lift");
 			currentState = LiftState.stopped;
 		}
 	}
@@ -165,6 +184,7 @@ public class LinearLift {
 	void update() {
 		SmartDashboard.putNumber("Winch Enc", winchEnc.get());
 		SmartDashboard.putString("Lift Status", currentState.toString());
+		SmartDashboard.putNumber("Servo", tiltServo.get());
 		// SmartDashboard.putBoolean("Tilt LS", !tiltLS.get());
 		// SmartDashboard.putBoolean("Winch Max LS", !winchLSMax.get());
 		
