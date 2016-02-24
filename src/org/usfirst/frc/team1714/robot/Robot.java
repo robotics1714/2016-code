@@ -56,6 +56,7 @@ public class Robot extends IterativeRobot {
 	 boolean endFin = false;
 	 boolean ballRan = false;
 	 boolean ballFin = false;
+	 boolean ballPosessed = false;
 	 
 	 double defStartTime = 0;
 	 double endStartTime = 0;
@@ -133,6 +134,11 @@ public class Robot extends IterativeRobot {
     	}
     	
     	if(!defFin) {
+    		if(!ballPosessed){
+    			claw.setRollerBarIn();
+    			ballPosessed = true;
+    		}
+    		
     		if(claw.rollerPot.get() < (claw.rollerPotPos1-claw.potBuffer)){
 				claw.adjustRollerArmDown();
 				System.out.println("adjusting arm down");
