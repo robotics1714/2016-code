@@ -19,10 +19,10 @@ public class RollerClaw {
 		ballDetectLSPin = 9, //6
 		rollerPotPin = 2;
 	final double 
-		armUpSpeed = 1,
+		armUpSpeed = 0.2,
 		armDownSpeed = -0.45,
 		armHoldSpeed = 0.1,
-		armAdjustUpSpeed = 0.5,
+		armAdjustUpSpeed = 0.1,
 		armAdjustDownSpeed = -0.35,
 		rollerSpeed = 1, 
 		rollerAdjustment = 20,

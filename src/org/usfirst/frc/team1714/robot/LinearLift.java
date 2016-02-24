@@ -5,10 +5,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 // import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.Solenoid;
 
 public class LinearLift {
 	private Servo tiltServo;
 	private Talon winchMotor1, winchMotor2;
+	private Solenoid lockSlnd;
 	// public DigitalInput tiltLS;
 	// public DigitalInput winchLSMax;
 	private Encoder winchEnc;
@@ -27,6 +29,7 @@ public class LinearLift {
 	// final private int tiltLSPin = 3;
 	final private int winchEncPin1 = 6;
 	final private int winchEncPin2 = 7;
+	// FIX ME final private int lockSlndPin = 0;
 	final private int winchMotor1Pin = 6;
 	final private int winchMotor2Pin = 7;
 	final private double tiltServoPos = 1.0;
@@ -48,6 +51,7 @@ public class LinearLift {
 		winchMotor1 = new Talon(winchMotor1Pin);
 		winchMotor2 = new Talon(winchMotor2Pin);
 		winchEnc = new Encoder(winchEncPin1, winchEncPin2);
+		lockSlnd = new Solenoid(lockSlndPin);
 		winchEnc.reset();
 	}
 	
@@ -115,6 +119,7 @@ public class LinearLift {
 		else {
 			winchMotor1.set(0.0);
 			winchMotor2.set(0.0);
+			lockSlnd.set(false);
 			currentState = LiftState.stopped;
 		}
 	}
