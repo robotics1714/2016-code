@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.AnalogPotentiometer;
 
 public class RollerClaw {
 	private Talon rollerMotor, armMotor; 
-	private DigitalInput rearLS, ballDetectLS;
+	DigitalInput rearLS, ballDetectLS;
 	AnalogPotentiometer rollerPot;
 	double targetPos;
 	
@@ -106,7 +106,7 @@ public class RollerClaw {
 		armMotor.set(armAdjustDownSpeed);
 	}
 	
-	private void rollBallIn(){//called to perform the action of rolling the ball in
+	void rollBallIn(){//called to perform the action of rolling the ball in
 		//System.out.println("IInnn");
 		if(!ballAcquired()){
 			rollerMotor.set(rollerSpeed);
@@ -117,7 +117,7 @@ public class RollerClaw {
 		}//it stop when the ball reach its safe holding position
 	}
 	
-	private void rollBallOut(){//called to perform the action of rolling the ball out
+	void rollBallOut(){//called to perform the action of rolling the ball out
 		//System.out.println("OOOUt");
 		rollerMotor.set(-rollerSpeed);	
 	}//this action will not automatically stop till you set inward or stop the roller bar

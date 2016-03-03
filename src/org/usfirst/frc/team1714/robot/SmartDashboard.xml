@@ -1,0 +1,56 @@
+<xml version="1.0">
+<dashboard>
+	<widget field="Ball Detected?" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
+		<location x="236" y="177"/>
+		<width>128</width>
+		<height>39</height>
+	</widget>
+	<widget field="Rear LS" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
+		<location x="235" y="128"/>
+		<width>99</width>
+		<height>34</height>
+	</widget>
+	<widget field="Gear High?" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
+		<location x="232" y="79"/>
+		<width>117</width>
+		<height>33</height>
+	</widget>
+	<widget field="Starting LL Lock" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
+		<location x="231" y="29"/>
+		<width>138</width>
+		<height>38</height>
+	</widget>
+	<widget field="Roller Pot" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="159"/>
+	</widget>
+	<widget field="Servo" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="768" y="179"/>
+	</widget>
+	<widget field="Lift Status" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="759" y="148"/>
+	</widget>
+	<widget field="Winch Enc" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="757" y="119"/>
+	</widget>
+	<widget field="Roller Motor" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="467"/>
+	</widget>
+	<widget field="Arm Pot" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="446"/>
+	</widget>
+	<widget field="Keep Ball:" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
+		<location x="997" y="218"/>
+	</widget>
+	<widget field="End:" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
+		<location x="997" y="-2"/>
+	</widget>
+	<widget field="Position:" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
+		<location x="960" y="96"/>
+	</widget>
+	<widget field="Defenses:" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
+		<location x="960" y="272"/>
+	</widget>
+</dashboard>
+<live-window>
+</live-window>
+</xml>

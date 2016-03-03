@@ -15,7 +15,7 @@ public class DriveTrain{
     public double angle;	//gyroscope
     public double X, Y, Z;	//accelerometer
     public double rightSpeed, leftSpeed;
-    private boolean shiftingGearHigh = false, shiftingGearLow = true, resettingGyro = false, turningCompressorOn = false, turningCompressorOff = true;
+    private boolean shiftingGearHigh = false, shiftingGearLow = false, resettingGyro = false, turningCompressorOn = false, turningCompressorOff = true;
     private Compressor comp;
     
     // THESE ARE PLACEHOLDER VALUES!!! CHANGE THEM!!!
@@ -80,12 +80,12 @@ public class DriveTrain{
     }
     
     /**transmission**/
-    private void shiftGearHigh() {
+    void shiftGearHigh() {
     	solenoid.set(DoubleSolenoid.Value.kForward);
     	shiftingGearHigh = false;
     }
     
-    private void shiftGearLow() {
+    void shiftGearLow() {
 		solenoid.set(DoubleSolenoid.Value.kReverse);
 		shiftingGearLow = false;
     }

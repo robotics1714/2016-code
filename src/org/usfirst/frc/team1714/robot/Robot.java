@@ -30,8 +30,8 @@ public class Robot extends IterativeRobot {
 	DriverStation station;
 	
 	// THESE ARE PLACHOLDERS, CHANGE THEM !!!
-	final double defLowbarTime = 10;
-	final double defLowbarSpeed = 0.5;
+	final double defLowbarTime = 7;
+	final double defLowbarSpeed = 0.35;
 	final double defRoughTime = 5;
 	final double defRoughSpeed = 0.25;
 	final double defMoatTime = 0;
@@ -41,7 +41,7 @@ public class Robot extends IterativeRobot {
 	final double defRampartsTime = 0;
 	final double defRampartsSpeed = 0;
 	final double def2Time = 4;
-	final double def2Speed = 0.5;
+	final double def2Speed = 0.2;
 	final double lgSpeed = 1;
 	final double pos1Time = 7;
 	final double pos2Time = 0;
@@ -124,14 +124,14 @@ public class Robot extends IterativeRobot {
     public void autonomousPeriodic() {
     	SmartDashboard.putNumber("Roller Pot", claw.rollerPot.get());
     	if(!gearLow) {
-        	train.setShiftGearLow();
+        	train.shiftGearLow();
         	gearLow = true;
     	}
     	// if we're not done delaying, ...
-    	if(!ballFin && defFin && !endFin) {
-	    	if(!ballSelected) {
-    			ballPosessed = true;
-	    		claw.setRollerBarOut();
+    	if(!ballFin) {
+	    	if(ballSelected) {
+    			ballPosessed = !claw.ballDetectLS.get();
+	    		claw.rollBallIn();
 	    		ballFin = true;
 	    	}
 	    	else {
