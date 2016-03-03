@@ -40,8 +40,8 @@ public class Robot extends IterativeRobot {
 	final double defRockSpeed = 0;
 	final double defRampartsTime = 0;
 	final double defRampartsSpeed = 0;
-	final double def2Time = 2;
-	final double def2Speed = 0.2;
+	final double def2Time = 4;
+	final double def2Speed = 0.5;
 	final double lgSpeed = 1;
 	final double pos1Time = 7;
 	final double pos2Time = 0;
@@ -57,6 +57,7 @@ public class Robot extends IterativeRobot {
 	 boolean ballRan = false;
 	 boolean ballFin = false;
 	 boolean ballPosessed = false;
+	 boolean gearLow = false;
 	 
 	 double defStartTime = 0;
 	 double endStartTime = 0;
@@ -122,6 +123,10 @@ public class Robot extends IterativeRobot {
      */
     public void autonomousPeriodic() {
     	SmartDashboard.putNumber("Roller Pot", claw.rollerPot.get());
+    	if(!gearLow) {
+        	train.setShiftGearLow();
+        	gearLow = true;
+    	}
     	// if we're not done delaying, ...
     	if(!ballFin && defFin && !endFin) {
 	    	if(!ballSelected) {

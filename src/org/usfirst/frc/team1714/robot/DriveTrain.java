@@ -15,7 +15,7 @@ public class DriveTrain{
     public double angle;	//gyroscope
     public double X, Y, Z;	//accelerometer
     public double rightSpeed, leftSpeed;
-    private boolean shiftingGearHigh = true, shiftingGearLow = false, resettingGyro = false, turningCompressorOn = false, turningCompressorOff = true;
+    private boolean shiftingGearHigh = false, shiftingGearLow = true, resettingGyro = false, turningCompressorOn = false, turningCompressorOff = true;
     private Compressor comp;
     
     // THESE ARE PLACEHOLDER VALUES!!! CHANGE THEM!!!
