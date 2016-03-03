@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.Solenoid;
+//import edu.wpi.first.wpilibj.Solenoid;
 
 public class LinearLift {
 	private Servo tiltServo;
@@ -34,7 +34,7 @@ public class LinearLift {
 	final private int lockSlndPin2 = 3;
 	final private int winchMotor1Pin = 6;
 	final private int winchMotor2Pin = 7;
-	final private double tiltServoPos = 1.0;
+	final private double tiltServoPos = 1;
 	final private int lockSlndpcmID = 1;
 // END OF PLACEHOLDER VALUES!!!
 	
@@ -58,6 +58,7 @@ public class LinearLift {
 		lockSlnd.set(DoubleSolenoid.Value.kForward);
 		SmartDashboard.putBoolean("Starting LL Lock", (lockSlnd.get() == DoubleSolenoid.Value.kForward));
 		winchEnc.reset();
+		tiltServo.set(0.6);
 	}
 	
 	void setTiltLiftUp() {
@@ -113,7 +114,7 @@ public class LinearLift {
 	}
 	
 	void resetLift() {
-		tiltServo.set(0.0);
+		tiltServo.set(0.6);
 	}
 	
 	private void extendLift() {
@@ -137,7 +138,7 @@ public class LinearLift {
 			winchMotor1.set(0.0);
 			winchMotor2.set(0.0);
 			lockSlnd.set(DoubleSolenoid.Value.kReverse);
-			SmartDashboard.putBoolean("ending LL Lock", (lockSlnd.get() == DoubleSolenoid.Value.kForward));
+			// SmartDashboard.putBoolean("ending LL Lock", (lockSlnd.get() == DoubleSolenoid.Value.kForward));
 			System.out.println("I tried to lock the lift");
 			currentState = LiftState.stopped;
 		}

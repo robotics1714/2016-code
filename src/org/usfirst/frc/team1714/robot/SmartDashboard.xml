@@ -1,36 +1,65 @@
 <xml version="1.0">
 <dashboard>
+	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.VideoStreamViewerExtension">
+		<location x="400" y="-30"/>
+		<width>637</width>
+		<height>494</height>
+	</static-widget>
+	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.Label">
+		<location x="1105" y="409"/>
+		<property name="Text" value="After doing that, should we drop the ball?"/>
+	</static-widget>
+	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.Label">
+		<location x="1101" y="301"/>
+		<property name="Text" value="What do we want to do after breaching/reaching?"/>
+	</static-widget>
+	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.Label">
+		<location x="1101" y="176"/>
+		<property name="Text" value="Which position is it in?"/>
+	</static-widget>
+	<widget field="ending LL Lock" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="235" y="228"/>
+	</widget>
+	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.Label">
+		<location x="1098" y="24"/>
+		<property name="Text" value="Which defense are we breaching?"/>
+	</static-widget>
+	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.Label">
+		<location x="962" y="6"/>
+		<width>297</width>
+		<property name="Text" value="Autonomous Settings:"/>
+	</static-widget>
 	<widget field="Ball Detected?" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
-		<location x="236" y="177"/>
+		<location x="233" y="147"/>
 		<width>128</width>
 		<height>39</height>
 	</widget>
 	<widget field="Rear LS" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
-		<location x="235" y="128"/>
+		<location x="232" y="103"/>
 		<width>99</width>
 		<height>34</height>
 	</widget>
 	<widget field="Gear High?" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
-		<location x="232" y="79"/>
+		<location x="231" y="58"/>
 		<width>117</width>
 		<height>33</height>
 	</widget>
 	<widget field="Starting LL Lock" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
-		<location x="231" y="29"/>
+		<location x="232" y="8"/>
 		<width>138</width>
 		<height>38</height>
 	</widget>
 	<widget field="Roller Pot" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="159"/>
+		<location x="232" y="407"/>
 	</widget>
 	<widget field="Servo" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="768" y="179"/>
+		<location x="249" y="381"/>
 	</widget>
 	<widget field="Lift Status" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="759" y="148"/>
+		<location x="228" y="355"/>
 	</widget>
 	<widget field="Winch Enc" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="757" y="119"/>
+		<location x="227" y="328"/>
 	</widget>
 	<widget field="Roller Motor" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="0" y="467"/>
@@ -39,16 +68,16 @@
 		<location x="0" y="446"/>
 	</widget>
 	<widget field="Keep Ball:" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
-		<location x="997" y="218"/>
+		<location x="1125" y="413"/>
 	</widget>
 	<widget field="End:" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
-		<location x="997" y="-2"/>
+		<location x="1124" y="307"/>
 	</widget>
 	<widget field="Position:" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
-		<location x="960" y="96"/>
+		<location x="1124" y="177"/>
 	</widget>
 	<widget field="Defenses:" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
-		<location x="960" y="272"/>
+		<location x="1123" y="26"/>
 	</widget>
 </dashboard>
 <live-window>

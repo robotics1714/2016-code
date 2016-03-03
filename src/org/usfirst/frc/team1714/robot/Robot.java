@@ -78,10 +78,10 @@ public class Robot extends IterativeRobot {
         defenseChooser.addObject("Reach (any defense)", "def2");
         SmartDashboard.putData("Defenses:", defenseChooser);
         endChooser = new SendableChooser();
-        endChooser.addObject("Near Lowgoal", "endLG");
-        endChooser.addObject("In Neutral Zone", "endNZ");
-        endChooser.addObject("Reach Defense", "end2");
-        endChooser.addObject("Score (EXPERIMENTAL)", "endScore");
+        endChooser.addObject("Drive near the lowgoal", "endLG");
+        endChooser.addObject("Drive to the neutral zone", "endNZ");
+        endChooser.addObject("Do nothing (choose this if reaching)", "end2");
+        endChooser.addObject("Score (DON'T USE THIS)", "endScore");
         SmartDashboard.putData("End:", endChooser);
         ballChooser = new SendableChooser();
         ballChooser.addObject("Keep Ball", true);
@@ -128,15 +128,13 @@ public class Robot extends IterativeRobot {
         	gearLow = true;
     	}
     	// if we're not done delaying, ...
-    	if(!ballFin) {
-	    	if(ballSelected) {
-    			ballPosessed = !claw.ballDetectLS.get();
-	    		claw.rollBallIn();
-	    		ballFin = true;
-	    	}
-	    	else {
-	    		ballFin = true;
-	    	}
+    	if(ballSelected) {
+			ballPosessed = !claw.ballDetectLS.get();
+    		claw.rollBallIn();
+    		ballFin = true;
+    	}
+    	else {
+    		ballFin = true;
     	}
     	
     	if(!defFin) {
@@ -279,7 +277,6 @@ public class Robot extends IterativeRobot {
     	}
     	
     	if(defFin && !endFin) {
-    		claw.tiltRollerArmDown();
 	    	switch(endSelected) {
 			case "endLG":
 				switch(positionSelected) {
