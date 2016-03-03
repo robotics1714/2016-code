@@ -34,8 +34,8 @@ public class Robot extends IterativeRobot {
 	final double defLowbarSpeed = 0.35;
 	final double defRoughTime = 5;
 	final double defRoughSpeed = 0.25;
-	final double defMoatTime = 0;
-	final double defMoatSpeed = 0;
+	final double defMoatTime = 7;
+	final double defMoatSpeed = 0.35;
 	final double defRockTime = 0;
 	final double defRockSpeed = 0;
 	final double defRampartsTime = 0;
@@ -144,18 +144,20 @@ public class Robot extends IterativeRobot {
     			claw.setRollerBarIn();
     		}
     		
-    		if(claw.rollerPot.get() < (claw.rollerPotPos1-claw.potBuffer)){
-				claw.adjustRollerArmDown();
-				System.out.println("adjusting arm down");
-			}
-			else if(claw.rollerPot.get() > (claw.rollerPotPos1+claw.potBuffer)){
-				claw.adjustRollerArmUp();
-				System.out.println("adjusting arm up");
-			}
-			else if(claw.rollerPot.get() > claw.rollerPotPos1-claw.potBuffer && claw.rollerPot.get() < claw.rollerPotPos1+claw.potBuffer){
-				claw.holdRollerArm();
-				System.out.println("holding arm");
-			}
+    		if(positionSelected == 5) {
+	    		if(claw.rollerPot.get() < (claw.rollerPotPos1-claw.potBuffer)){
+					claw.adjustRollerArmDown();
+					System.out.println("adjusting arm down");
+				}
+				else if(claw.rollerPot.get() > (claw.rollerPotPos1+claw.potBuffer)){
+					claw.adjustRollerArmUp();
+					System.out.println("adjusting arm up");
+				}
+				else if(claw.rollerPot.get() > claw.rollerPotPos1-claw.potBuffer && claw.rollerPot.get() < claw.rollerPotPos1+claw.potBuffer){
+					claw.holdRollerArm();
+					System.out.println("holding arm");
+				}
+    		}
     		
 	    	switch(defenseSelected) {
 	    	case "defRough":
@@ -277,6 +279,7 @@ public class Robot extends IterativeRobot {
     	}
     	
     	if(defFin && !endFin) {
+    		claw.tiltRollerArmDown();
 	    	switch(endSelected) {
 			case "endLG":
 				switch(positionSelected) {

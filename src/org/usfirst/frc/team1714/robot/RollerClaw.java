@@ -64,7 +64,7 @@ public class RollerClaw {
 		}//when it reach the limit it stop
 	}
 	
-	private void tiltRollerArmDown(){//called to perform the action of tilting roller arm down
+	void tiltRollerArmDown(){//called to perform the action of tilting roller arm down
 		
 		//System.out.println("tiltDOWN");
 		if(rollerPot.get() < rollerPotMax){
