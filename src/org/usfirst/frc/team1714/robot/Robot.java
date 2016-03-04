@@ -32,14 +32,14 @@ public class Robot extends IterativeRobot {
 	// THESE ARE PLACHOLDERS, CHANGE THEM !!!
 	final double defLowbarTime = 7;
 	final double defLowbarSpeed = 0.35;
-	final double defRoughTime = 5;
-	final double defRoughSpeed = 0.25;
+	final double defRoughTime = 7;
+	final double defRoughSpeed = 0.50;
 	final double defMoatTime = 7;
-	final double defMoatSpeed = 0.35;
-	final double defRockTime = 0;
-	final double defRockSpeed = 0;
-	final double defRampartsTime = 0;
-	final double defRampartsSpeed = 0;
+	final double defMoatSpeed = 0.50;
+	final double defRockTime = 7;
+	final double defRockSpeed = 0.50;
+	final double defRampartsTime = 7;
+	final double defRampartsSpeed = 0.50;
 	final double def2Time = 4;
 	final double def2Speed = 0.2;
 	final double lgSpeed = 1;

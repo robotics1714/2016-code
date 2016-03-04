@@ -25,7 +25,7 @@ public class LinearLift {
 // THESE ARE PLACEHOLDERS!!! CHANGE THEM!!!
 	final private double winchSpeed = 0.5;
 	final private double winchEncMax = 2939;
-	final private double winchEncMin = -25;
+	final private double winchEncMin = 50;
 	final private int tiltServoPin = 4;
 	// final private int tiltLSPin = 3;
 	final private int winchEncPin1 = 6;
@@ -58,7 +58,7 @@ public class LinearLift {
 		lockSlnd.set(DoubleSolenoid.Value.kForward);
 		SmartDashboard.putBoolean("Starting LL Lock", (lockSlnd.get() == DoubleSolenoid.Value.kForward));
 		winchEnc.reset();
-		tiltServo.set(0.6);
+		tiltServo.set(0);
 	}
 	
 	void setTiltLiftUp() {
@@ -114,7 +114,7 @@ public class LinearLift {
 	}
 	
 	void resetLift() {
-		tiltServo.set(0.6);
+		tiltServo.set(0);
 	}
 	
 	private void extendLift() {
