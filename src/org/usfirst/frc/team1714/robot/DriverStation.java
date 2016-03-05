@@ -79,7 +79,12 @@ public class DriverStation {
 			lift.setLiftStop();
 		}
 		if(xboxStick.getRawButton(7)){//liftUp  //back button
-			lift.setTiltLiftUp();
+			if(claw.rollerPot.get() > claw.rollerPotPos1) {
+				lift.setTiltLiftUp();
+			}
+			else {
+				claw.setRollerArmDown();
+			}
 		}
 		if(xboxStick.getRawButton(9)) {
 			lift.resetLift();

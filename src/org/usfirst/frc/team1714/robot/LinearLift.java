@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.DriverStation;
 //import edu.wpi.first.wpilibj.Solenoid;
 
 public class LinearLift {
@@ -15,6 +16,7 @@ public class LinearLift {
 	// public DigitalInput tiltLS;
 	// public DigitalInput winchLSMax;
 	private Encoder winchEnc;
+	private DriverStation dStation;
 	
 	/* Autolift system - really bad, don't use
 	private double currentTime;
@@ -23,8 +25,9 @@ public class LinearLift {
 	*/
 	
 // THESE ARE PLACEHOLDERS!!! CHANGE THEM!!!
-	final private double winchSpeed = 0.5;
+	final private double winchSpeed = 0.7;
 	final private double winchEncMax = 2939;
+	final private double winchEncPreMax = 1500;
 	final private double winchEncMin = 50;
 	final private int tiltServoPin = 4;
 	// final private int tiltLSPin = 3;
@@ -55,10 +58,11 @@ public class LinearLift {
 		winchMotor2 = new Talon(winchMotor2Pin);
 		winchEnc = new Encoder(winchEncPin1, winchEncPin2);
 		lockSlnd = new DoubleSolenoid(lockSlndpcmID,lockSlndPin1,lockSlndPin2);
+		dStation = new DriverStation();
 		lockSlnd.set(DoubleSolenoid.Value.kForward);
 		SmartDashboard.putBoolean("Starting LL Lock", (lockSlnd.get() == DoubleSolenoid.Value.kForward));
 		winchEnc.reset();
-		tiltServo.set(0);
+		tiltServo.set(0.2);
 	}
 	
 	void setTiltLiftUp() {
@@ -114,11 +118,15 @@ public class LinearLift {
 	}
 	
 	void resetLift() {
-		tiltServo.set(0);
+		tiltServo.set(0.2);
 	}
 	
 	private void extendLift() {
-		if (/*winchLSMax.get() && */winchEnc.get() < winchEncMax) {
+		if (winchEnc.get() < winchEncMax && lockSlnd.get() == DoubleSolenoid.Value.kForward  && dStation.getMatchTime() <= 21) {
+			winchMotor1.set(winchSpeed);
+			winchMotor2.set(winchSpeed);
+		}
+		else if (winchEnc.get() < winchEncPreMax && lockSlnd.get() == DoubleSolenoid.Value.kForward) {
 			winchMotor1.set(winchSpeed);
 			winchMotor2.set(winchSpeed);
 		}
@@ -130,7 +138,7 @@ public class LinearLift {
 	}
 	
 	private void retractLift() {
-		if (winchEnc.get() > winchEncMin) {
+		if (winchEnc.get() > winchEncMin && lockSlnd.get()==DoubleSolenoid.Value.kForward) {
 			winchMotor1.set(-winchSpeed);
 			winchMotor2.set(-winchSpeed);
 		}
@@ -186,6 +194,7 @@ public class LinearLift {
 		SmartDashboard.putNumber("Winch Enc", winchEnc.get());
 		SmartDashboard.putString("Lift Status", currentState.toString());
 		SmartDashboard.putNumber("Servo", tiltServo.get());
+		SmartDashboard.putNumber("Remaining Match Time", dStation.getMatchTime());
 		// SmartDashboard.putBoolean("Tilt LS", !tiltLS.get());
 		// SmartDashboard.putBoolean("Winch Max LS", !winchLSMax.get());
 		

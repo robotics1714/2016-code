@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.AnalogPotentiometer;
 
 public class RollerClaw {
 	private Talon rollerMotor, armMotor; 
-	DigitalInput rearLS, ballDetectLS;
+	DigitalInput /*rearLS,*/ ballDetectLS;
 	AnalogPotentiometer rollerPot;
 	double targetPos;
 	
@@ -15,7 +15,7 @@ public class RollerClaw {
 	private final int 
 		rollerMotorPin = 5,
 		armMotorPin = 3,
-		rearLSPin = 8,
+		// rearLSPin = 8,
 		ballDetectLSPin = 9, //6
 		rollerPotPin = 2;
 	final double 
@@ -26,10 +26,10 @@ public class RollerClaw {
 		armAdjustDownSpeed = -0.5,
 		rollerSpeed = 1, 
 		rollerAdjustment = 20,
-		potBuffer=3,//max and min of potentiometer reading and buffer
-		rollerPotPos1 = 84,//potentiometer reading for a arm positions
-		rollerPotMax= 85,
-		rollerPotMin= 55;
+		potBuffer=2,//max and min of potentiometer reading and buffer
+		rollerPotPos1 = 66,//potentiometer reading for a arm positions
+		rollerPotMax= 70.7,
+		rollerPotMin= 28.7;
 	// END OF PLACEHOLDER VALUES!!!
 	
 	public enum armDirection{
@@ -46,16 +46,16 @@ public class RollerClaw {
 	RollerClaw(){
 		rollerMotor = new Talon(rollerMotorPin);
 		armMotor = new Talon(armMotorPin);
-		rearLS = new DigitalInput(rearLSPin);
+		// rearLS = new DigitalInput(rearLSPin);
 		ballDetectLS = new DigitalInput(ballDetectLSPin);
 		rollerPot = new AnalogPotentiometer(rollerPotPin, 100);
 		ArmDirection=armDirection.STOP;
 		RollDirection=rollDirection.STOP;
 	}
 	
-	private void tiltRollerArmUp(){//called to perform the action of tilting roller arm up
+	void tiltRollerArmUp(){//called to perform the action of tilting roller arm up
 		//System.out.println("tiltUUPP");
-		if(!rollerArmFullUp() && rollerPot.get() > rollerPotMin){
+		if(/*!rollerArmFullUp() && */rollerPot.get() > rollerPotMin){
 			armMotor.set(armUpSpeed);
 		}
 		else{
@@ -82,7 +82,7 @@ public class RollerClaw {
 	}//force stop the moving of the roller arm
 	
 	private void armPowerLift(){
-		if(!rollerArmFullUp() && rollerPot.get() > rollerPotMin){
+		if(/*!rollerArmFullUp() && */rollerPot.get() > rollerPotMin){
 			armMotor.set(1.0);
 		}
 		else{
@@ -128,14 +128,16 @@ public class RollerClaw {
 		rollerMotor.set(0.0);
 	}
 	
+	/*
 	public boolean rollerArmFullUp(){
 		return !rearLS.get();
 	}//limit switch to prevent roller arm from tilting backward too much
+	*/
 	
 	//limit switch to prevent roller arm from tilting forward too much
 	
 	public boolean ballAcquired(){
-		return !ballDetectLS.get();
+		return ballDetectLS.get();
 	}//limit switch to detect if the ball is hold safely
 	
 	/*public void adjustRollerArm(armDirection ArmDirection){
@@ -175,8 +177,8 @@ public class RollerClaw {
 
 	
 	public void update(){
-		SmartDashboard.putBoolean("Rear LS", !rearLS.get());
-		SmartDashboard.putBoolean("Ball Detected?", !ballDetectLS.get());
+		// SmartDashboard.putBoolean("Rear LS", !rearLS.get());
+		SmartDashboard.putBoolean("Ball Detected?", ballDetectLS.get());
 		SmartDashboard.putNumber("Arm Pot", rollerPot.get());
 		SmartDashboard.putNumber("Roller Motor", rollerMotor.get());
 		//System.out.println(rollerPot.get());

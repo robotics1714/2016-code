@@ -18,7 +18,7 @@ public class Robot extends IterativeRobot {
     String defenseSelected;
     String endSelected;
     boolean ballSelected;
-    int positionSelected;
+    // int positionSelected;
     SendableChooser defenseChooser;
     SendableChooser endChooser;
     SendableChooser ballChooser;
@@ -32,22 +32,25 @@ public class Robot extends IterativeRobot {
 	// THESE ARE PLACHOLDERS, CHANGE THEM !!!
 	final double defLowbarTime = 7;
 	final double defLowbarSpeed = 0.35;
-	final double defRoughTime = 7;
-	final double defRoughSpeed = 0.50;
-	final double defMoatTime = 7;
-	final double defMoatSpeed = 0.50;
-	final double defRockTime = 7;
-	final double defRockSpeed = 0.50;
-	final double defRampartsTime = 7;
-	final double defRampartsSpeed = 0.50;
+	final double defRoughTime = 3.5;
+	final double defRoughSpeed = 1.0;
+	final double defMoatTime = 3.5;
+	final double defMoatSpeed = 1.0;
+	final double defRockTime = 3.5;
+	final double defRockSpeed = 1.0;
+	final double defRampartsTime = 3.5;
+	final double defRampartsSpeed = 1.0;
 	final double def2Time = 4;
 	final double def2Speed = 0.2;
 	final double lgSpeed = 1;
+	
+	/* 
 	final double pos1Time = 7;
 	final double pos2Time = 0;
 	final double pos3Time = 0;
 	final double pos4Time = 0;
 	final double pos5Time = 0;
+	*/
 	
 	//auto timing vars
 	 boolean defRan = false;
@@ -70,30 +73,30 @@ public class Robot extends IterativeRobot {
      */
     public void robotInit() {
         defenseChooser = new SendableChooser();
-        defenseChooser.addDefault("Lowbar", "defLowbar");
+        defenseChooser.addObject("Lowbar", "defLowbar");
         defenseChooser.addObject("Rough Terrain", "defRough");
         defenseChooser.addObject("Moat", "defMoat");
         defenseChooser.addObject("Ramparts", "defRamparts");
-        defenseChooser.addObject("Rock Wall", "defRock");
+        defenseChooser.addDefault("Rock Wall", "defRock");
         defenseChooser.addObject("Reach (any defense)", "def2");
         SmartDashboard.putData("Defenses:", defenseChooser);
         endChooser = new SendableChooser();
-        endChooser.addObject("Drive near the lowgoal", "endLG");
-        endChooser.addObject("Drive to the neutral zone", "endNZ");
+        // endChooser.addObject("Drive near the lowgoal", "endLG");
+        // endChooser.addObject("Drive to the neutral zone", "endNZ");
         endChooser.addObject("Do nothing (choose this if reaching)", "end2");
-        endChooser.addObject("Score (DON'T USE THIS)", "endScore");
-        SmartDashboard.putData("End:", endChooser);
+        // endChooser.addObject("Score (DON'T USE THIS)", "endScore");
+        // SmartDashboard.putData("End:", endChooser);
         ballChooser = new SendableChooser();
-        ballChooser.addObject("Keep Ball", true);
+        ballChooser.addDefault("Keep Ball", true);
         ballChooser.addObject("Drop Ball", false);
         SmartDashboard.putData("Keep Ball:", ballChooser);
-        positionChooser = new SendableChooser();
-        positionChooser.addObject("Position 5 (Lowbar)", 5);
-        positionChooser.addObject("Position 4", 4);
-        positionChooser.addObject("Position 3", 3);
-        positionChooser.addObject("Position 2", 2);
-        positionChooser.addObject("Position 1", 1);
-        SmartDashboard.putData("Position:", positionChooser);
+        // positionChooser = new SendableChooser();
+        // positionChooser.addObject("Position 5 (Lowbar)", 5);
+        // positionChooser.addObject("Position 4", 4);
+        // positionChooser.addObject("Position 3", 3);
+        // positionChooser.addObject("Position 2", 2);
+        // positionChooser.addObject("Position 1", 1);
+        // SmartDashboard.putData("Position:", positionChooser);
         
         train = new DriveTrain();
         claw = new RollerClaw();
@@ -113,8 +116,9 @@ public class Robot extends IterativeRobot {
     public void autonomousInit() {
     	ballSelected = (boolean) ballChooser.getSelected();
     	defenseSelected = (String) defenseChooser.getSelected();
-    	endSelected = (String) endChooser.getSelected();
-    	positionSelected = (int) positionChooser.getSelected();
+    	// endSelected = (String) endChooser.getSelected();
+    	endSelected = "end2";
+    	// positionSelected = (int) positionChooser.getSelected();
 		System.out.println("Auto selected: " + ballSelected + defenseSelected + endSelected);
     }
 
@@ -127,36 +131,26 @@ public class Robot extends IterativeRobot {
         	train.shiftGearLow();
         	gearLow = true;
     	}
-    	// if we're not done delaying, ...
+    	
     	if(ballSelected) {
-			ballPosessed = !claw.ballDetectLS.get();
+			ballPosessed = claw.ballDetectLS.get();
     		claw.rollBallIn();
     		ballFin = true;
     	}
     	else {
+    		claw.rollBallOut();
     		ballFin = true;
+    	}
+    	
+    	if(defenseSelected != "defLowbar") {
+    		claw.tiltRollerArmUp();
     	}
     	
     	if(!defFin) {
     		if(!ballPosessed){
     			claw.setRollerBarIn();
     		}
-    		
-    		if(positionSelected == 5) {
-	    		if(claw.rollerPot.get() < (claw.rollerPotPos1-claw.potBuffer)){
-					claw.adjustRollerArmDown();
-					System.out.println("adjusting arm down");
-				}
-				else if(claw.rollerPot.get() > (claw.rollerPotPos1+claw.potBuffer)){
-					claw.adjustRollerArmUp();
-					System.out.println("adjusting arm up");
-				}
-				else if(claw.rollerPot.get() > claw.rollerPotPos1-claw.potBuffer && claw.rollerPot.get() < claw.rollerPotPos1+claw.potBuffer){
-					claw.holdRollerArm();
-					System.out.println("holding arm");
-				}
-    		}
-    		
+
 	    	switch(defenseSelected) {
 	    	case "defRough":
 	    		currentTime = Timer.getFPGATimestamp();
@@ -216,6 +210,7 @@ public class Robot extends IterativeRobot {
 	    		}
 	    		break;
 	    	case "defRock":
+	    	default:
 	    		currentTime = Timer.getFPGATimestamp();
 	    		// if we haven't started timing, start timing
 	    		if(!defRan) {
@@ -241,6 +236,20 @@ public class Robot extends IterativeRobot {
 	    			defStartTime = Timer.getFPGATimestamp();
 	    			defRan = true;
 	    		}
+	    		
+	    		if(claw.rollerPot.get() < (claw.rollerPotPos1-claw.potBuffer)){
+					claw.adjustRollerArmDown();
+					System.out.println("adjusting arm down");
+				}
+				else if(claw.rollerPot.get() > (claw.rollerPotPos1+claw.potBuffer)){
+					claw.adjustRollerArmUp();
+					System.out.println("adjusting arm up");
+				}
+				else if(claw.rollerPot.get() > claw.rollerPotPos1-claw.potBuffer && claw.rollerPot.get() < claw.rollerPotPos1+claw.potBuffer){
+					claw.holdRollerArm();
+					System.out.println("holding arm");
+				}
+	    		
 	    		// if we've reached the time we set, we're done moving, so stop the motors.
 	    		if((currentTime - defStartTime) > defLowbarTime) {
 	    			train.setLeftSide(0.0);
@@ -254,7 +263,6 @@ public class Robot extends IterativeRobot {
 	    		}
 	    		break;
 	    	case "def2":
-	    	default:
 	    		currentTime = Timer.getFPGATimestamp();
 	    		// if we haven't started timing, start timing
 	    		if(!defRan) {
@@ -278,6 +286,7 @@ public class Robot extends IterativeRobot {
     	
     	if(defFin && !endFin) {
 	    	switch(endSelected) {
+	    	/*
 			case "endLG":
 				switch(positionSelected) {
 				case 1:
@@ -476,13 +485,16 @@ public class Robot extends IterativeRobot {
 		    		}
 		    		break;
 	    		}
+	    		*/
     		case "end2":
     		default:
     			break;
+    		/*
 	    	case "endScore":
 	    		//INSERT CODE TO SCORE
 	    		endFin = true;
 	    		break;
+	    	*/
 	    	}
     	}
 	}
