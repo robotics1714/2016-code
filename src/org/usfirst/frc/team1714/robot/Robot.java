@@ -58,7 +58,7 @@ public class Robot extends IterativeRobot {
 	 boolean endRan = false;
 	 boolean endFin = false;
 	 boolean ballRan = false;
-	 boolean ballFin = false;
+	 // boolean ballFin = false;
 	 boolean ballPosessed = false;
 	 boolean gearLow = false;
 	 
@@ -135,11 +135,11 @@ public class Robot extends IterativeRobot {
     	if(ballSelected) {
 			ballPosessed = claw.ballDetectLS.get();
     		claw.rollBallIn();
-    		ballFin = true;
+    		// ballFin = true;
     	}
     	else {
     		claw.rollBallOut();
-    		ballFin = true;
+    		// ballFin = true;
     	}
     	
     	if(defenseSelected != "defLowbar") {

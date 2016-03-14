@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.DriverStation;
+//import edu.wpi.first.wpilibj.DriverStation;
 //import edu.wpi.first.wpilibj.Solenoid;
 
 public class LinearLift {
@@ -16,7 +16,7 @@ public class LinearLift {
 	// public DigitalInput tiltLS;
 	// public DigitalInput winchLSMax;
 	private Encoder winchEnc;
-	private DriverStation dStation;
+	private edu.wpi.first.wpilibj.DriverStation dStation;
 	
 	/* Autolift system - really bad, don't use
 	private double currentTime;
@@ -43,6 +43,8 @@ public class LinearLift {
 	
 	private boolean tiltingLiftUp = false;
 	private boolean liftTilted = false;
+	private boolean liftMaxed = false;
+	
 	// private boolean autoScaling = false;
 	
 	private enum LiftState {
@@ -58,11 +60,11 @@ public class LinearLift {
 		winchMotor2 = new Talon(winchMotor2Pin);
 		winchEnc = new Encoder(winchEncPin1, winchEncPin2);
 		lockSlnd = new DoubleSolenoid(lockSlndpcmID,lockSlndPin1,lockSlndPin2);
-		dStation = new DriverStation();
 		lockSlnd.set(DoubleSolenoid.Value.kForward);
 		SmartDashboard.putBoolean("Starting LL Lock", (lockSlnd.get() == DoubleSolenoid.Value.kForward));
 		winchEnc.reset();
 		tiltServo.set(0.2);
+		dStation = edu.wpi.first.wpilibj.DriverStation.getInstance();
 	}
 	
 	void setTiltLiftUp() {
@@ -122,7 +124,7 @@ public class LinearLift {
 	}
 	
 	private void extendLift() {
-		if (winchEnc.get() < winchEncMax && lockSlnd.get() == DoubleSolenoid.Value.kForward  && dStation.getMatchTime() <= 21) {
+		if (winchEnc.get() < winchEncMax && lockSlnd.get() == DoubleSolenoid.Value.kForward  && dStation.getMatchTime() <= 20) {
 			winchMotor1.set(winchSpeed);
 			winchMotor2.set(winchSpeed);
 		}
@@ -145,9 +147,11 @@ public class LinearLift {
 		else {
 			winchMotor1.set(0.0);
 			winchMotor2.set(0.0);
-			lockSlnd.set(DoubleSolenoid.Value.kReverse);
+			if(liftMaxed) {
+				lockSlnd.set(DoubleSolenoid.Value.kReverse);
+				System.out.println("I tried to lock the lift");
+			}
 			// SmartDashboard.putBoolean("ending LL Lock", (lockSlnd.get() == DoubleSolenoid.Value.kForward));
-			System.out.println("I tried to lock the lift");
 			currentState = LiftState.stopped;
 		}
 	}
@@ -211,6 +215,9 @@ public class LinearLift {
 			retractLift();
 		}
 		
+		if(winchEnc.get() >= 2600) {
+			liftMaxed = true;
+		}
 		//if (autoScaling) {
 			//autoScale();
 		//}
