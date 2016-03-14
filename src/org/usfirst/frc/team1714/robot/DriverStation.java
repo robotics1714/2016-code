@@ -15,6 +15,7 @@ public class DriverStation {
 	boolean scaleMode=false,liftOverride=false;
 	
 	DriverStation(DriveTrain driveTrain, RollerClaw rollerClaw, LinearLift linearLift){
+		
 		train = driveTrain;
 		claw = rollerClaw;
 		lift = linearLift;
