@@ -6,11 +6,6 @@
 	<widget field="Drop Arm:" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
 		<location x="0" y="0"/>
 	</widget>
-	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.VideoStreamViewerExtension">
-		<location x="400" y="-30"/>
-		<width>637</width>
-		<height>494</height>
-	</static-widget>
 	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.Label">
 		<location x="1088" y="210"/>
 		<property name="Text" value="After doing that, should we drop the ball?"/>
