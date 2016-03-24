@@ -28,8 +28,7 @@ public class Robot extends IterativeRobot {
     RollerClaw claw;
     LinearLift lift;
 	DriverStation station;
-	
-	// THESE ARE PLACHOLDERS, CHANGE THEM !!!
+	// THESE ARE PLACHOLDERS, HANGE THEM !!!
 	final double defLowbarTime = 7;
 	final double defLowbarSpeed = 0.35;
 	final double defRoughTime = 3.5;
@@ -39,10 +38,17 @@ public class Robot extends IterativeRobot {
 	final double defRockTime = 3.5;
 	final double defRockSpeed = 1.0;
 	final double defRampartsTime = 3.5;
+	final double defRampartsReachTime = 1.5;
 	final double defRampartsSpeed = 1.0;
 	final double def2Time = 4;
 	final double def2Speed = 0.2;
-	final double lgSpeed = 1;
+	// THE TIMES ARE THE AMOUNT OF TIME AFTER STARTING, ---NOT--- AFTER THE LAST STAGE!! A STAGE SHOULD NEVER BE LESS THAN THE PREVIOUS STAGE!
+	final double defGoal1Speed = 0.35;
+	final double defGoal1Time = 7;
+	final double defGoal2Speed = 0.35;
+	final double defGoal2Time = 7.625;
+	final double defGoal3Speed = 0.55;
+	final double defGoal3Time = 13;
 	
 	/* 
 	final double pos1Time = 7;
@@ -74,6 +80,7 @@ public class Robot extends IterativeRobot {
     public void robotInit() {
         defenseChooser = new SendableChooser();
         defenseChooser.addObject("Lowbar", "defLowbar");
+        defenseChooser.addObject("Lowbar + Lowgoal", "defGoal");
         defenseChooser.addObject("Rough Terrain", "defRough");
         defenseChooser.addObject("Moat", "defMoat");
         defenseChooser.addObject("Ramparts", "defRamparts");
@@ -87,8 +94,8 @@ public class Robot extends IterativeRobot {
         // endChooser.addObject("Score (DON'T USE THIS)", "endScore");
         // SmartDashboard.putData("End:", endChooser);
         ballChooser = new SendableChooser();
-        ballChooser.addDefault("Keep Ball", true);
-        ballChooser.addObject("Drop Ball", false);
+        ballChooser.addDefault("Keep Ball (IGNORED IF LG)", true);
+        ballChooser.addObject("Drop Ball (IGNORED IF LG)", false);
         SmartDashboard.putData("Keep Ball:", ballChooser);
         // positionChooser = new SendableChooser();
         // positionChooser.addObject("Position 5 (Lowbar)", 5);
@@ -132,17 +139,21 @@ public class Robot extends IterativeRobot {
         	gearLow = true;
     	}
     	
-    	if(ballSelected) {
-			ballPosessed = claw.ballDetectLS.get();
+    	if(ballSelected && defenseSelected != "defGoal") {
+			// ballPosessed = claw.ballDetectLS.get();
+			ballPosessed = claw.laser.get();
     		claw.rollBallIn();
     		// ballFin = true;
     	}
-    	else {
+    	else if(defenseSelected != "defGoal") {
     		claw.rollBallOut();
     		// ballFin = true;
     	}
+    	else if((currentTime - defStartTime) > defGoal3Time) {
+    		claw.rollBallIn();
+    	}
     	
-    	if(defenseSelected != "defLowbar") {
+    	if(defenseSelected != "defLowbar" && defenseSelected != "defGoal") {
     		claw.tiltRollerArmUp();
     	}
     	
@@ -260,6 +271,51 @@ public class Robot extends IterativeRobot {
 	    		else {
 	    			train.setRightSide(defLowbarSpeed);
 	    			train.setLeftSide(defLowbarSpeed);
+	    		}
+	    		break;
+	    	case "defGoal":
+	    		currentTime = Timer.getFPGATimestamp();
+	    		// if we haven't started timing, start timing
+	    		if(!defRan) {
+	    			defStartTime = Timer.getFPGATimestamp();
+	    			defRan = true;
+	    		}
+	    		
+	    		if(claw.rollerPot.get() < (claw.rollerPotPos1-claw.potBuffer)){
+					claw.adjustRollerArmDown();
+					System.out.println("adjusting arm down");
+				}
+				else if(claw.rollerPot.get() > (claw.rollerPotPos1+claw.potBuffer)){
+					claw.adjustRollerArmUp();
+					System.out.println("adjusting arm up");
+				}
+				else if(claw.rollerPot.get() > claw.rollerPotPos1-claw.potBuffer && claw.rollerPot.get() < claw.rollerPotPos1+claw.potBuffer){
+					claw.holdRollerArm();
+					System.out.println("holding arm");
+				}
+	    		
+	    		// STAGE 4: STOP AND SHOOT THE BALL
+	    		if((currentTime - defStartTime) > defGoal3Time) {
+	    			train.setLeftSide(0.0);
+	    			train.setRightSide(0.0);
+	    			defFin = true;
+	    			// SCORE THE BALL HERE
+	    			claw.rollBallOut();
+	    		}
+	    		// STAGE 3: DRIVE TOWARDS THE LOW GOAL
+	    		else if((currentTime - defStartTime) > defGoal2Time) {
+	    			train.setRightSide(defGoal3Speed);
+	    			train.setLeftSide(defGoal3Speed);
+	    		}
+	    		// STAGE 2: TURN TO THE RIGHT SLIGHTLY
+	    		else if((currentTime - defStartTime) > defGoal1Time) {
+	    			train.setLeftSide(defGoal2Speed);
+	    			train.setRightSide(-defGoal2Speed);
+	    		}
+	    		// STAGE 1: DRIVE THROUGH THE LOWBAR
+	    		else {
+	    			train.setRightSide(defGoal1Speed);  
+	    			train.setLeftSide(defGoal1Speed);
 	    		}
 	    		break;
 	    	case "def2":

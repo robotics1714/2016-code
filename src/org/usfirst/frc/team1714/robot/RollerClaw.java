@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.AnalogPotentiometer;
 public class RollerClaw {
 	private Talon rollerMotor, armMotor; 
 	DigitalInput /*rearLS,*/ ballDetectLS;
+	DigitalInput laser;
 	AnalogPotentiometer rollerPot;
 	double targetPos;
 	
@@ -17,19 +18,20 @@ public class RollerClaw {
 		armMotorPin = 3,
 		// rearLSPin = 8,
 		ballDetectLSPin = 9, //6
-		rollerPotPin = 2;
+		rollerPotPin = 2,
+		laserPin = 5;
 	final double 
 		armUpSpeed = 0.7,
 		armDownSpeed = -0.8,
 		armHoldSpeed = 0.1,
-		armAdjustUpSpeed = 0.4,
+		armAdjustUpSpeed = 0.7,
 		armAdjustDownSpeed = -0.5,
 		rollerSpeed = 1, 
 		rollerAdjustment = 20,
 		potBuffer=2,//max and min of potentiometer reading and buffer
-		rollerPotPos1 = 66,//potentiometer reading for a arm positions
-		rollerPotMax= 70.7,
-		rollerPotMin= 28.7;
+		rollerPotPos1 = 32.5,//potentiometer reading for a arm positions
+		rollerPotMax= 42.5,
+		rollerPotMin= 0.5;
 	// END OF PLACEHOLDER VALUES!!!
 	
 	public enum armDirection{
@@ -48,6 +50,7 @@ public class RollerClaw {
 		armMotor = new Talon(armMotorPin);
 		// rearLS = new DigitalInput(rearLSPin);
 		ballDetectLS = new DigitalInput(ballDetectLSPin);
+		laser = new DigitalInput(laserPin);
 		rollerPot = new AnalogPotentiometer(rollerPotPin, 100);
 		ArmDirection=armDirection.STOP;
 		RollDirection=rollDirection.STOP;
@@ -137,7 +140,8 @@ public class RollerClaw {
 	//limit switch to prevent roller arm from tilting forward too much
 	
 	public boolean ballAcquired(){
-		return ballDetectLS.get();
+		// return ballDetectLS.get();
+		return laser.get();
 	}//limit switch to detect if the ball is hold safely
 	
 	/*public void adjustRollerArm(armDirection ArmDirection){
@@ -180,6 +184,7 @@ public class RollerClaw {
 		// SmartDashboard.putBoolean("Rear LS", !rearLS.get());
 		SmartDashboard.putBoolean("Ball Detected?", ballDetectLS.get());
 		SmartDashboard.putNumber("Arm Pot", rollerPot.get());
+		SmartDashboard.putBoolean("Laser", laser.get());
 		SmartDashboard.putNumber("Roller Motor", rollerMotor.get());
 		//System.out.println(rollerPot.get());
 		switch(ArmDirection){

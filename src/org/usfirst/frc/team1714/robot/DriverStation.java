@@ -108,15 +108,6 @@ public class DriverStation {
 		}
 		else if(rightStick.getRawButton(9)) {
 			train.setCompressorOn();
-			
-			
-			
-		if(rightStick.getRawButton(6)){
-			lift.lockLift();
-		}
-		if(rightStick.getRawButton(7)){
-			lift.unlockLift();
-		}
 		}
 	}
 	
