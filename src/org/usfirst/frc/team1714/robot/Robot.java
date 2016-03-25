@@ -301,7 +301,8 @@ public class Robot extends IterativeRobot {
 	    			train.setRightSide(0.0);
 	    			defFin = true;
 	    			// SCORE THE BALL HERE
-	    			claw.rollBallOut();
+	    			//CHANGE THIS BACK TO SCORE
+	    			claw.rollBallIn();
 	    		}
 	    		// STAGE 3: DRIVE TOWARDS THE LOW GOAL
 	    		else if((currentTime - defStartTime) > defGoal2Time) {
