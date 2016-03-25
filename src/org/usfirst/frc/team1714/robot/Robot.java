@@ -46,7 +46,7 @@ public class Robot extends IterativeRobot {
 	final double defGoal1Speed = 0.35;
 	final double defGoal1Time = 7.75;
 	final double defGoal2Speed = 0.35;
-	final double defGoal2Time = 8.375;
+	final double defGoal2Time = 8.5;
 	final double defGoal3Speed = 0.55;
 	final double defGoal3Time = 14;
 	
