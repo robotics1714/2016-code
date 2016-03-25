@@ -133,6 +133,7 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
+    	currentTime = Timer.getFPGATimestamp();
     	SmartDashboard.putNumber("Roller Pot", claw.rollerPot.get());
     	if(!gearLow) {
         	train.shiftGearLow();
@@ -149,7 +150,7 @@ public class Robot extends IterativeRobot {
     		claw.rollBallOut();
     		// ballFin = true;
     	}
-    	else if((currentTime - defStartTime) > defGoal3Time) {
+    	else if((currentTime - defStartTime) < defGoal3Time) {
     		claw.rollBallIn();
     	}
     	
