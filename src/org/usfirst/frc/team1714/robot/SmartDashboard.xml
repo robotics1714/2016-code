@@ -1,24 +1,45 @@
 <xml version="1.0">
 <dashboard>
-	<widget field="Remaining Match Time" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="42"/>
+	<widget field="Gyro Angles" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="200"/>
 	</widget>
-	<widget field="Laser" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="21" y="21"/>
+	<widget field="Talon2Current" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="189" y="131"/>
 	</widget>
-	<widget field="End:" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
-		<location x="0" y="21"/>
+	<widget field="Talon1Current" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="188" y="109"/>
 	</widget>
-	<widget field="Drop Arm:" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
-		<location x="0" y="0"/>
+	<widget field="Talon2" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="225" y="89"/>
 	</widget>
+	<widget field="Talon1" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="225" y="68"/>
+	</widget>
+	<widget field="VEXUltrasonic distance" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="27" y="398"/>
+	</widget>
+	<widget field="LS1" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="158"/>
+	</widget>
+	<widget field="Potentiometer" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="26" y="325"/>
+	</widget>
+	<widget field="Encoder2" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="116"/>
+	</widget>
+	<widget field="Encoder1" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="95"/>
+	</widget>
+	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.CameraServerViewer">
+		<location x="371" y="14"/>
+		<width>525</width>
+		<height>404</height>
+		<property name="Camera Choice" value="USB Camera 0"/>
+	</static-widget>
 	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.Label">
 		<location x="1088" y="228"/>
 		<property name="Text" value="After doing that, should we drop the ball?"/>
 	</static-widget>
-	<widget field="ending LL Lock" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="209" y="338"/>
-	</widget>
 	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.Label">
 		<location x="1088" y="34"/>
 		<property name="Text" value="Which defense are we breaching?"/>
@@ -29,45 +50,14 @@
 		<property name="Text" value="Autonomous Settings:"/>
 		<property name="Horizontal Alignment" value="Left"/>
 	</static-widget>
-	<widget field="Ball Detected?" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
-		<location x="240" y="256"/>
-		<width>138</width>
-		<height>64</height>
+	<widget field="Auto choices" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
+		<location x="5" y="7"/>
 	</widget>
-	<widget field="Gear High?" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
-		<location x="240" y="137"/>
-		<width>120</width>
-		<height>64</height>
+	<widget field="Talon1 speed" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="22" y="293"/>
 	</widget>
-	<widget field="Starting LL Lock" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
-		<location x="240" y="16"/>
-		<width>138</width>
-		<height>64</height>
-	</widget>
-	<widget field="Roller Pot" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="232" y="439"/>
-	</widget>
-	<widget field="Servo" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="249" y="414"/>
-	</widget>
-	<widget field="Lift Status" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="229" y="389"/>
-	</widget>
-	<widget field="Winch Enc" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="229" y="365"/>
-	</widget>
-	<widget field="Roller Motor" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="2" y="378"/>
-		<height>20</height>
-	</widget>
-	<widget field="Arm Pot" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="-3" y="405"/>
-	</widget>
-	<widget field="Keep Ball:" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
-		<location x="1104" y="240"/>
-	</widget>
-	<widget field="Defenses:" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
-		<location x="1104" y="48"/>
+	<widget field="Timer time" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="3" y="7"/>
 	</widget>
 </dashboard>
 <live-window>

@@ -28,10 +28,10 @@ public class RollerClaw {
 		armAdjustDownSpeed = -0.5,
 		rollerSpeed = 1, 
 		rollerAdjustment = 20,
-		potBuffer=2,//max and min of potentiometer reading and buffer
-		rollerPotPos1 = 32.5,//potentiometer reading for a arm positions
-		rollerPotMax= 42.5,
-		rollerPotMin= 0.5;
+		potBuffer=4,//max and min of potentiometer reading and buffer
+		rollerPotPos1 = 85.3,//potentiometer reading for a arm positions 
+		rollerPotMax= 89.2,
+		rollerPotMin= 37.2;
 	// END OF PLACEHOLDER VALUES!!!
 	
 	public enum armDirection{

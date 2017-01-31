@@ -39,7 +39,7 @@ public class Robot extends IterativeRobot {
 	final double defRockSpeed = 1.0;
 	final double defRampartsTime = 3.5;
 	final double defRampartsReachTime = 1.5;
-	final double defRampartsSpeed = 1.0;
+	final double defRampartsSpeed = 1;
 	final double def2Time = 4;
 	final double def2Speed = 0.2;
 	// THE TIMES ARE THE AMOUNT OF TIME AFTER STARTING, ---NOT--- AFTER THE LAST STAGE!! A STAGE SHOULD NEVER BE LESS THAN THE PREVIOUS STAGE!

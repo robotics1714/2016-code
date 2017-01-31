@@ -124,7 +124,7 @@ public class LinearLift {
 	}
 	
 	private void extendLift() {
-		if (winchEnc.get() < winchEncMax && lockSlnd.get() == DoubleSolenoid.Value.kForward  && dStation.getMatchTime() <= 20) {
+		if (winchEnc.get() < winchEncMax && lockSlnd.get() == DoubleSolenoid.Value.kForward  /*&& dStation.getMatchTime() <= 20 */) {
 			winchMotor1.set(winchSpeed);
 			winchMotor2.set(winchSpeed);
 		}
