@@ -1,63 +1,55 @@
 <xml version="1.0">
 <dashboard>
-	<widget field="Gyro Angles" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="200"/>
+	<widget field="button:" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="283"/>
 	</widget>
-	<widget field="Talon2Current" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="189" y="131"/>
+	<widget field="Servo value" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="262"/>
 	</widget>
-	<widget field="Talon1Current" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="188" y="109"/>
+	<widget field="Right drive train encoder value" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="241"/>
 	</widget>
-	<widget field="Talon2" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="225" y="89"/>
+	<widget field="Left drive train encoder value" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="220"/>
 	</widget>
-	<widget field="Talon1" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="225" y="68"/>
+	<widget field="Shooting wheel encoder value" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="199"/>
 	</widget>
-	<widget field="VEXUltrasonic distance" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="27" y="398"/>
+	<widget field="Do we have gear?" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="178"/>
 	</widget>
-	<widget field="LS1" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="158"/>
+	<widget field="Is PTO enabled?" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="157"/>
 	</widget>
-	<widget field="Potentiometer" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="26" y="325"/>
+	<widget field="Robot in high gear?" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="136"/>
 	</widget>
-	<widget field="Encoder2" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="116"/>
-	</widget>
-	<widget field="Encoder1" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="95"/>
+	<widget field="Autonomous: " type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
+		<location x="0" y="0"/>
 	</widget>
 	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.CameraServerViewer">
-		<location x="371" y="14"/>
+		<location x="365" y="9"/>
 		<width>525</width>
 		<height>404</height>
 		<property name="Camera Choice" value="USB Camera 0"/>
 	</static-widget>
-	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.Label">
-		<location x="1088" y="228"/>
-		<property name="Text" value="After doing that, should we drop the ball?"/>
-	</static-widget>
-	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.Label">
-		<location x="1088" y="34"/>
-		<property name="Text" value="Which defense are we breaching?"/>
-	</static-widget>
-	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.Label">
-		<location x="1056" y="2"/>
-		<width>297</width>
-		<property name="Text" value="Autonomous Settings:"/>
-		<property name="Horizontal Alignment" value="Left"/>
-	</static-widget>
 	<widget field="Auto choices" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
-		<location x="5" y="7"/>
+		<location x="156" y="4"/>
 	</widget>
-	<widget field="Talon1 speed" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="22" y="293"/>
+	<widget field="Gyro angle" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="5" y="15"/>
 	</widget>
-	<widget field="Timer time" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="3" y="7"/>
+	<widget field="Rear Ultrasonic reading" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="3" y="56"/>
+	</widget>
+	<widget field="Front Ultrasonic reading" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="-1" y="76"/>
+	</widget>
+	<widget field="DO we have gear?" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="1" y="100"/>
+	</widget>
+	<widget field="Shooting wheel speed" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="-1" y="36"/>
 	</widget>
 </dashboard>
 <live-window>
